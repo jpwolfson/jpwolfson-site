@@ -18,5 +18,5 @@ At UC Irvine:
 
 At University of Chicago:
 
-- [2016 REU Mini-Course – Topological Data Analysis and Persistent Homology](https://jpwolfson.wordpress.com/2016-reu/)
+- [2016 REU Mini-Course – Topological Data Analysis and Persistent Homology](/2016-reu/)
 - [2015 REU Mini-Course – Algebraic Functions and Riemann Surfaces](/2015-reu/)
