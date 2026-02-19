@@ -8,7 +8,7 @@ backend:
   repo: jpwolfson/jpwolfson-site
   branch: main
   base_url: https://jpwolfson-cms-auth.jpwolfson.workers.dev
-  auth_endpoint: /oauth/callback
+  auth_endpoint: /oauth/authorize
 
 # Allow editorial workflow (draft → review → publish)?
 # Set to true if you want a staging step; false = publish immediately on save.
