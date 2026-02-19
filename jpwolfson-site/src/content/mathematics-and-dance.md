@@ -4,11 +4,11 @@ title: Mathematics and Dance
 permalink: /mathematics-and-dance/
 ---
 
-Beginning in 2012, I have consulted for Brooklyn-based choreographer [Reggie Wilson and the Fist and Heel Performance Group](http://fistandheelperformancegroup.org) to help them understand, recognize and play with the formal structures they encounter in their engagement with African and African diasporic movement and performance traditions. This engagement has contributed to three major new works:
+Beginning in 2012, I have consulted for Brooklyn-based choreographer [Reggie Wilson and the Fist and Heel Performance Group](http://www.fistandheelperformancegroup.org/) to help them understand, recognize and play with the formal structures they encounter in their engagement with African and African diasporic movement and performance traditions. This engagement has contributed to three major new works:
 
-**[Moses(es)](http://www.fistandheelperformancegroup.org/#/moseses/)**, performed in 2013–2014 at Philadelphia's [Fringe Arts Festival](http://www.livearts-fringe.org/festival/2013/moseses.cfm), [the American Dance Institute in DC](http://www.americandance.org/performance/2013-2014-season/), the [Brooklyn Academy of Music](http://www.bam.org/dance/2013/moses(es)) (BAM), the [Dance Center at Columbia College](http://www.colum.edu/Dance_Center/performances/reggiewilson/index.php), the [Jacob's Pillow Dance Festival](http://www.jacobspillow.org/festival/2014/07/moseses/), and elsewhere;
+**[Moses(es)](http://www.fistandheelperformancegroup.org/moseses)**, performed in 2013–2014 at Philadelphia's Fringe Arts Festival, the American Dance Institute in DC, the Brooklyn Academy of Music (BAM), the [Dance Center at Columbia College Chicago](https://dance.colum.edu/full-archive), the [Jacob's Pillow Dance Festival](https://danceinteractive.jacobspillow.org/reggie-wilson-fist-heel-performance-group/moseses/), and elsewhere;
 
-**Citizen**, which premiered in fall 2016 at Philadelphia's [Fringe Arts Festival](http://fringearts.com/event/citizen-3/), and which had its NY premiere at the [Brooklyn Academy of Music](http://www.bam.org/dance/2016/citizen) in December 2016;
+**Citizen**, which premiered in fall 2016 at Philadelphia's [Fringe Arts Festival](https://fringearts.com/event/citizen-3/), and which had its NY premiere at the [Brooklyn Academy of Music](https://www.bam.org/dance/2016/citizen) in December 2016;
 
 **POWER**, which premiered at the Jacob's Pillow Dance Festival in 2019.
 
