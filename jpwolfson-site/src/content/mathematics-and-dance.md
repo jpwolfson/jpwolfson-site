@@ -23,7 +23,7 @@ I currently serve on the company's board of directors and advisory board.
 > — Brian Seibert, *The New York Times*
 
 <div class="video-wrapper">
-  <iframe src="https://player.vimeo.com/video/74732379" allowfullscreen title="Moses(es)"></iframe>
+  <iframe src="https://player.vimeo.com/video/74732379" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Moses(es)"></iframe>
 </div>
 
 The *New York Times*' full [performance review of *Moses(es)*](http://www.nytimes.com/2013/12/06/arts/dance/moses-es-comes-to-brooklyn-academy-of-music.html?smid=pl-share).
@@ -35,5 +35,5 @@ Additional material and reviews:
 - The [2013 newsletter of the Northwestern Department of Mathematics](https://jpwolfson.com/wp-content/uploads/2013/11/math_newsletter-spring-2013.pdf) (p. 8)
 
 <div class="video-wrapper">
-  <iframe src="https://player.vimeo.com/video/81821563" allowfullscreen title="Moses(es) additional footage"></iframe>
+  <iframe src="https://player.vimeo.com/video/81821563" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Moses(es) additional footage"></iframe>
 </div>
