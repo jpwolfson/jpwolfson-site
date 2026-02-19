@@ -4,17 +4,13 @@ title: Teaching
 permalink: /teaching/
 ---
 
-**Current course websites:**
-
-1. [250A – Algebraic Topology](https://eee.uci.edu/18f/45095)
-
-**Past course websites:**
+**Past Courses**
 
 At UC Irvine:
 
-- [230C – Algebra](https://eee.uci.edu/18s/45540)
-- [230B – Algebra](https://eee.uci.edu/18w/45580)
-- [230A – Algebra](https://eee.uci.edu/17f/45070)
+*Graduate:* 230A – Algebra, 230B – Algebra, 230C – Algebra, 250A – Algebraic Topology, 250B – Algebraic Topology, 250C – Algebraic Topology
+
+*Undergraduate:* 3A – Linear Algebra, 120B – Rings and Fields, 162A – Differential Geometry of Curves in Spaces, 162B – Differential Geometry of Surfaces, 161 – Modern Geometry
 
 At University of Chicago:
 
