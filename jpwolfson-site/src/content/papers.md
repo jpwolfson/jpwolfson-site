@@ -8,8 +8,8 @@ permalink: /papers/
 
 1. [Essential dimension relative to branched covers of degree at most n](https://arxiv.org/abs/2510.22786) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). Submitted for publication.
 2. [Solvable Points on Intersections of Quadrics, Cubics and Quartics](https://arxiv.org/abs/2508.00215) (with [Claudio Gómez-Gonzáles](https://claudiojacobo.wordpress.com/)). Submitted for publication.
-3. [Lie's Third Theorem for Lie $\infty$-algebras](https://arxiv.org/abs/2409.08957) (with [Chris Rogers](https://sites.google.com/site/chrisrogersmath/)). Submitted for publication.
-4. [A higher Kac-Moody extension for two-dimensional gauge groups](https://arxiv.org/abs/2110.01649) (with [Jens Kaad](http://findresearcher.sdu.dk:8080/portal/en/person/kaad) and [Ryszard Nest](http://www.math.ku.dk/~rnest/)). Submitted for publication.
+3. [Lie's Third Theorem for Lie $\infty$-algebras](https://arxiv.org/abs/2409.08957) (with [Chris Rogers](https://hoalg.net/chrisrogers/)). Submitted for publication.
+4. [A higher Kac-Moody extension for two-dimensional gauge groups](https://arxiv.org/abs/2110.01649) (with [Jens Kaad](https://portal.findresearcher.sdu.dk/en/persons/kaad) and [Ryszard Nest](http://www.math.ku.dk/~rnest/)). Submitted for publication.
 5. [Alexander Ostrowski's "On Dirichlet Series and Algebraic Differential Equations"](https://arxiv.org/abs/2211.02088) (with Erik Christian Hansen and Yonathan Stone). English translation of German original.
 
 <p class="section-label">Publications</p>
@@ -17,7 +17,7 @@ permalink: /papers/
 1. [Correctness, Artificial Intelligence, and the Epistemic Value of Proof](https://arxiv.org/abs/2602.12463) (with [Jim Weatherall](https://jamesowenweatherall.com/)), *Journal for the Philosophy of Mathematics, to appear.*
 2. [On Simplicial Principal Bundles in Descent Categories.](https://arxiv.org/abs/2305.01630) *Homotopical Methods in Geometry and Physics (Getzler 60th Birthday Volume),* Contemporary Mathematics, AMS, *to appear.*
 3. [Essential Dimension via Prismatic Cohomology](https://projecteuclid.org/journals/duke-mathematical-journal/volume-173/issue-15/Essential-dimension-via-prismatic-cohomology/10.1215/00127094-2023-0071.full) (with [Benson Farb](http://www.math.uchicago.edu/~farb/) and [Mark Kisin](http://www.math.harvard.edu/~kisin/)), *Duke Mathematical Journal,* vol. 173, 2024, no. 15, pp. 3059–3106.
-4. [Fractals in Africanist Music](http://digitaleditions.walsworthprintgroup.com/publication/?m=7656&l=1) (with [Claudio Gómez-Gonzáles](https://claudiojacobo.wordpress.com/), [Sidhanth Raman](https://www.svraman.com/), and Siddharth Viswanath), *MAA FOCUS,* vol. 44, 2024, no. 4, pp. 18–22.
+4. [Fractals in Africanist Music](https://arxiv.org/abs/2408.10400) (with [Claudio Gómez-Gonzáles](https://claudiojacobo.wordpress.com/), [Sidhanth Raman](https://www.svraman.com/), and Siddharth Viswanath), *MAA FOCUS,* vol. 44, 2024, no. 4, pp. 18–22.
 5. [Generalized Versality, Special Points, and Resolvent Degree for the Sporadic Groups](https://authors.elsevier.com/c/1in5y4~FPITzK) (with [Claudio Gomez-Gonzales](https://claudiojacobo.wordpress.com/) and [Alex Sutherland](https://www.alexandersutherland.com/)), *Journal of Algebra,* vol. 647, 2024, pp. 758–793.
 6. [Modular functions and resolvent problems, with an appendix by Nate Harman](https://link.springer.com/article/10.1007/s00208-022-02395-8) (with [Benson Farb](http://www.math.uchicago.edu/~farb/) and [Mark Kisin](http://www.math.harvard.edu/~kisin/)). *Mathematische Annalen,* vol. 386, 2023, pp. 113–150.
 7. [Mathematics and Dance: Notes from an Emerging Interaction](https://www.ams.org/journals/notices/202111/rnoti-p1926.pdf) (with [Reggie Wilson](http://www.fistandheelperformancegroup.org/)), *Notices of the AMS,* vol. 68, 2021, no. 11, pp. 1926–1929.
@@ -38,7 +38,7 @@ permalink: /papers/
 21. [Topology and arithmetic of resultants, II](http://arxiv.org/abs/1507.01283) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). *Algebraic Geometry,* vol. 4, no. 3, 2017, pp. 337–352.
 22. [Relative Tate Objects and Boundary Maps in the K-Theory of Coherent Sheaves](http://arxiv.org/abs/1511.05941) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Homology, Homotopy and Applications,* vol. 19, no. 1, 2017, pp. 341–369.
 23. [Modular Operads of Embedded Curves](http://arxiv.org/abs/1407.6558) (with [Satoshi Kondo](http://db.ipmu.jp/member/personal/759en.html) and [Charles Siegel](http://db.ipmu.jp/member/personal/2754en.html)). *Geometry & Topology,* vol. 21, no. 2, 2017, pp. 903–922.
-24. [Operator Ideals in Tate Objects](https://jpwolfson.com/wp-content/uploads/2013/02/mrl_23_06_a02.pdf) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Mathematical Research Letters,* vol. 23, no. 6, 2016, pp. 1565–1631.
+24. [Operator Ideals in Tate Objects](https://arxiv.org/abs/1508.07880) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Mathematical Research Letters,* vol. 23, no. 6, 2016, pp. 1565–1631.
 25. [Coincidences of homological densities, predicted by arithmetic](https://publications.mfo.de/handle/mfo/3539) (with [Benson Farb](http://www.math.uchicago.edu/~farb/) and [Melanie Matchett Wood](https://math.berkeley.edu/~mmwood/)). "Topologie", *Oberwolfach Research Reports,* vol. 16, no. 3, 2016, pp. 2041–2043.
 26. [Geometric and Analytic Structures on the Higher Adeles](http://arxiv.org/abs/1510.05597) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Research in the Mathematical Sciences,* vol. 3, no. 1, 2016, article 22.
 27. [Topology and arithmetic of resultants, I](https://arxiv.org/abs/1506.02713) (with [Benson Farb](http://www.math.uchicago.edu/~farb)). *New York Journal of Mathematics,* vol. 22, 2016, pp. 801–821.
@@ -48,6 +48,6 @@ permalink: /papers/
 
 <p class="section-label">In Preparation</p>
 
-1. Lie's Second Theorem for $L_\infty$-algebras (with [Chris Rogers](https://sites.google.com/site/chrisrogersmath/))
+1. Lie's Second Theorem for $L_\infty$-algebras (with [Chris Rogers](https://hoalg.net/chrisrogers/))
 2. The Resolvent Degree of the Braid Group (with [Claudio Gómez-Gonzáles](https://claudiojacobo.com/) and [Sidhanth Raman](https://www.svraman.com/))
 3. Derived motivic integration (with [Anubhav Nanavaty](https://anubhavn.github.io/))
