@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if title %}{{ title }} – {% endif %}Jesse Wolfson</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <header>
+    <div class="site-title"><a href="/">Jesse Wolfson</a></div>
+    <nav>
+      <a href="/working-group/">Working Group</a>
+      <a href="/papers/">Papers</a>
+      <a href="/talks/">Talks</a>
+      <a href="/mathematics-and-dance/">Mathematics and Dance</a>
+      <a href="/teaching/">Teaching</a>
+      <a href="/workshops/">Workshops</a>
+      <a href="/roosevelt-institute/">Roosevelt Institute</a>
+      <a href="/cv/">CV</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <p>Jesse Wolfson &middot; University of California, Irvine</p>
+  </footer>
+</body>
+</html>

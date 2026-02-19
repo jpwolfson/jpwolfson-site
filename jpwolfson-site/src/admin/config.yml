@@ -1,0 +1,78 @@
+# ─────────────────────────────────────────────────────────────────
+# Decap CMS configuration for jpwolfson.com
+# Replace YOUR_GITHUB_USERNAME and YOUR_REPO_NAME before deploying.
+# ─────────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME   # e.g. jpwolfson/jpwolfson-site
+  branch: main
+  base_url: https://jpwolfson.com             # your live domain
+  auth_endpoint: /oauth/callback              # handled by the Cloudflare Worker
+
+# Allow editorial workflow (draft → review → publish)?
+# Set to true if you want a staging step; false = publish immediately on save.
+publish_mode: simple
+
+media_folder: public/files
+public_folder: /files
+
+collections:
+  # ── Single pages (one file each) ──────────────────────────────
+  - name: pages
+    label: Pages
+    files:
+
+      - name: about
+        label: About Me
+        file: src/content/about.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: papers
+        label: Papers
+        file: src/content/papers.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: talks
+        label: Talks
+        file: src/content/talks.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: working_group
+        label: Working Group
+        file: src/content/working-group.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: math_dance
+        label: Mathematics and Dance
+        file: src/content/mathematics-and-dance.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: teaching
+        label: Teaching
+        file: src/content/teaching.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: workshops
+        label: Workshops
+        file: src/content/workshops.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: roosevelt
+        label: Roosevelt Institute
+        file: src/content/roosevelt-institute.md
+        fields:
+          - { label: Body, name: body, widget: markdown }
+
+      - name: cv
+        label: CV
+        file: src/content/cv.md
+        fields:
+          - { label: Body, name: body, widget: markdown }

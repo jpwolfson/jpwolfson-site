@@ -1,0 +1,31 @@
+---
+layout: base.njk
+title: Mathematics and Dance
+permalink: /mathematics-and-dance/
+---
+
+Beginning in 2012, I have consulted for Brooklyn-based choreographer [Reggie Wilson and the Fist and Heel Performance Group](http://fistandheelperformancegroup.org) to help them understand, recognize and play with the formal structures they encounter in their engagement with African and African diasporic movement and performance traditions. This engagement has contributed to three major new works:
+
+**[Moses(es)](http://www.fistandheelperformancegroup.org/#/moseses/)**, performed in 2013–2014 at Philadelphia's [Fringe Arts Festival](http://www.livearts-fringe.org/festival/2013/moseses.cfm), [the American Dance Institute in DC](http://www.americandance.org/performance/2013-2014-season/), the [Brooklyn Academy of Music](http://www.bam.org/dance/2013/moses(es)) (BAM), the [Dance Center at Columbia College](http://www.colum.edu/Dance_Center/performances/reggiewilson/index.php), the [Jacob's Pillow Dance Festival](http://www.jacobspillow.org/festival/2014/07/moseses/), and elsewhere;
+
+**Citizen**, which premiered in fall 2016 at Philadelphia's [Fringe Arts Festival](http://fringearts.com/event/citizen-3/), and which had its NY premiere at the [Brooklyn Academy of Music](http://www.bam.org/dance/2016/citizen) in December 2016;
+
+**POWER**, which premiered at the Jacob's Pillow Dance Festival in 2019.
+
+I currently serve on the company's board of directors and advisory board.
+
+---
+
+## Moses(es)
+
+> The movement is wonderfully loose, but the structure is strict, layers carefully packed, not stuffed in. The work offers variations on leading and following: dancers line up, pile up, push and pull, take turns; a phrase moves down the line, breaks into canon form in six parts. All the motifs recur. Fractal geometry — patterns repeated at different scales — is bewilderingly evident.
+>
+> — Brian Seibert, *The New York Times*
+
+The *New York Times*' full [performance review of *Moses(es)*](http://www.nytimes.com/2013/12/06/arts/dance/moses-es-comes-to-brooklyn-academy-of-music.html?smid=pl-share).
+
+Additional material and reviews:
+
+- A spring 2014 article in [Weinberg Magazine](https://weinberg.northwestern.edu/after-graduation/weinberg-magazine/spring-summer-2014/fractal-dance.html)
+- A fall 2013 profile of Wilson and *Moses(es)* in the [*New York Times*](http://www.nytimes.com/2013/09/22/arts/dance/movers-and-shapers.html?smid=pl-share)
+- The [2013 newsletter of the Northwestern Department of Mathematics](https://jpwolfson.com/wp-content/uploads/2013/11/math_newsletter-spring-2013.pdf) (p. 8)
