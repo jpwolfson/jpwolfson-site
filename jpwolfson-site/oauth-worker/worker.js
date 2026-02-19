@@ -6,15 +6,13 @@
  *
  *   GITHUB_CLIENT_ID      – from your GitHub OAuth App
  *   GITHUB_CLIENT_SECRET  – from your GitHub OAuth App
- *   ALLOWED_DOMAINS       – your site domain, e.g. "jpwolfson.com"
  *
  * The GitHub OAuth App callback URL should be:
  *   https://YOUR_WORKER_SUBDOMAIN.workers.dev/oauth/callback
- *   (or your custom domain if you've set one on the Worker)
  *
  * In admin/config.yml, set:
  *   base_url: https://YOUR_WORKER_SUBDOMAIN.workers.dev
- *   auth_endpoint: /oauth/callback
+ *   auth_endpoint: /oauth/authorize
  */
 
 const GITHUB_AUTH_URL = "https://github.com/login/oauth/authorize";
@@ -38,7 +36,6 @@ export default {
     // Step 2: GitHub redirects back here with a code; exchange for token
     if (url.pathname === "/oauth/callback") {
       const code = url.searchParams.get("code");
-      const state = url.searchParams.get("state") || "";
 
       if (!code) {
         return new Response("Missing code parameter", { status: 400 });
@@ -68,22 +65,49 @@ export default {
         );
       }
 
-      // Return a small HTML page that posts the token back to the CMS opener
-      const script = `
-        <script>
-          const token = ${JSON.stringify(tokenData.access_token)};
-          const state = ${JSON.stringify(state)};
-          // Decap CMS listens for this postMessage
-          if (window.opener) {
-            window.opener.postMessage(
-              'authorization:github:success:' + JSON.stringify({ token, provider: 'github' }),
-              '*'
-            );
-          }
-          window.close();
-        </script>
-      `;
-      return new Response(`<!DOCTYPE html><html><body>${script}</body></html>`, {
+      const token = tokenData.access_token;
+
+      // Decap CMS uses a two-step handshake:
+      // 1. Popup announces "authorizing:github" to the CMS parent window
+      // 2. CMS responds with the same message (confirming it's ready)
+      // 3. Popup sends the actual token
+      const html = `<!DOCTYPE html>
+<html>
+<body>
+<script>
+(function() {
+  var provider = 'github';
+  var token = ${JSON.stringify(token)};
+  var tokenMsg = 'authorization:' + provider + ':success:' + JSON.stringify({ token: token, provider: provider });
+
+  if (!window.opener) {
+    window.close();
+    return;
+  }
+
+  // Step 1: announce we are authorizing
+  window.opener.postMessage('authorizing:' + provider, '*');
+
+  // Step 2: wait for CMS to respond, then send token
+  window.addEventListener('message', function handler(e) {
+    if (e.data === 'authorizing:' + provider) {
+      window.removeEventListener('message', handler);
+      window.opener.postMessage(tokenMsg, e.origin || '*');
+      setTimeout(function() { window.close(); }, 500);
+    }
+  });
+
+  // Fallback: send token directly after 5s if no handshake reply
+  setTimeout(function() {
+    window.opener.postMessage(tokenMsg, '*');
+    window.close();
+  }, 5000);
+})();
+</script>
+</body>
+</html>`;
+
+      return new Response(html, {
         headers: { "Content-Type": "text/html" },
       });
     }
