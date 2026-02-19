@@ -1,0 +1,4223 @@
+{
+  "summary": {
+    "crawled_at": "2026-02-19T20:00:59Z",
+    "site_root": "https://jpwolfson.com",
+    "total_unique_urls": 191,
+    "total_raw_instances": 230,
+    "by_classification": {
+      "broken": 2,
+      "pending_external_verification": 175,
+      "internal_unverified": 13,
+      "ok": 1
+    },
+    "sandbox_note": "HTTP checks only performed for proxy-allow-listed domains. All other external URLs are classified pending_external_verification and must be re-checked from a non-sandboxed environment in Phase 2."
+  },
+  "links": [
+    {
+      "url": "/files/Batson%20-%20How%20to%20See%20a%20Meromorphic%201-Form.pdf",
+      "resolved_url": "https://jpwolfson.com/files/Batson%20-%20How%20to%20See%20a%20Meromorphic%201-Form.pdf",
+      "reachability": "internal_file",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": "FILE_NOT_FOUND",
+      "response_time_ms": null,
+      "classification": "broken",
+      "occurrences": [
+        {
+          "anchor_text": "How to See a Meromorphic 1-Form",
+          "source_file": "src/content/2015-reu.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/files/Lecture%201%20-%20Topological%20Data%20Analysis.pdf",
+      "resolved_url": "https://jpwolfson.com/files/Lecture%201%20-%20Topological%20Data%20Analysis.pdf",
+      "reachability": "internal_file",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": "FILE_NOT_FOUND",
+      "response_time_ms": null,
+      "classification": "broken",
+      "occurrences": [
+        {
+          "anchor_text": "Lecture 1 \u2013 Topological Data Analysis",
+          "source_file": "src/content/2016-reu.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.gutenberg.org/files/36959/36959-pdf.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "On Riemann's Theory of Algebraic Functions and their Integrals",
+          "source_file": "src/content/2015-reu.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://ia801407.us.archive.org/5/items/elementarymathem032765mbp/elementarymathem032765mbp.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Elementary Mathematics from an Advanced Viewpoint",
+          "source_file": "src/content/2015-reu.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.ams.org/journals/bull/2009-46-02/S0273-0979-09-01249-X/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Carlsson \u2013 Topology and Data (2009)",
+          "source_file": "src/content/2016-reu.md",
+          "line": 13
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://users.cs.duke.edu/~edels/Papers/2008-B-02-PersistentHomology.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Edelsbrunner, Harer \u2013 Survey of Persistent Homology (2008)",
+          "source_file": "src/content/2016-reu.md",
+          "line": 14
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.ams.org/notices/201101/rtx110100036p.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Weinberger \u2013 What is persistent homology? (2011)",
+          "source_file": "src/content/2016-reu.md",
+          "line": 15
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/pdf/1506.08903.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Otter, Porter, Tillmann, Grindrod, and Harrington \u2013 A Roadmap for the Computation of Persistent Homology (2016)",
+          "source_file": "src/content/2016-reu.md",
+          "line": 16
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3831954/pdf/pnas.201313480.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Chen, Carlsson, Rabadan \u2013 Topology of Viral Evolution (2013)",
+          "source_file": "src/content/2016-reu.md",
+          "line": 20
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://appliedtopology.github.io/javaplex/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Javaplex",
+          "source_file": "src/content/2016-reu.md",
+          "line": 24
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.sas.upenn.edu/~vnanda/perseus/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Perseus",
+          "source_file": "src/content/2016-reu.md",
+          "line": 25
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://appliedtopology.org/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Applied Topology",
+          "source_file": "src/content/2016-reu.md",
+          "line": 27
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/uci.edu/scgtc/home",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Southern California Geometry and Topology Center",
+          "source_file": "src/content/about.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://apply.grad.uci.edu/apply/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "graduate students",
+          "source_file": "src/content/about.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2012.15434",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Problems in Arithmetic Topology",
+          "source_file": "src/content/about.md",
+          "line": 15
+        },
+        {
+          "anchor_text": "Problems in Arithmetic Topology",
+          "source_file": "src/content/papers.md",
+          "line": 26
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://math.uchicago.edu/~claudio/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Claudio Gomez-Gonzales",
+          "source_file": "src/content/about.md",
+          "line": 15
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.pims.math.ca/scientific-event/190610-pwat",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "PIMS 2019 \"Arithmetic Topology\" workshop",
+          "source_file": "src/content/about.md",
+          "line": 15
+        },
+        {
+          "anchor_text": "PIMS Workshop on Arithmetic Topology (PIMS, June 10\u201314, 2019)",
+          "source_file": "src/content/workshops.md",
+          "line": 11
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.quantamagazine.org/mathematicians-resurrect-hilberts-13th-problem-20210114/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "A Quanta article on a circle of questions my work fits into.",
+          "source_file": "src/content/about.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://podcasts.apple.com/us/podcast/quanta-science-podcast/id1021340531?i=1000517268546",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "podcast version",
+          "source_file": "src/content/about.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=dXwZ5syJrBM",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "A 2022 public talk on my work for UCI's Discover the Physical Sciences Series",
+          "source_file": "src/content/about.md",
+          "line": 19
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://youtu.be/IxHQ536Q8Lk?feature=shared",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "A 2024 public talk at St. John's College, Santa Fe on Modern Geometry",
+          "source_file": "src/content/about.md",
+          "line": 21
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=kBqHJvcTQJE",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "A short interview offering career advice to math majors",
+          "source_file": "src/content/about.md",
+          "line": 23
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.fistandheelperformancegroup.org/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Reggie Wilson and the Fist and Heel Performance Group",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 7
+        },
+        {
+          "anchor_text": "Reggie Wilson",
+          "source_file": "src/content/papers.md",
+          "line": 23
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.fistandheelperformancegroup.org/moseses",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Moses(es)",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://dance.colum.edu/full-archive",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Dance Center at Columbia College Chicago",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://danceinteractive.jacobspillow.org/reggie-wilson-fist-heel-performance-group/moseses/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Jacob's Pillow Dance Festival",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://player.vimeo.com/video/74732379",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "[src]",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 26
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.nytimes.com/2013/12/06/arts/dance/moses-es-comes-to-brooklyn-academy-of-music.html?smid=pl-share",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "performance review of *Moses(es)*",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 29
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.nytimes.com/2013/09/22/arts/dance/movers-and-shapers.html?smid=pl-share",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "*New York Times*",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 34
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://player.vimeo.com/video/81821563",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "[src]",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 38
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.22786",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Essential dimension relative to branched covers of degree at most n",
+          "source_file": "src/content/papers.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.uchicago.edu/~farb/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 9
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 19
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 22
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 24
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 28
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 31
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 33
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 37
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 38
+        },
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 42
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2508.00215",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Solvable Points on Intersections of Quadrics, Cubics and Quartics",
+          "source_file": "src/content/papers.md",
+          "line": 10
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://claudiojacobo.wordpress.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Claudio G\u00f3mez-Gonz\u00e1les",
+          "source_file": "src/content/papers.md",
+          "line": 10
+        },
+        {
+          "anchor_text": "Claudio G\u00f3mez-Gonz\u00e1les",
+          "source_file": "src/content/papers.md",
+          "line": 20
+        },
+        {
+          "anchor_text": "Claudio Gomez-Gonzales",
+          "source_file": "src/content/papers.md",
+          "line": 21
+        },
+        {
+          "anchor_text": "Claudio Gomez-Gonzales",
+          "source_file": "src/content/papers.md",
+          "line": 26
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2409.08957",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Lie's Third Theorem for Lie $\\infty$-algebras",
+          "source_file": "src/content/papers.md",
+          "line": 11
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://hoalg.net/chrisrogers/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Chris Rogers",
+          "source_file": "src/content/papers.md",
+          "line": 11
+        },
+        {
+          "anchor_text": "Chris Rogers",
+          "source_file": "src/content/papers.md",
+          "line": 51
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2110.01649",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "A higher Kac-Moody extension for two-dimensional gauge groups",
+          "source_file": "src/content/papers.md",
+          "line": 12
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://portal.findresearcher.sdu.dk/en/persons/kaad",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Jens Kaad",
+          "source_file": "src/content/papers.md",
+          "line": 12
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.ku.dk/~rnest/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Ryszard Nest",
+          "source_file": "src/content/papers.md",
+          "line": 12
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2211.02088",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Alexander Ostrowski's \"On Dirichlet Series and Algebraic Differential Equations\"",
+          "source_file": "src/content/papers.md",
+          "line": 13
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2602.12463",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Correctness, Artificial Intelligence, and the Epistemic Value of Proof",
+          "source_file": "src/content/papers.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://jamesowenweatherall.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Jim Weatherall",
+          "source_file": "src/content/papers.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.01630",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "On Simplicial Principal Bundles in Descent Categories.",
+          "source_file": "src/content/papers.md",
+          "line": 18
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://projecteuclid.org/journals/duke-mathematical-journal/volume-173/issue-15/Essential-dimension-via-prismatic-cohomology/10.1215/00127094-2023-0071.full",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Essential Dimension via Prismatic Cohomology",
+          "source_file": "src/content/papers.md",
+          "line": 19
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.harvard.edu/~kisin/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Mark Kisin",
+          "source_file": "src/content/papers.md",
+          "line": 19
+        },
+        {
+          "anchor_text": "Mark Kisin",
+          "source_file": "src/content/papers.md",
+          "line": 22
+        },
+        {
+          "anchor_text": "Mark Kisin",
+          "source_file": "src/content/papers.md",
+          "line": 24
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2408.10400",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Fractals in Africanist Music",
+          "source_file": "src/content/papers.md",
+          "line": 20
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.svraman.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Sidhanth Raman",
+          "source_file": "src/content/papers.md",
+          "line": 20
+        },
+        {
+          "anchor_text": "Sidhanth Raman",
+          "source_file": "src/content/papers.md",
+          "line": 52
+        },
+        {
+          "anchor_text": "Sidhanth Raman",
+          "source_file": "src/content/working-group.md",
+          "line": 40
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://authors.elsevier.com/c/1in5y4~FPITzK",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Generalized Versality, Special Points, and Resolvent Degree for the Sporadic Groups",
+          "source_file": "src/content/papers.md",
+          "line": 21
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.alexandersutherland.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Alex Sutherland",
+          "source_file": "src/content/papers.md",
+          "line": 21
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s00208-022-02395-8",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Modular functions and resolvent problems, with an appendix by Nate Harman",
+          "source_file": "src/content/papers.md",
+          "line": 22
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.ams.org/journals/notices/202111/rnoti-p1926.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Mathematics and Dance: Notes from an Emerging Interaction",
+          "source_file": "src/content/papers.md",
+          "line": 23
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1901.09013",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "The Essential Dimension of Congruence Covers",
+          "source_file": "src/content/papers.md",
+          "line": 24
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1410.3451",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "A Generalized Contou-Carrere Symbol and its Reciprocity Laws in Higher Dimensions",
+          "source_file": "src/content/papers.md",
+          "line": 25
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://braunling.org/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 25
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 30
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 32
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 36
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 39
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 41
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 43
+        },
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 46
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://individual.utoronto.ca/groechenig/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 25
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 32
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 34
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 36
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 39
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 41
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 43
+        },
+        {
+          "anchor_text": "Michael Groechenig",
+          "source_file": "src/content/papers.md",
+          "line": 46
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/2001.06515",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Tschirnhaus Transformations after Hilbert",
+          "source_file": "src/content/papers.md",
+          "line": 27
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1803.04063",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Resolvent degree, Hilbert's 13th Problem and Geometry",
+          "source_file": "src/content/papers.md",
+          "line": 28
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1703.09855",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Derived $\\ell$-adic zeta functions",
+          "source_file": "src/content/papers.md",
+          "line": 29
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.jonathanacampbell.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Jonathan Campbell",
+          "source_file": "src/content/papers.md",
+          "line": 29
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.cornell.edu/~zakh/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Inna Zakharevich",
+          "source_file": "src/content/papers.md",
+          "line": 29
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1607.07756",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Hochschild coniveau spectral sequence and the Beilinson residue",
+          "source_file": "src/content/papers.md",
+          "line": 30
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1611.04563",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Coincidences of homological densities, predicted by arithmetic",
+          "source_file": "src/content/papers.md",
+          "line": 31
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://math.berkeley.edu/~mmwood/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Melanie Matchett Wood",
+          "source_file": "src/content/papers.md",
+          "line": 31
+        },
+        {
+          "anchor_text": "Melanie Matchett Wood",
+          "source_file": "src/content/papers.md",
+          "line": 42
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1806.08766",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "The $A_\\infty$-Structure of the Index Map",
+          "source_file": "src/content/papers.md",
+          "line": 32
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://academic.oup.com/qjmath/article/69/3/951/4917319",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Etale homological stability and arithmetic statistics",
+          "source_file": "src/content/papers.md",
+          "line": 33
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.tac.mta.ca/tac/volumes/33/13/33-13.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "On the normally ordered tensor product and duality for Tate objects",
+          "source_file": "src/content/papers.md",
+          "line": 34
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://braunling.org",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Oliver Braunling",
+          "source_file": "src/content/papers.md",
+          "line": 34
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.tac.mta.ca/tac/volumes/39/7/39-07abs.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Corrigendum",
+          "source_file": "src/content/papers.md",
+          "line": 35
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://rdcu.be/yvb8",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "The Index Map in Algebraic K-Theory",
+          "source_file": "src/content/papers.md",
+          "line": 36
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://publications.mfo.de/handle/mfo/3624",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Resolvent degree, Hilbert's 13th problem and geometry",
+          "source_file": "src/content/papers.md",
+          "line": 37
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1507.01283",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Topology and arithmetic of resultants, II",
+          "source_file": "src/content/papers.md",
+          "line": 38
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1511.05941",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Relative Tate Objects and Boundary Maps in the K-Theory of Coherent Sheaves",
+          "source_file": "src/content/papers.md",
+          "line": 39
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1407.6558",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Modular Operads of Embedded Curves",
+          "source_file": "src/content/papers.md",
+          "line": 40
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://db.ipmu.jp/member/personal/759en.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Satoshi Kondo",
+          "source_file": "src/content/papers.md",
+          "line": 40
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://db.ipmu.jp/member/personal/2754en.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Charles Siegel",
+          "source_file": "src/content/papers.md",
+          "line": 40
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1508.07880",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Operator Ideals in Tate Objects",
+          "source_file": "src/content/papers.md",
+          "line": 41
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://publications.mfo.de/handle/mfo/3539",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Coincidences of homological densities, predicted by arithmetic",
+          "source_file": "src/content/papers.md",
+          "line": 42
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1510.05597",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Geometric and Analytic Structures on the Higher Adeles",
+          "source_file": "src/content/papers.md",
+          "line": 43
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://arxiv.org/abs/1506.02713",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Topology and arithmetic of resultants, I",
+          "source_file": "src/content/papers.md",
+          "line": 44
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.uchicago.edu/~farb",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Benson Farb",
+          "source_file": "src/content/papers.md",
+          "line": 44
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://nyjm.albany.edu/j/2019/25-10.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Corrigendum",
+          "source_file": "src/content/papers.md",
+          "line": 45
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1402.4969",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Tate Objects in Exact Categories",
+          "source_file": "src/content/papers.md",
+          "line": 46
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://arxiv.org/abs/1308.1113",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Descent for $n$-Bundles",
+          "source_file": "src/content/papers.md",
+          "line": 47
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://claudiojacobo.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Claudio G\u00f3mez-Gonz\u00e1les",
+          "source_file": "src/content/papers.md",
+          "line": 52
+        },
+        {
+          "anchor_text": "Claudio G\u00f3mez-Gonz\u00e1les",
+          "source_file": "src/content/working-group.md",
+          "line": 33
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://anubhavn.github.io/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Anubhav Nanavaty",
+          "source_file": "src/content/papers.md",
+          "line": 53
+        },
+        {
+          "anchor_text": "Anubhav Nanavaty",
+          "source_file": "src/content/working-group.md",
+          "line": 39
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://rooseveltinstitute.org/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Roosevelt Institute",
+          "source_file": "src/content/roosevelt-institute.md",
+          "line": 7
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://rooseveltinstitute.org/national-network/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Roosevelt Institute's National Network",
+          "source_file": "src/content/roosevelt-institute.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.youtube.com/embed/qwWo0rKU6Yk",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "[src]",
+          "source_file": "src/content/roosevelt-institute.md",
+          "line": 14
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.chapman.edu/scst/graduate/apmp-conference-2025.aspx",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Correctness, Artificial Intelligence and the Epistemic Value of Proof",
+          "source_file": "src/content/talks.md",
+          "line": 14
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://researchseminars.org/seminar/TropicalmathandML",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Fractals and Africanist Music",
+          "source_file": "src/content/talks.md",
+          "line": 15
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.upenn.edu/events/hodge-theory-and-resolvent-problems",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Hodge Theory and Resolvent Problems",
+          "source_file": "src/content/talks.md",
+          "line": 16
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/scissorscongruenceandk-theory/home",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Derived Motivic Integration",
+          "source_file": "src/content/talks.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.nd.edu/cmnd2025-thematic-program/category/cmnd-2025/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Hilbert's 13th Problem for Braid Groups",
+          "source_file": "src/content/talks.md",
+          "line": 18
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://calendar.usc.edu/event/math-education-seminar-fractals-in-africanist-music",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Fractals in Africanist Music",
+          "source_file": "src/content/talks.md",
+          "line": 26
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://events.sjc.edu/event/deans-lecture-series-jesse-wolfson-uc-irvine",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "\"Modern Geometry\"",
+          "source_file": "src/content/talks.md",
+          "line": 27
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://colleges.claremont.edu/ccms/event/moduli-spaces-through-a-combinatorial-lens/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "\"Braids, Polynomials and Hilbert's 13th Problem\"",
+          "source_file": "src/content/talks.md",
+          "line": 29
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://meetings.ams.org/math/fall2024w/meetingapp.cgi/Paper/39062",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "\"Higher Lie Theory\"",
+          "source_file": "src/content/talks.md",
+          "line": 30
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.dropbox.com/scl/fi/scy69aaoksav4mrghsv5o/Fractals-and-African-Musics-2024-Illuminations-public-talk.key?rlkey=ytcxt71xtqc7bbmzqwj1gze7i&dl=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Fractals and African Musics",
+          "source_file": "src/content/talks.md",
+          "line": 31
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.dropbox.com/scl/fi/1wmgnjsne87mpoqc6e7t9/Seven-Pines-2024-Math-a-test-case-for-the-sciences.pdf?rlkey=kockz0jrcgofk5j57epg6pg42&dl=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Mathematics and AI \u2013 A Test Case for the Sciences",
+          "source_file": "src/content/talks.md",
+          "line": 32
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/a/umn.edu/seven-pines/2024?authuser=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Seven Pines",
+          "source_file": "src/content/talks.md",
+          "line": 32
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/g.ucla.edu/socalgtop-24/home?authuser=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Higher Lie Theory",
+          "source_file": "src/content/talks.md",
+          "line": 33
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/vantageseminar",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "VaNTAGe \u2013 Perspectives on Hilbert's 13th Problem",
+          "source_file": "src/content/talks.md",
+          "line": 34
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.uci.edu/node/37653",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UCI Geometry & Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 39
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://math.uchicago.edu/~michaelklug/NBS.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UChicago No Boundaries Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 40
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://icerm.brown.edu/programs/sp-s22/w2/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "ICERM Workshop on Braids in Symplectic and Algebraic Geometry",
+          "source_file": "src/content/talks.md",
+          "line": 42
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.northwestern.edu/hmgp/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Getzler Festschrift",
+          "source_file": "src/content/talks.md",
+          "line": 43
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://pma.caltech.edu/calendar/91134",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Caltech Algebra and Geometry Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 46
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/zoomnovy/home?authuser=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Algebraic Groups and Algebraic Geometry",
+          "source_file": "src/content/talks.md",
+          "line": 47
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.matem.unam.mx/~lozano/eseminar.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Seminario nacional de geometr\u00eda algebraica EN L\u00cdNEA",
+          "source_file": "src/content/talks.md",
+          "line": 49
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.math.northwestern.edu/~baharacu/geometry-physics-seminar.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Northwestern Geometry & Physics Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 53
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.ias.edu/calendar/event/148370/1575568800/1575572100",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IAS \u2013 Special Seminar on Hilbert's 13th Problem",
+          "source_file": "src/content/talks.md",
+          "line": 54
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.ipam.ucla.edu/programs/workshops/braids-resolvent-degree-and-hilberts-13th-problem/?tab=overview",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IPAM \u2013 Braids, Polynomials and Hilbert's 13th Problem",
+          "source_file": "src/content/talks.md",
+          "line": 56
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://dept.math.lsa.umich.edu/seminars_events/events_detail.php?id=5835",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Michigan Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 58
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.uchicago.edu/research/calendar/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UChicago Colloquium",
+          "source_file": "src/content/talks.md",
+          "line": 69
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.harvard.edu/cgi-bin/showtalk.pl",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Harvard Number Theory Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 70
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.uci.edu/node/25149",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UC Irvine Colloquium",
+          "source_file": "src/content/talks.md",
+          "line": 72
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://math.colorado.edu/seminars/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Kempner Colloquium",
+          "source_file": "src/content/talks.md",
+          "line": 73
+        },
+        {
+          "anchor_text": "Boulder Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 74
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.mfo.de/occasion/1803/www_view",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Oberwolfach Workshop \"Topology of Arrangements and Representation Stability\"",
+          "source_file": "src/content/talks.md",
+          "line": 75
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www-users.math.umn.edu/~tlawson/topology/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UMN Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 76
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.ucsd.edu/~nts/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UCSD Number Theory Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 77
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.ubc.ca/Dept/Events/index.shtml?period=2017-11&series=all",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UBC Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 78
+        },
+        {
+          "anchor_text": "UBC Algebraic Geometry Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 79
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://people.math.gatech.edu/~dmargalit7/noboundaries/index.shtml",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "No Boundaries \u2013 Groups in Algebra, Geometry and Topology",
+          "source_file": "src/content/talks.md",
+          "line": 80
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www-app.uni-regensburg.de/Fakultaeten/MAT/sfb-higher-invariants/index.php/MAG2017",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Manifolds and Groups",
+          "source_file": "src/content/talks.md",
+          "line": 81
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://secure.math.ucla.edu/seminars/display.php?&id=832217",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UCLA Number Theory Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 82
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.uci.edu/node/24488",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UCI Number Theory Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 83
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://math.nd.edu/events/2016/12/08/topology-seminar-jesse-wolfson-university-of-chicago/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Notre Dame Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 84
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.uchicago.edu/~geometry/gt_seminar.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "University of Chicago Geometry/Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 85
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.mfo.de/occasion/1629/www_view",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "2016 Oberwolfach Topology Meeting",
+          "source_file": "src/content/talks.md",
+          "line": 86
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.mittag-leffler.se/congress-2016",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "27th Nordic Congress of Mathematicians",
+          "source_file": "src/content/talks.md",
+          "line": 87
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://events.wayne.edu/mathematics/2016/02/22/mathematics-colloquium-jesse-wolfson-60855/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Wayne State Colloquium",
+          "source_file": "src/content/talks.md",
+          "line": 89
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://cgp.ibs.re.kr/activities/conferences/Homotopical%20Methods%20in%20Quantum%20Field%20Theory",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IBS-CGP Conference on Homotopical Methods in Quantum Field Theory",
+          "source_file": "src/content/talks.md",
+          "line": 90
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/site/2015summerinstitute/home/schedule/week-3-abstracts#JW",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "2015 AMS Summer Institute in Algebraic Geometry",
+          "source_file": "src/content/talks.md",
+          "line": 94
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.uchicago.edu/~algtop/midwest/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Midwest Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 95
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.math.wisc.edu/wiki/index.php/NTS_Spring_2015_Abstract#May_07",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Wisconsin Number Theory Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 96
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www-math.mit.edu/topology/pastseminars.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "MIT Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 101
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://db.ipmu.jp/seminar/?seminar_id=1236",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IPMU Get Together Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 103
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www3.imperial.ac.uk/geometry/seminars/magic",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Imperial College London MAGIC Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 104
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://events.math.unipd.it/hsaa/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Padua Winter School on Higher Structures in Algebraic Analysis",
+          "source_file": "src/content/talks.md",
+          "line": 105
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://sym.math.ku.dk/calendar/index.cgi?action=show_event;relmonth=0;id=2753",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "University of Copenhagen Algebra/Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 106
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://db.ipmu.jp/seminar/?seminar_id=1038",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IPMU Get-Together Math Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 109
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.northwestern.edu/~mcouch/index.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Northwestern Mini-Conference \u2013 Determinants, Delooping and Reciprocity",
+          "source_file": "src/content/talks.md",
+          "line": 110
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.northwestern.edu/news/calendar/list.cgi?seminar=Topology%20Seminar",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Northwestern Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 111
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.institut.math.jussieu.fr/projets/aa/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Paris \u2013 Institut de Math\u00e9matiques de Jussieu",
+          "source_file": "src/content/talks.md",
+          "line": 112
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.maths.ox.ac.uk/events/seminars/upcoming/P10Y1D/4/945",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Oxford \u2013 Algebraic and Symplectic Geometry Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 114
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://memento.epfl.ch/event/determinants-and-deloopings-in-algebraic-k-theory/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "EPFL Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 115
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://memento.epfl.ch/event/determinants-delooping-and-reciprocity-ii-2/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "EPFL Geometry Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 116
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.mpim-bonn.mpg.de/node/4486",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Max Planck Institute \u2013 Higher Differential Geometry Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 117
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.math.ubc.ca/Dept/Events/index.shtml?period=past&series=3",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "UBC Algebraic Geometry Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 118
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.nd.edu/events/2012/09/27/13280-topology-seminar-jesse-wolfson-northwestern-university/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Notre Dame Topology Seminar",
+          "source_file": "src/content/talks.md",
+          "line": 119
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://db.ipmu.jp/seminar/?seminar_id=1275",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IPMU Special Seminar \u2013 Nerves and Group Completion for Categories and Operads",
+          "source_file": "src/content/talks.md",
+          "line": 125
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://db.ipmu.jp/seminar/?seminar_id=1072",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "IPMU Conformal Blocks Seminar \u2013 Loop Groups and Conformal Blocks",
+          "source_file": "src/content/talks.md",
+          "line": 126
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.mit.edu/topology/babytop/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "MIT Babytop \u2013 The Structure of Higher Bundles",
+          "source_file": "src/content/talks.md",
+          "line": 127
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://media.scgp.stonybrook.edu/video/video.php?f=20120305_5_qtp.mp4",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "2012 Simons Center Graduate Workshop on SUSY Field Theories \u2013 Supermanifolds",
+          "source_file": "src/content/talks.md",
+          "line": 128
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.mit.edu/conferences/talbot/index.php?year=2011",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "2011 Talbot Workshop \u2013 Principal Bundles, Real Structures, Toledo Invariant and Milnor-Wood",
+          "source_file": "src/content/talks.md",
+          "line": 129
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.mit.edu/conferences/talbot/index.php?year=2010",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "2010 Talbot Workshop \u2013 Complex $K$-Theory",
+          "source_file": "src/content/talks.md",
+          "line": 134
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.isaacnewton.ac.uk/programmes/GDO/Wolfson.pdf",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Newton Institute's Higher Structure 2013: Operads and Deformation Theory \u2013 \"Mapping Spaces in Higher Stacks, and Applications\"",
+          "source_file": "src/content/talks.md",
+          "line": 139
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/site/reginaldcwanderson/home",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Reginald Anderson",
+          "source_file": "src/content/working-group.md",
+          "line": 11
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://trent-lucas.github.io/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Trent Lucas",
+          "source_file": "src/content/working-group.md",
+          "line": 12
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/uci.edu/codymorrin",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Cody Morrin",
+          "source_file": "src/content/working-group.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/suhasiny",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Suhasiny Naik",
+          "source_file": "src/content/working-group.md",
+          "line": 18
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sireeshvinnakota.github.io/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Sireesh Vinnakota",
+          "source_file": "src/content/working-group.md",
+          "line": 20
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/yuxiangyao/home?authuser=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Yuxiang Yao",
+          "source_file": "src/content/working-group.md",
+          "line": 22
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://zxmath.github.io/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Xu Zhuang",
+          "source_file": "src/content/working-group.md",
+          "line": 26
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://mmaguire.weebly.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Megan Maguire",
+          "source_file": "src/content/working-group.md",
+          "line": 34
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://reversible.io/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Adam Marks",
+          "source_file": "src/content/working-group.md",
+          "line": 38
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/hannahkknight",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Hannah Knight",
+          "source_file": "src/content/working-group.md",
+          "line": 41
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://sites.google.com/view/alexsutherland/home?authuser=0",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Alex Sutherland",
+          "source_file": "src/content/working-group.md",
+          "line": 42
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.sas.upenn.edu/~ngadish/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Nir Gadish",
+          "source_file": "src/content/working-group.md",
+          "line": 43
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://services.math.duke.edu/~toriakin/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Tori Akin",
+          "source_file": "src/content/working-group.md",
+          "line": 44
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://gregoryborissov.wordpress.com/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Gregory Borissov",
+          "source_file": "src/content/working-group.md",
+          "line": 59
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://scholar.google.com/citations?user=AJKrw6YAAAAJ&hl=en",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Siddharth Viswanath",
+          "source_file": "src/content/working-group.md",
+          "line": 62
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.lps.uci.edu/workshops/aimath2025.php",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Humans, Math and Machines (UCI, March 7\u20138, 2025)",
+          "source_file": "src/content/workshops.md",
+          "line": 9
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://www.ipam.ucla.edu/programs/workshops/braids-resolvent-degree-and-hilberts-13th-problem/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Braids, Resolvent Degree and Hilbert's 13th Problem",
+          "source_file": "src/content/workshops.md",
+          "line": 13
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://www.matem.unam.mx/lozano/jornadas.html",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Jornadas de geometr\u00eda algebraica en Oaxaca",
+          "source_file": "src/content/workshops.md",
+          "line": 15
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "http://math.uchicago.edu/~ronno/rtg2018/",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "Background reading here.",
+          "source_file": "src/content/workshops.md",
+          "line": 19
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "[src]",
+          "source_file": "src/_includes/base.njk",
+          "line": 14
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js",
+      "resolved_url": null,
+      "reachability": "sandbox_blocked",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "pending_external_verification",
+      "occurrences": [
+        {
+          "anchor_text": "[src]",
+          "source_file": "src/admin/index.html",
+          "line": 10
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "https://jpwolfson.com/wp-content/uploads/2013/11/math_newsletter-spring-2013.pdf",
+      "resolved_url": null,
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "2013 newsletter of the Northwestern Department of Mathematics",
+          "source_file": "src/content/mathematics-and-dance.md",
+          "line": 35
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/2016-reu/",
+      "resolved_url": "https://jpwolfson.com/2016-reu/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "2016 REU Mini-Course \u2013 Topological Data Analysis and Persistent Homology",
+          "source_file": "src/content/teaching.md",
+          "line": 17
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/2015-reu/",
+      "resolved_url": "https://jpwolfson.com/2015-reu/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "2015 REU Mini-Course \u2013 Algebraic Functions and Riemann Surfaces",
+          "source_file": "src/content/teaching.md",
+          "line": 18
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/css/style.css",
+      "resolved_url": "https://jpwolfson.com/css/style.css",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 7
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/",
+      "resolved_url": "https://jpwolfson.com/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 18
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/working-group/",
+      "resolved_url": "https://jpwolfson.com/working-group/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 20
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/papers/",
+      "resolved_url": "https://jpwolfson.com/papers/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 21
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/talks/",
+      "resolved_url": "https://jpwolfson.com/talks/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 22
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/mathematics-and-dance/",
+      "resolved_url": "https://jpwolfson.com/mathematics-and-dance/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 23
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/teaching/",
+      "resolved_url": "https://jpwolfson.com/teaching/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 24
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/workshops/",
+      "resolved_url": "https://jpwolfson.com/workshops/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 25
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/roosevelt-institute/",
+      "resolved_url": "https://jpwolfson.com/roosevelt-institute/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 26
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/cv/",
+      "resolved_url": "https://jpwolfson.com/cv/",
+      "reachability": "internal",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "internal_unverified",
+      "occurrences": [
+        {
+          "anchor_text": "[href]",
+          "source_file": "src/_includes/base.njk",
+          "line": 27
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    },
+    {
+      "url": "/files/wolfson-cv.pdf",
+      "resolved_url": "https://jpwolfson.com/files/wolfson-cv.pdf",
+      "reachability": "internal_file",
+      "http_status": null,
+      "final_url": null,
+      "redirect_chain": [],
+      "error": null,
+      "response_time_ms": null,
+      "classification": "ok",
+      "occurrences": [
+        {
+          "anchor_text": "Download CV (PDF)",
+          "source_file": "src/content/cv.md",
+          "line": 7
+        }
+      ],
+      "proposed_replacement": null,
+      "replacement_confidence": null,
+      "patched": false
+    }
+  ]
+}
