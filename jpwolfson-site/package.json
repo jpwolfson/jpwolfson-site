@@ -1,6 +1,7 @@
 {
   "name": "jpwolfson-site",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve"
