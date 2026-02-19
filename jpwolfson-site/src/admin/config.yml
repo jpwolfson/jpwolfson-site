@@ -1,6 +1,5 @@
 # ─────────────────────────────────────────────────────────────────
 # Decap CMS configuration for jpwolfson.com
-# Replace YOUR_GITHUB_USERNAME and YOUR_REPO_NAME before deploying.
 # ─────────────────────────────────────────────────────────────────
 
 backend:
@@ -10,8 +9,6 @@ backend:
   base_url: https://jpwolfson-cms-auth.jpwolfson.workers.dev
   auth_endpoint: /oauth/authorize
 
-# Allow editorial workflow (draft → review → publish)?
-# Set to true if you want a staging step; false = publish immediately on save.
 publish_mode: simple
 
 media_folder: src/files
@@ -27,52 +24,79 @@ collections:
         label: About Me
         file: src/content/about.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: About Me }
+          - { label: Permalink, name: permalink, widget: hidden, default: / }
           - { label: Body, name: body, widget: markdown }
 
       - name: papers
         label: Papers
         file: src/content/papers.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Papers }
+          - { label: Permalink, name: permalink, widget: hidden, default: /papers/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: talks
         label: Talks
         file: src/content/talks.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Talks }
+          - { label: Permalink, name: permalink, widget: hidden, default: /talks/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: working_group
         label: Working Group
         file: src/content/working-group.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Working Group }
+          - { label: Permalink, name: permalink, widget: hidden, default: /working-group/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: math_dance
         label: Mathematics and Dance
         file: src/content/mathematics-and-dance.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Mathematics and Dance }
+          - { label: Permalink, name: permalink, widget: hidden, default: /mathematics-and-dance/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: teaching
         label: Teaching
         file: src/content/teaching.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Teaching }
+          - { label: Permalink, name: permalink, widget: hidden, default: /teaching/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: workshops
         label: Workshops
         file: src/content/workshops.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Workshops }
+          - { label: Permalink, name: permalink, widget: hidden, default: /workshops/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: roosevelt
         label: Roosevelt Institute
         file: src/content/roosevelt-institute.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: Roosevelt Institute }
+          - { label: Permalink, name: permalink, widget: hidden, default: /roosevelt-institute/ }
           - { label: Body, name: body, widget: markdown }
 
       - name: cv
         label: CV
         file: src/content/cv.md
         fields:
+          - { label: Layout, name: layout, widget: hidden, default: base.njk }
+          - { label: Title, name: title, widget: hidden, default: CV }
+          - { label: Permalink, name: permalink, widget: hidden, default: /cv/ }
           - { label: Body, name: body, widget: markdown }
