@@ -8,7 +8,7 @@ Beginning in 2012, I have consulted for Brooklyn-based choreographer [Reggie Wil
 
 **[Moses(es)](http://www.fistandheelperformancegroup.org/moseses)**, performed in 2013–2014 at Philadelphia's Fringe Arts Festival, the American Dance Institute in DC, the Brooklyn Academy of Music (BAM), the [Dance Center at Columbia College Chicago](https://dance.colum.edu/full-archive), the [Jacob's Pillow Dance Festival](https://danceinteractive.jacobspillow.org/reggie-wilson-fist-heel-performance-group/moseses/), and elsewhere;
 
-**Citizen**, which premiered in fall 2016 at Philadelphia's [Fringe Arts Festival](https://fringearts.com/event/citizen-3/), and which had its NY premiere at the [Brooklyn Academy of Music](https://www.bam.org/dance/2016/citizen) in December 2016;
+**Citizen**, which premiered in fall 2016 at Philadelphia's Fringe Arts Festival, and which had its NY premiere at the Brooklyn Academy of Music (BAM) in December 2016;
 
 **POWER**, which premiered at the Jacob's Pillow Dance Festival in 2019.
 
