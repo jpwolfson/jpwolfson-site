@@ -8,4 +8,8 @@ The [Roosevelt Institute](http://rooseveltinstitute.org/), working to redefine t
 
 In 2004, a group of fellow students and I founded the [Roosevelt Institute's National Network](http://rooseveltinstitute.org/national-network/). For the next two years, I helped build and lead the organization, serving as Executive Director in 2006, before returning to college and beginning graduate school.
 
-In 2015, the Network was recognized with a [MacArthur Award for Creative and Effective Institutions](https://www.youtube.com/watch?v=qwWo0rKU6Yk).
+In 2015, the Network was recognized with a MacArthur Award for Creative and Effective Institutions.
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/qwWo0rKU6Yk" allowfullscreen title="MacArthur Award for Creative and Effective Institutions"></iframe>
+</div>
