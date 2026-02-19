@@ -6,7 +6,7 @@ permalink: /mathematics-and-dance/
 
 Beginning in 2012, I have consulted for Brooklyn-based choreographer [Reggie Wilson and the Fist and Heel Performance Group](http://www.fistandheelperformancegroup.org/) to help them understand, recognize and play with the formal structures they encounter in their engagement with African and African diasporic movement and performance traditions. This engagement has contributed to three major new works:
 
-**[Moses(es)](http://www.fistandheelperformancegroup.org/moseses)**, performed in 2013–2014 at Philadelphia's [Fringe Arts Festival](https://fringearts.com/), the American Dance Institute in DC, the [Brooklyn Academy of Music](https://www.bam.org/dance/2013/moseses) (BAM), the [Dance Center at Columbia College Chicago](https://dance.colum.edu/full-archive), the [Jacob's Pillow Dance Festival](https://danceinteractive.jacobspillow.org/reggie-wilson-fist-heel-performance-group/moseses/), and elsewhere;
+**[Moses(es)](http://www.fistandheelperformancegroup.org/moseses)**, performed in 2013–2014 at Philadelphia's Fringe Arts Festival, the American Dance Institute in DC, the Brooklyn Academy of Music (BAM), the [Dance Center at Columbia College Chicago](https://dance.colum.edu/full-archive), the [Jacob's Pillow Dance Festival](https://danceinteractive.jacobspillow.org/reggie-wilson-fist-heel-performance-group/moseses/), and elsewhere;
 
 **Citizen**, which premiered in fall 2016 at Philadelphia's [Fringe Arts Festival](https://fringearts.com/event/citizen-3/), and which had its NY premiere at the [Brooklyn Academy of Music](https://www.bam.org/dance/2016/citizen) in December 2016;
 
