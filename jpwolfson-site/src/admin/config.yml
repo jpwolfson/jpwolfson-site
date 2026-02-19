@@ -7,7 +7,7 @@ backend:
   name: github
   repo: jpwolfson/jpwolfson-site
   branch: main
-  base_url: https://YOUR_WORKER_SUBDOMAIN.workers.dev   # replace after deploying the Worker
+  base_url: https://jpwolfson-cms-auth.jpwolfson.workers.dev
   auth_endpoint: /oauth/callback
 
 # Allow editorial workflow (draft → review → publish)?
