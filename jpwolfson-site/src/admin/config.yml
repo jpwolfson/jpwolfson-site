@@ -5,16 +5,16 @@
 
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME   # e.g. jpwolfson/jpwolfson-site
+  repo: jpwolfson/jpwolfson-site
   branch: main
-  base_url: https://jpwolfson.com             # your live domain
-  auth_endpoint: /oauth/callback              # handled by the Cloudflare Worker
+  base_url: https://YOUR_WORKER_SUBDOMAIN.workers.dev   # replace after deploying the Worker
+  auth_endpoint: /oauth/callback
 
 # Allow editorial workflow (draft → review → publish)?
 # Set to true if you want a staging step; false = publish immediately on save.
 publish_mode: simple
 
-media_folder: public/files
+media_folder: src/files
 public_folder: /files
 
 collections:
