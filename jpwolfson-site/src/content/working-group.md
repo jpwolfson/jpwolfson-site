@@ -40,7 +40,7 @@ permalink: /working-group/
 - [Sidhanth Raman](https://www.svraman.com/) (UC Irvine PhD 2025, NSF Postdoc with Benson Farb and L.E. Dickson Instructor at UChicago)
 - [Hannah Knight](https://sites.google.com/view/hannahkknight) (UC Irvine PhD 2023, NSF Postdoc with Alexander Merkurjev at UCLA)
 - [Alex Sutherland](https://sites.google.com/view/alexsutherland/home?authuser=0) (UC Irvine PhD 2022, Ross Assistant Professor at the Ohio State University)
-- [Nir Gadish](http://math.mit.edu/~ngadish/) (second advisor, UChicago PhD 2019, assistant professor at University of Pennsylvania)
+- [Nir Gadish](https://www.sas.upenn.edu/~ngadish/) (second advisor, UChicago PhD 2019, assistant professor at University of Pennsylvania)
 - [Tori Akin](https://services.math.duke.edu/~toriakin/) (second advisor, UChicago PhD 2017, assistant professor of the practice at Duke University)
 
 <h2>Past Graduate Members</h2>
@@ -51,7 +51,7 @@ permalink: /working-group/
 - Lulu Schoenfeld (2022)
 - Moyra Dyer (2019–2021)
 - Jiayi Shen (MS 2020, Notre Dame PhD expected 2025)
-- [Zana Tran](https://sites.google.com/site/zanatranmath/) (UChicago, 2015–2017)
+- Zana Tran (UChicago, 2015–2017)
 
 <h2>Past Undergraduate Members</h2>
 
