@@ -8,9 +8,9 @@ permalink: /teaching/
 
 At UC Irvine:
 
-*Graduate:* 230A – Algebra, 230B – Algebra, 230C – Algebra, 250A – Algebraic Topology, 250B – Algebraic Topology, 250C – Algebraic Topology
+*Graduate:* 230 A, B and C – Graduate Algebra; 250 A, B and C – Algebraic Topology
 
-*Undergraduate:* 3A – Linear Algebra, 120B – Rings and Fields, 162A – Differential Geometry of Curves in Spaces, 162B – Differential Geometry of Surfaces, 161 – Modern Geometry
+*Undergraduate:* 3A – Linear Algebra, 120B – Rings and Fields, 162A – Differential Geometry of Curves in Space, 162B – Differential Geometry of Surfaces, 161 – Modern Geometry
 
 At University of Chicago:
 
