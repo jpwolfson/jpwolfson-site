@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 """
-Phase 1 — INVENTORY (static analysis edition)
-Parses all source files in src/ to extract links, checks reachable
-external URLs, and writes link_audit.json.
+Phase 1 — INVENTORY
+Parses all source files in src/ to extract links, checks HTTP status of every
+external URL, and writes link_audit.json.
+
+In sandboxed environments (HTTPS_PROXY set) some domains are blocked at the
+proxy level; those are recorded as sandbox_blocked and re-checked automatically
+when this script runs in GitHub Actions (no proxy restrictions).
 """
 
 import json
@@ -10,6 +14,7 @@ import os
 import re
 import time
 from pathlib import Path
+from urllib.parse import unquote
 
 import requests
 
@@ -23,23 +28,13 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; LinkAuditor/1.0)"}
 REQUEST_TIMEOUT = 15
 DELAY = 0.3
 
-# Domains allowed through the sandbox proxy (derived from proxy JWT allowlist)
-PROXY_ALLOWED_DOMAINS = {
-    "github.com", "www.github.com", "gist.github.com", "codeload.github.com",
-    "raw.githubusercontent.com", "camo.githubusercontent.com",
-    "pypi.org", "www.pypi.org", "pypi.python.org",
-    "npmjs.org", "www.npmjs.org", "www.npmjs.com",
-    "golang.org", "www.golang.org", "pkg.go.dev",
-    "api.anthropic.com", "claude.ai", "platform.claude.com", "docs.claude.com",
-    "sentry.io",
-}
-
 # ---------------------------------------------------------------------------
 # Markdown / HTML link extraction
 # ---------------------------------------------------------------------------
 MD_LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')
 HTML_HREF_RE = re.compile(r'href=["\']([^"\']+)["\']', re.IGNORECASE)
 HTML_SRC_RE = re.compile(r'src=["\']([^"\']+)["\']', re.IGNORECASE)
+
 
 def extract_links_from_file(path: Path) -> list:
     text = path.read_text(encoding="utf-8")
@@ -103,32 +98,48 @@ def resolve_url(url: str) -> str:
     return url
 
 
-def is_proxy_reachable(url: str) -> bool:
-    m = re.match(r"https?://([^/]+)", url)
-    if not m:
-        return False
-    host = m.group(1)
-    return host in PROXY_ALLOWED_DOMAINS
-
-
 def is_internal(url: str) -> bool:
     return url.startswith("/") or "jpwolfson.com" in url
 
 
+def check_internal_file(url: str) -> dict:
+    """Verify /files/... links exist on disk (URL-decode the path first)."""
+    decoded = unquote(url)  # /files/Batson%20-... -> /files/Batson -...
+    rel_path = decoded.lstrip("/")          # files/Batson -...
+    local_path = SRC_DIR / rel_path         # src/files/Batson -...
+    if local_path.exists():
+        return {"error": None}
+    return {"error": f"FILE_NOT_FOUND: {local_path}"}
+
+
 # ---------------------------------------------------------------------------
-# HTTP check
+# HTTP check — attempts every URL; records proxy blocks separately
 # ---------------------------------------------------------------------------
-def check_url(url: str, session: requests.Session) -> dict:
+def check_url(url: str, session: requests.Session) -> tuple[dict, str]:
+    """
+    Returns (result_dict, reachability).
+    reachability is one of: 'checked', 'sandbox_blocked'.
+    """
     try:
         start = time.time()
         r = session.head(url, headers=HEADERS, timeout=REQUEST_TIMEOUT,
                          allow_redirects=True)
         elapsed = int((time.time() - start) * 1000)
-        if r.status_code in (405, 400, 403):
+        # Some servers reject HEAD — fall back to GET
+        if r.status_code in (405, 400):
             r = session.get(url, headers=HEADERS, timeout=REQUEST_TIMEOUT,
                             allow_redirects=True, stream=True)
             r.close()
             elapsed = int((time.time() - start) * 1000)
+        # Detect sandbox proxy block: proxy returns HTTP 403 with
+        # x-deny-reason: host_not_allowed instead of forwarding the request.
+        if (r.status_code == 403
+                and r.headers.get("x-deny-reason") == "host_not_allowed"):
+            return {
+                "http_status": None, "final_url": None, "redirect_chain": [],
+                "error": "SANDBOX_PROXY_BLOCKED",
+                "response_time_ms": None,
+            }, "sandbox_blocked"
         chain = [h.url for h in r.history]
         return {
             "http_status": r.status_code,
@@ -136,32 +147,38 @@ def check_url(url: str, session: requests.Session) -> dict:
             "redirect_chain": chain,
             "error": None,
             "response_time_ms": elapsed,
-        }
+        }, "checked"
+    except requests.exceptions.ProxyError:
+        # Sandbox proxy rejected the host at the connection level
+        return {
+            "http_status": None, "final_url": None, "redirect_chain": [],
+            "error": "SANDBOX_PROXY_BLOCKED",
+            "response_time_ms": None,
+        }, "sandbox_blocked"
     except requests.exceptions.Timeout:
         return {"http_status": None, "final_url": None, "redirect_chain": [],
-                "error": "TIMEOUT", "response_time_ms": None}
+                "error": "TIMEOUT", "response_time_ms": None}, "checked"
     except requests.exceptions.TooManyRedirects:
         return {"http_status": None, "final_url": None, "redirect_chain": [],
-                "error": "TOO_MANY_REDIRECTS", "response_time_ms": None}
+                "error": "TOO_MANY_REDIRECTS", "response_time_ms": None}, "checked"
     except Exception as e:
         return {"http_status": None, "final_url": None, "redirect_chain": [],
-                "error": str(e)[:200], "response_time_ms": None}
+                "error": str(e)[:200], "response_time_ms": None}, "checked"
 
 
 # ---------------------------------------------------------------------------
 # Classify
 # ---------------------------------------------------------------------------
-def classify(record: dict, reachability: str) -> str:
+def classify(result: dict, reachability: str) -> str:
     if reachability == "internal":
         return "internal_unverified"
     if reachability == "internal_file":
-        return "ok" if not record["error"] else "broken"
+        return "ok" if not result["error"] else "broken"
     if reachability == "sandbox_blocked":
         return "pending_external_verification"
-    # checked externally
-    if record["error"]:
+    if result["error"] and result["error"] != "SANDBOX_PROXY_BLOCKED":
         return "broken"
-    status = record.get("http_status")
+    status = result.get("http_status")
     if status is None:
         return "unknown"
     if status == 200:
@@ -181,7 +198,11 @@ def classify(record: dict, reachability: str) -> str:
 def main():
     os.chdir(Path(__file__).parent)
 
-    print("[1/3] Extracting links from source files...")
+    in_sandbox = bool(os.environ.get("HTTPS_PROXY"))
+    env_label = "sandbox (proxy-restricted)" if in_sandbox else "unrestricted"
+    print(f"[env] Running in {env_label} environment")
+
+    print("\n[1/3] Extracting links from source files...")
     raw_links = collect_all_links()
     grouped = group_by_url(raw_links)
     print(f"      {len(raw_links)} raw instances → {len(grouped)} unique URLs")
@@ -195,29 +216,27 @@ def main():
     print(f"\n[2/3] Auditing {total} URLs...")
     for i, (url, entry) in enumerate(grouped.items(), 1):
         abs_url = resolve_url(url)
-        check_result = {
-            "http_status": None, "final_url": None, "redirect_chain": [],
-            "error": None, "response_time_ms": None,
-        }
 
         if is_internal(url):
-            reachability = "internal"
             if url.startswith("/files/"):
-                fname = url.replace("/files/", "src/files/")
-                check_result["error"] = None if Path(fname).exists() else "FILE_NOT_FOUND"
+                file_result = check_internal_file(url)
                 reachability = "internal_file"
-        elif is_proxy_reachable(abs_url):
-            reachability = "checked"
-            check_result = check_url(abs_url, session)
-            time.sleep(DELAY)
+                result = {**file_result, "http_status": None,
+                          "final_url": None, "redirect_chain": [],
+                          "response_time_ms": None}
+            else:
+                reachability = "internal"
+                result = {"http_status": None, "final_url": None,
+                          "redirect_chain": [], "error": None,
+                          "response_time_ms": None}
         else:
-            reachability = "sandbox_blocked"
+            result, reachability = check_url(abs_url, session)
+            time.sleep(DELAY)
 
-        classification = classify(check_result, reachability)
-
+        classification = classify(result, reachability)
         status_str = (
-            f"HTTP {check_result['http_status']}" if check_result["http_status"]
-            else check_result["error"] or reachability
+            f"HTTP {result['http_status']}" if result["http_status"]
+            else result.get("error") or reachability
         )
         print(f"  ({i:3d}/{total}) [{classification:35s}] {url[:75]}  →  {status_str}")
 
@@ -225,11 +244,11 @@ def main():
             "url": url,
             "resolved_url": abs_url if abs_url != url else None,
             "reachability": reachability,
-            "http_status": check_result["http_status"],
-            "final_url": check_result["final_url"],
-            "redirect_chain": check_result["redirect_chain"],
-            "error": check_result["error"],
-            "response_time_ms": check_result["response_time_ms"],
+            "http_status": result["http_status"],
+            "final_url": result["final_url"],
+            "redirect_chain": result["redirect_chain"],
+            "error": result["error"],
+            "response_time_ms": result["response_time_ms"],
             "classification": classification,
             "occurrences": entry["occurrences"],
             "proposed_replacement": None,
@@ -252,16 +271,18 @@ def main():
 
     summary = {
         "crawled_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "environment": env_label,
         "site_root": SITE_ROOT,
         "total_unique_urls": len(results),
         "total_raw_instances": len(raw_links),
         "by_classification": by_class,
-        "sandbox_note": (
-            "HTTP checks only performed for proxy-allow-listed domains. "
-            "All other external URLs are classified pending_external_verification "
-            "and must be re-checked from a non-sandboxed environment in Phase 2."
-        ),
     }
+    if in_sandbox:
+        summary["sandbox_note"] = (
+            "Some external URLs were blocked by the sandbox proxy and are "
+            "classified pending_external_verification. Run via GitHub Actions "
+            "for unrestricted HTTP checks."
+        )
 
     output = {"summary": summary, "links": results}
 
@@ -273,6 +294,11 @@ def main():
     print(f"Total unique URLs : {summary['total_unique_urls']}")
     for k, v in sorted(by_class.items(), key=lambda x: sort_order.get(x[0], 9)):
         print(f"  {k:40s}: {v}")
+
+    # Exit non-zero if there are confirmed broken links (for CI)
+    if by_class.get("broken", 0) > 0:
+        print(f"\n[FAIL] {by_class['broken']} broken link(s) found.")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

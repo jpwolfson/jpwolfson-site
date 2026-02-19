@@ -1,0 +1,75 @@
+name: Link Audit
+
+on:
+  # Run weekly on Monday mornings
+  schedule:
+    - cron: '0 8 * * 1'
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+  # Run on pushes that touch content or the audit script itself
+  push:
+    paths:
+      - 'jpwolfson-site/src/**'
+      - 'jpwolfson-site/crawl_links.py'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jpwolfson-site
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run link audit
+        # No HTTPS_PROXY here, so all 191 URLs are checked live.
+        # Script exits 1 if any confirmed-broken links are found.
+        run: python crawl_links.py
+
+      - name: Upload link_audit.json
+        if: always()   # upload even when the step above fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-audit-results
+          path: jpwolfson-site/link_audit.json
+          retention-days: 90
+
+      - name: Post summary
+        if: always()
+        run: |
+          python - <<'EOF'
+          import json, os
+          data = json.load(open("link_audit.json"))
+          s = data["summary"]
+          lines = [
+            f"## Link Audit Results",
+            f"",
+            f"Checked **{s['total_unique_urls']}** unique URLs ({s['total_raw_instances']} raw instances)",
+            f"",
+            f"| Classification | Count |",
+            f"|---|---|",
+          ]
+          order = ["broken","redirect","pending_external_verification","internal_unverified","ok","unknown"]
+          by_class = s.get("by_classification", {})
+          for k in order + [k for k in by_class if k not in order]:
+              if k in by_class:
+                  lines.append(f"| {k} | {by_class[k]} |")
+          broken = [r for r in data["links"] if r["classification"] == "broken"]
+          if broken:
+              lines += ["", "### Broken links"]
+              for r in broken:
+                  occ = r["occurrences"][0]
+                  lines.append(f"- `{r['url']}` — {occ['source_file']}:{occ['line']}")
+          print("\n".join(lines))
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
+              f.write("\n".join(lines) + "\n")
+          EOF
