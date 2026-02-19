@@ -64,8 +64,8 @@ permalink: /talks/
 51. UCLA Algebra Seminar – The Theory of Resolvent Degree, May 18, 2018.
 52. Caltech Algebra & Geometry Seminar – The Theory of Resolvent Degree, May 14, 2018.
 53. CCR – The Theory of Resolvent Degree, April 26, 2018.
-54. [USC Tuesday Seminar](http://www-bcf.usc.edu/~asok/seminar.html) – The Geometry of Hilbert's 13th Problem, April 24, 2018.
-55. [USC Algebra Seminar](http://www-bcf.usc.edu/~asok/seminar.html) – The Theory of Resolvent Degree, April 23, 2018.
+54. USC Tuesday Seminar – The Geometry of Hilbert's 13th Problem, April 24, 2018.
+55. USC Algebra Seminar – The Theory of Resolvent Degree, April 23, 2018.
 56. [UChicago Colloquium](http://math.uchicago.edu/research/calendar/) – Braids, Polynomials and Hilbert's 13th Problem, April 11, 2018.
 57. [Harvard Number Theory Seminar](http://www.math.harvard.edu/cgi-bin/showtalk.pl) – The Theory of Resolvent Degree, March 7, 2018.
 58. Harvard Informal Geometry and Dynamics Seminar – The Geometry of Hilbert's 13th Problem, March 7, 2018.
@@ -95,7 +95,7 @@ permalink: /talks/
 82. [Midwest Topology Seminar](http://math.uchicago.edu/~algtop/midwest/) – Topology and Arithmetic of Spaces of Rational Maps – May 10, 2015.
 83. [Wisconsin Number Theory Seminar](https://www.math.wisc.edu/wiki/index.php/NTS_Spring_2015_Abstract#May_07) – May 7, 2015.
 84. UIC Homotopy Algebras Seminar – Modular Operads of Embedded Curves – April 17, 2015.
-85. [2015 Arkansas Spring Lecture Series](http://math.uark.edu/3920.php) – March 5, 2015.
+85. 2015 Arkansas Spring Lecture Series – March 5, 2015.
 86. Rutgers Algebra Seminar – The Index Map and Reciprocity Laws for Contou-Carrere Symbols – Feb. 4, 2015.
 87. Yale Geometry, Symmetry and Physics Seminar – Feb. 2, 2015.
 88. [MIT Topology Seminar](http://www-math.mit.edu/topology/pastseminars.html) – The Index Map and Reciprocity Laws – Nov. 17, 2014.
@@ -117,7 +117,7 @@ permalink: /talks/
 104. [Max Planck Institute – Higher Differential Geometry Seminar](http://www.mpim-bonn.mpg.de/node/4486) – April 24, 2013.
 105. [UBC Algebraic Geometry Seminar](http://www.math.ubc.ca/Dept/Events/index.shtml?period=past&series=3) – Oct. 29, 2012.
 106. [Notre Dame Topology Seminar](http://math.nd.edu/events/2012/09/27/13280-topology-seminar-jesse-wolfson-northwestern-university/) – Sept. 27, 2012.
-107. [2012 ESI Program on $K$-Theory and Quantum Fields](http://plone.mat.univie.ac.at/events/2012/esi-acg3.pdf) – June 14, 2012.
+107. 2012 ESI Program on $K$-Theory and Quantum Fields – June 14, 2012.
 
 <p class="section-label">Other Talks</p>
 
@@ -136,4 +136,4 @@ permalink: /talks/
 
 <p class="section-label">Posters</p>
 
-1. [Newton Institute's Higher Structure 2013: Operads and Deformation Theory – "Mapping Spaces in Higher Stacks, and Applications"](http://www.newton.ac.uk/programmes/GDO/Wolfson.pdf) – April 2, 2013.
+1. [Newton Institute's Higher Structure 2013: Operads and Deformation Theory – "Mapping Spaces in Higher Stacks, and Applications"](https://www.isaacnewton.ac.uk/programmes/GDO/Wolfson.pdf) – April 2, 2013.

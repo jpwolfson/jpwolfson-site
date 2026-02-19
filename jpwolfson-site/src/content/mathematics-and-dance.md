@@ -30,7 +30,7 @@ The *New York Times*' full [performance review of *Moses(es)*](http://www.nytime
 
 Additional material and reviews:
 
-- A spring 2014 article in [Weinberg Magazine](https://weinberg.northwestern.edu/after-graduation/weinberg-magazine/spring-summer-2014/fractal-dance.html)
+- A spring 2014 article in Weinberg Magazine ("Fractal Dance")
 - A fall 2013 profile of Wilson and *Moses(es)* in the [*New York Times*](http://www.nytimes.com/2013/09/22/arts/dance/movers-and-shapers.html?smid=pl-share)
 - The [2013 newsletter of the Northwestern Department of Mathematics](https://jpwolfson.com/wp-content/uploads/2013/11/math_newsletter-spring-2013.pdf) (p. 8)
 
