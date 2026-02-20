@@ -31,7 +31,7 @@ permalink: /talks/
 18. [Fractals and African Musics](https://www.dropbox.com/scl/fi/scy69aaoksav4mrghsv5o/Fractals-and-African-Musics-2024-Illuminations-public-talk.key?rlkey=ytcxt71xtqc7bbmzqwj1gze7i&dl=0) (w/ Sidhanth Raman and Reggie Wilson) – UC Irvine, May 21, 2024.
 19. [Mathematics and AI – A Test Case for the Sciences](https://www.dropbox.com/scl/fi/1wmgnjsne87mpoqc6e7t9/Seven-Pines-2024-Math-a-test-case-for-the-sciences.pdf?rlkey=kockz0jrcgofk5j57epg6pg42&dl=0), [Seven Pines](https://sites.google.com/a/umn.edu/seven-pines/1997-2007?authuser=0#h.5s808p8633ys), May 18, 2024.
 20. [Higher Lie Theory](https://sites.google.com/g.ucla.edu/socalgtop-24/home?authuser=0) – socAlgTop, IPAM, May 11, 2024.
-21. [VaNTAGe – Perspectives on Hilbert's 13th Problem](https://sites.google.com/view/vantageseminar) – Nov. 7, 2023.
+21. [VaNTAGe – Perspectives on Hilbert's 13th Problem](https://sites.google.com/view/vantageseminar/history-of-vantage-talks?authuser=0) – Nov. 7, 2023.
 22. CSU Fullerton – Braids, Resolvent Degree and Hilbert's 13th Problem – Nov. 3, 2023.
 23. University of Minnesota Topology Seminar – Essential Dimension via Prismatic Cohomology – Oct. 9, 2023.
 24. UCLA Algebraic Topology Seminar – Essential Dimension via Prismatic Cohomology – May 3, 2023.
