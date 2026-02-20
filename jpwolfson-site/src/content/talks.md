@@ -12,7 +12,7 @@ permalink: /talks/
 <p class="section-label">Research Talks</p>
 
 1. [Correctness, Artificial Intelligence and the Epistemic Value of Proof](https://www.chapman.edu/scst/graduate/apmp-conference-2025.aspx) – APMP 2026, Chapman University, Jan. 12, 2026.
-2. [Fractals and Africanist Music](https://researchseminars.org/seminar/TropicalmathandML) – Tropical mathematics and ML seminar, Yonsei University, South Korea, Dec. 8, 2025.
+2. Fractals and Africanist Music – Tropical mathematics and ML seminar, Yonsei University, South Korea, Dec. 8, 2025.
 3. [Hodge Theory and Resolvent Problems](https://www.math.upenn.edu/events/hodge-theory-and-resolvent-problems) – UPenn Colloquium, Dec. 3, 2025.
 4. [Derived Motivic Integration](https://sites.google.com/view/scissorscongruenceandk-theory/home) – Scissors Congruence and K-theory Conference, UPenn, July 14–17, 2025.
 5. [Hilbert's 13th Problem for Braid Groups](https://sites.nd.edu/cmnd2025-thematic-program/category/cmnd-2025/) – "Discrete Groups in Topology and Algebraic Geometry", Notre Dame, June 16–20, 2025.
@@ -29,7 +29,7 @@ permalink: /talks/
 16. ["Braids, Polynomials and Hilbert's 13th Problem"](https://colleges.claremont.edu/ccms/event/moduli-spaces-through-a-combinatorial-lens/) – Claremont McKenna Colloquium, Oct. 30, 2024.
 17. ["Higher Lie Theory"](https://meetings.ams.org/math/fall2024w/meetingapp.cgi/Paper/39062), AMS Western Sectional, UC Riverside, Oct. 26, 2024.
 18. [Fractals and African Musics](https://www.dropbox.com/scl/fi/scy69aaoksav4mrghsv5o/Fractals-and-African-Musics-2024-Illuminations-public-talk.key?rlkey=ytcxt71xtqc7bbmzqwj1gze7i&dl=0) (w/ Sidhanth Raman and Reggie Wilson) – UC Irvine, May 21, 2024.
-19. [Mathematics and AI – A Test Case for the Sciences](https://www.dropbox.com/scl/fi/1wmgnjsne87mpoqc6e7t9/Seven-Pines-2024-Math-a-test-case-for-the-sciences.pdf?rlkey=kockz0jrcgofk5j57epg6pg42&dl=0), [Seven Pines](https://sites.google.com/a/umn.edu/seven-pines/2024?authuser=0), May 18, 2024.
+19. [Mathematics and AI – A Test Case for the Sciences](https://www.dropbox.com/scl/fi/1wmgnjsne87mpoqc6e7t9/Seven-Pines-2024-Math-a-test-case-for-the-sciences.pdf?rlkey=kockz0jrcgofk5j57epg6pg42&dl=0), [Seven Pines](https://sites.google.com/a/umn.edu/seven-pines/1997-2007?authuser=0#h.5s808p8633ys), May 18, 2024.
 20. [Higher Lie Theory](https://sites.google.com/g.ucla.edu/socalgtop-24/home?authuser=0) – socAlgTop, IPAM, May 11, 2024.
 21. [VaNTAGe – Perspectives on Hilbert's 13th Problem](https://sites.google.com/view/vantageseminar) – Nov. 7, 2023.
 22. CSU Fullerton – Braids, Resolvent Degree and Hilbert's 13th Problem – Nov. 3, 2023.
@@ -102,7 +102,7 @@ permalink: /talks/
 89. University of Tokyo – Topology Seminar – July 22, 2014.
 90. [IPMU Get Together Seminar](http://db.ipmu.jp/seminar/?seminar_id=1236) – A Modular Operad of Embedded Curves – July 3, 2014.
 91. [Imperial College London MAGIC Seminar](http://www3.imperial.ac.uk/geometry/seminars/magic) – Feb. 26, 2014.
-92. [Padua Winter School on Higher Structures in Algebraic Analysis](http://events.math.unipd.it/hsaa/) – Feb. 18, 2014.
+92. [Padua Winter School on Higher Structures in Algebraic Analysis](https://docenti.math.unipd.it/dagnolo/Padova2014/) – Feb. 18, 2014.
 93. [University of Copenhagen Algebra/Topology Seminar](http://sym.math.ku.dk/calendar/index.cgi?action=show_event;relmonth=0;id=2753) – Dec. 17, 2013.
 94. Nagoya University K-Theory Seminar – Dec. 12, 2013.
 95. Chuo University K-Theory Seminar – Dec. 3, 2013.
