@@ -6,12 +6,12 @@ permalink: /talks/
 
 <p class="section-label">Upcoming</p>
 
-1. TBD – UT Austin Geometry Seminar, Feb. 19, 2026.
-2. Mathematical mushrooms: Hilbert's 13th problem before and after the destruction of Göttingen – IAS, History of Modern Math, Mar. 24–26, 2026.
+1. Mathematical mushrooms: Hilbert's 13th problem before and after the destruction of Göttingen – IAS, History of Modern Math, Mar. 24–26, 2026.
 
 <p class="section-label">Research Talks</p>
 
-1. [Correctness, Artificial Intelligence and the Epistemic Value of Proof](https://www.chapman.edu/scst/graduate/apmp-conference-2025.aspx) – APMP 2026, Chapman University, Jan. 12, 2026.
+1. Hodge Theory and Resolvent Problems – UT Austin Geometry Seminar, Feb. 19, 2026.
+2. [Correctness, Artificial Intelligence and the Epistemic Value of Proof](https://www.chapman.edu/scst/graduate/apmp-conference-2025.aspx) – APMP 2026, Chapman University, Jan. 12, 2026.
 2. Fractals and Africanist Music – Tropical mathematics and ML seminar, Yonsei University, South Korea, Dec. 8, 2025.
 3. [Hodge Theory and Resolvent Problems](https://www.math.upenn.edu/events/hodge-theory-and-resolvent-problems) – UPenn Colloquium, Dec. 3, 2025.
 4. [Derived Motivic Integration](https://sites.google.com/view/scissorscongruenceandk-theory/home) – Scissors Congruence and K-theory Conference, UPenn, July 14–17, 2025.
