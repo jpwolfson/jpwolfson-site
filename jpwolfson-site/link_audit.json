@@ -7,12 +7,14 @@
     "total_raw_instances": 229,
     "by_classification": {
       "pending_external_verification": 147,
-      "confirmed_broken": 25,
+      "patched": 7,
+      "patched_link_removed": 18,
       "ok": 4,
       "internal_unverified": 13
     },
     "sandbox_note": "Some external URLs were blocked by the sandbox proxy and are classified pending_external_verification. Run via GitHub Actions for unrestricted HTTP checks.",
-    "phase2_applied": true
+    "phase2_applied": true,
+    "phase3_applied": true
   },
   "links": [
     {
@@ -87,7 +89,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "Edelsbrunner, Harer \u2013 Survey of Persistent Homology (2008)",
@@ -95,9 +97,9 @@
           "line": 14
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://pub.ista.ac.at/~edels/Papers/2008-B-02-PersistentHomology.pdf",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -1081,7 +1083,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "Generalized Versality, Special Points, and Resolvent Degree for the Sporadic Groups",
@@ -1089,9 +1091,9 @@
           "line": 21
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://doi.org/10.1016/j.jalgebra.2024.02.025",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2423,7 +2425,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Northwestern Geometry & Physics Seminar",
@@ -2431,9 +2433,9 @@
           "line": 53
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2446,7 +2448,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "IAS \u2013 Special Seminar on Hilbert's 13th Problem",
@@ -2454,9 +2456,9 @@
           "line": 54
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2490,7 +2492,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Michigan Topology Seminar",
@@ -2498,9 +2500,9 @@
           "line": 58
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2534,7 +2536,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Harvard Number Theory Seminar",
@@ -2542,9 +2544,9 @@
           "line": 70
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2557,7 +2559,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "UC Irvine Colloquium",
@@ -2565,9 +2567,9 @@
           "line": 72
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2672,7 +2674,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "UBC Topology Seminar",
@@ -2685,9 +2687,9 @@
           "line": 79
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2721,7 +2723,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Manifolds and Groups",
@@ -2729,9 +2731,9 @@
           "line": 81
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2765,7 +2767,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "UCI Number Theory Seminar",
@@ -2773,9 +2775,9 @@
           "line": 83
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2872,7 +2874,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Wayne State Colloquium",
@@ -2880,9 +2882,9 @@
           "line": 89
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2916,7 +2918,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "2015 AMS Summer Institute in Algebraic Geometry",
@@ -2924,9 +2926,9 @@
           "line": 94
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://sites.google.com/site/2015summerinstitute/ams-summer-institute-in-algebraic-geometry/schedule/week-3-abstracts",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -2939,7 +2941,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Midwest Topology Seminar",
@@ -2947,9 +2949,9 @@
           "line": 95
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3067,7 +3069,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "University of Copenhagen Algebra/Topology Seminar",
@@ -3075,9 +3077,9 @@
           "line": 106
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3111,7 +3113,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Northwestern Mini-Conference \u2013 Determinants, Delooping and Reciprocity",
@@ -3119,9 +3121,9 @@
           "line": 110
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3134,7 +3136,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Northwestern Topology Seminar",
@@ -3142,9 +3144,9 @@
           "line": 111
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3157,7 +3159,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Paris \u2013 Institut de Math\u00e9matiques de Jussieu",
@@ -3165,9 +3167,9 @@
           "line": 112
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3180,7 +3182,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Oxford \u2013 Algebraic and Symplectic Geometry Seminar",
@@ -3188,9 +3190,9 @@
           "line": 114
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3266,7 +3268,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "UBC Algebraic Geometry Seminar",
@@ -3274,9 +3276,9 @@
           "line": 118
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3373,7 +3375,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "2012 Simons Center Graduate Workshop on SUSY Field Theories \u2013 Supermanifolds",
@@ -3381,9 +3383,9 @@
           "line": 128
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://scgp.stonybrook.edu/archives/1964",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3396,7 +3398,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "2011 Talbot Workshop \u2013 Principal Bundles, Real Structures, Toledo Invariant and Milnor-Wood",
@@ -3404,9 +3406,9 @@
           "line": 129
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://math.mit.edu/events/talbot/index.php?year=2011",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3419,7 +3421,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "2010 Talbot Workshop \u2013 Complex $K$-Theory",
@@ -3427,9 +3429,9 @@
           "line": 134
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://math.mit.edu/events/talbot/index.php?year=2010",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3442,7 +3444,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched",
       "occurrences": [
         {
           "anchor_text": "Newton Institute's Higher Structure 2013: Operads and Deformation Theory \u2013 \"Mapping Spaces in Higher Stacks, and Applications\"",
@@ -3450,9 +3452,9 @@
           "line": 139
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "https://www.newton.ac.uk/event/gdow02/",
+      "replacement_confidence": "confirmed",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3824,7 +3826,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Jornadas de geometr\u00eda algebraica en Oaxaca",
@@ -3832,9 +3834,9 @@
           "line": 15
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },
@@ -3847,7 +3849,7 @@
       "redirect_chain": [],
       "error": "SANDBOX_PROXY_BLOCKED",
       "response_time_ms": null,
-      "classification": "confirmed_broken",
+      "classification": "patched_link_removed",
       "occurrences": [
         {
           "anchor_text": "Background reading here.",
@@ -3855,9 +3857,9 @@
           "line": 19
         }
       ],
-      "proposed_replacement": null,
-      "replacement_confidence": null,
-      "patched": false,
+      "proposed_replacement": "REMOVED",
+      "replacement_confidence": "n/a",
+      "patched": true,
       "phase2_verified": true,
       "phase2_status": "confirmed_broken"
     },

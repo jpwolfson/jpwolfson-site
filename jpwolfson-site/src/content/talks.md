@@ -50,12 +50,12 @@ permalink: /talks/
 37. UGA Algebraic Geometry Seminar – The Geometry of Hilbert's 13th Problem – March 3, 2021.
 38. UNR Topology Seminar – The Geometry of Hilbert's 13th Problem – Sept. 25, 2020.
 39. UNR Colloquium – Braids, Polynomials and Hilbert's 13th Problem – Sept. 24, 2020.
-40. [Northwestern Geometry & Physics Seminar](https://sites.math.northwestern.edu/~baharacu/geometry-physics-seminar.html) – The Geometry of Hilbert's 13th Problem, May 28, 2020.
-41. [IAS – Special Seminar on Hilbert's 13th Problem](https://www.math.ias.edu/calendar/event/148370/1575568800/1575572100), Dec. 5–6, 2019.
+40. Northwestern Geometry & Physics Seminar – The Geometry of Hilbert's 13th Problem, May 28, 2020.
+41. IAS – Special Seminar on Hilbert's 13th Problem, Dec. 5–6, 2019.
 42. UCSB Topology Seminar – Braids, Polynomials and Hilbert's 13th, April 2, 2019.
 43. [IPAM – Braids, Polynomials and Hilbert's 13th Problem](https://www.ipam.ucla.edu/programs/workshops/braids-resolvent-degree-and-hilberts-13th-problem/?tab=overview), Feb. 19–21, 2019.
 44. Tufts Colloquium – Braids, Polynomials and Hilbert's 13th Problem, Feb. 1, 2019.
-45. [Michigan Topology Seminar](http://dept.math.lsa.umich.edu/seminars_events/events_detail.php?id=5835) – Topological Invariants of Algebraic Functions, Jan. 10, 2019.
+45. Michigan Topology Seminar – Topological Invariants of Algebraic Functions, Jan. 10, 2019.
 46. UCR Topology Seminar – The Geometry of Hilbert's 13th Problem, Nov. 8, 2018.
 47. USC Colloquium – Braids, Polynomials and Hilbert's 13th Problem, Sept. 26, 2018.
 48. Michigan Representation Stability Conference, Aug. 13–17, 2018.
@@ -67,32 +67,32 @@ permalink: /talks/
 54. USC Tuesday Seminar – The Geometry of Hilbert's 13th Problem, April 24, 2018.
 55. USC Algebra Seminar – The Theory of Resolvent Degree, April 23, 2018.
 56. [UChicago Colloquium](http://math.uchicago.edu/research/calendar/) – Braids, Polynomials and Hilbert's 13th Problem, April 11, 2018.
-57. [Harvard Number Theory Seminar](http://www.math.harvard.edu/cgi-bin/showtalk.pl) – The Theory of Resolvent Degree, March 7, 2018.
+57. Harvard Number Theory Seminar – The Theory of Resolvent Degree, March 7, 2018.
 58. Harvard Informal Geometry and Dynamics Seminar – The Geometry of Hilbert's 13th Problem, March 7, 2018.
-59. [UC Irvine Colloquium](https://www.math.uci.edu/node/25149) – Braids, Polynomials and Hilbert's 13th Problem, March 1, 2018.
+59. UC Irvine Colloquium – Braids, Polynomials and Hilbert's 13th Problem, March 1, 2018.
 60. [Kempner Colloquium](https://math.colorado.edu/seminars/) – Algebraic Topology and Hilbert's 13th Problem(s), Boulder, CO, Jan. 30, 2018.
 61. [Boulder Topology Seminar](https://math.colorado.edu/seminars/) – Coincidences of homological densities, predicted by arithmetic, Jan. 30, 2018.
 62. [Oberwolfach Workshop "Topology of Arrangements and Representation Stability"](https://www.mfo.de/occasion/1803/www_view) – The theory of resolvent degree, Jan. 14–20, 2018.
 63. [UMN Topology Seminar](http://www-users.math.umn.edu/~tlawson/topology/) – The theory of resolvent degree – Dec. 8, 2017.
 64. [UCSD Number Theory Seminar](http://www.math.ucsd.edu/~nts/) – The theory of resolvent degree – Nov. 30, 2017.
-65. [UBC Topology Seminar](https://www.math.ubc.ca/Dept/Events/index.shtml?period=2017-11&series=all) – Coincidences of homological densities, predicted by arithmetic – Nov. 8, 2017.
-66. [UBC Algebraic Geometry Seminar](https://www.math.ubc.ca/Dept/Events/index.shtml?period=2017-11&series=all) – The theory of resolvent degree – Nov. 6, 2017.
+65. UBC Topology Seminar – Coincidences of homological densities, predicted by arithmetic – Nov. 8, 2017.
+66. UBC Algebraic Geometry Seminar – The theory of resolvent degree – Nov. 6, 2017.
 67. [No Boundaries – Groups in Algebra, Geometry and Topology](http://people.math.gatech.edu/~dmargalit7/noboundaries/index.shtml) – Oct. 26–29, 2017.
-68. [Manifolds and Groups](http://www-app.uni-regensburg.de/Fakultaeten/MAT/sfb-higher-invariants/index.php/MAG2017) – Coincidences of homological densities – Sept. 25–29, 2017.
+68. Manifolds and Groups – Coincidences of homological densities – Sept. 25–29, 2017.
 69. [UCLA Number Theory Seminar](https://secure.math.ucla.edu/seminars/display.php?&id=832217) – Coincidences of homological densities – Jan. 25, 2017.
-70. [UCI Number Theory Seminar](https://www.math.uci.edu/node/24488) – Coincidences of homological densities – Jan. 23, 2017.
+70. UCI Number Theory Seminar – Coincidences of homological densities – Jan. 23, 2017.
 71. [Notre Dame Topology Seminar](https://math.nd.edu/events/2016/12/08/topology-seminar-jesse-wolfson-university-of-chicago/) – Coincidences of homological densities – Dec. 8, 2016.
 72. [University of Chicago Geometry/Topology Seminar](http://www.math.uchicago.edu/~geometry/gt_seminar.html) – Coincidences of homological densities – Sept. 29, 2016.
 73. [2016 Oberwolfach Topology Meeting](https://www.mfo.de/occasion/1629/www_view) – Coincidences of homological densities – July 21, 2016.
 74. [27th Nordic Congress of Mathematicians](http://www.mittag-leffler.se/congress-2016) – Counting Problems and Homological Stability – March 17, 2016.
 75. Purdue Topology Seminar – Counting Problems and Homological Stability – March 2, 2016.
-76. [Wayne State Colloquium](http://events.wayne.edu/mathematics/2016/02/22/mathematics-colloquium-jesse-wolfson-60855/) – Polynomials, Counting Problems and Algebraic Topology – Feb. 22, 2016.
+76. Wayne State Colloquium – Polynomials, Counting Problems and Algebraic Topology – Feb. 22, 2016.
 77. [IBS-CGP Conference on Homotopical Methods in Quantum Field Theory](https://cgp.ibs.re.kr/activities/conferences/Homotopical%20Methods%20in%20Quantum%20Field%20Theory) – Higher Determinants and Double Loop Groups – Jan. 13, 2016.
 78. Minnesota Topology Seminar – Counting Problems and Homological Stability – Oct. 26, 2015.
 79. Rice Topology Seminar – Oct. 19, 2015.
 80. Northwestern Topology Seminar – Oct. 12, 2015.
-81. [2015 AMS Summer Institute in Algebraic Geometry](https://sites.google.com/site/2015summerinstitute/home/schedule/week-3-abstracts#JW) – Topology and Arithmetic of Resultants – July 27, 2015.
-82. [Midwest Topology Seminar](http://math.uchicago.edu/~algtop/midwest/) – Topology and Arithmetic of Spaces of Rational Maps – May 10, 2015.
+81. [2015 AMS Summer Institute in Algebraic Geometry](https://sites.google.com/site/2015summerinstitute/ams-summer-institute-in-algebraic-geometry/schedule/week-3-abstracts) – Topology and Arithmetic of Resultants – July 27, 2015.
+82. Midwest Topology Seminar – Topology and Arithmetic of Spaces of Rational Maps – May 10, 2015.
 83. [Wisconsin Number Theory Seminar](https://www.math.wisc.edu/wiki/index.php/NTS_Spring_2015_Abstract#May_07) – May 7, 2015.
 84. UIC Homotopy Algebras Seminar – Modular Operads of Embedded Curves – April 17, 2015.
 85. 2015 Arkansas Spring Lecture Series – March 5, 2015.
@@ -103,19 +103,19 @@ permalink: /talks/
 90. [IPMU Get Together Seminar](http://db.ipmu.jp/seminar/?seminar_id=1236) – A Modular Operad of Embedded Curves – July 3, 2014.
 91. [Imperial College London MAGIC Seminar](http://www3.imperial.ac.uk/geometry/seminars/magic) – Feb. 26, 2014.
 92. [Padua Winter School on Higher Structures in Algebraic Analysis](https://docenti.math.unipd.it/dagnolo/Padova2014/) – Feb. 18, 2014.
-93. [University of Copenhagen Algebra/Topology Seminar](http://sym.math.ku.dk/calendar/index.cgi?action=show_event;relmonth=0;id=2753) – Dec. 17, 2013.
+93. University of Copenhagen Algebra/Topology Seminar – Dec. 17, 2013.
 94. Nagoya University K-Theory Seminar – Dec. 12, 2013.
 95. Chuo University K-Theory Seminar – Dec. 3, 2013.
 96. [IPMU Get-Together Math Seminar](http://db.ipmu.jp/seminar/?seminar_id=1038) – Oct. 10, 2013.
-97. [Northwestern Mini-Conference – Determinants, Delooping and Reciprocity](http://www.math.northwestern.edu/~mcouch/index.html) – June 12, 2013.
-98. [Northwestern Topology Seminar](http://www.math.northwestern.edu/news/calendar/list.cgi?seminar=Topology%20Seminar) – Descent for $n$-Bundles – June 3, 2013.
-99. [Paris – Institut de Mathématiques de Jussieu](http://www.institut.math.jussieu.fr/projets/aa/) – Séminaire d'Analyse Algébrique – May 21, 2013.
+97. Northwestern Mini-Conference – Determinants, Delooping and Reciprocity – June 12, 2013.
+98. Northwestern Topology Seminar – Descent for $n$-Bundles – June 3, 2013.
+99. Paris – Institut de Mathématiques de Jussieu – Séminaire d'Analyse Algébrique – May 21, 2013.
 100. Utrecht – Descent for $n$-Bundles – May 17, 2013.
-101. [Oxford – Algebraic and Symplectic Geometry Seminar](http://www.maths.ox.ac.uk/events/seminars/upcoming/P10Y1D/4/945) – May 7, 2013.
+101. Oxford – Algebraic and Symplectic Geometry Seminar – May 7, 2013.
 102. [EPFL Topology Seminar](http://memento.epfl.ch/event/determinants-and-deloopings-in-algebraic-k-theory/) – May 3, 2013.
 103. [EPFL Geometry Seminar](http://memento.epfl.ch/event/determinants-delooping-and-reciprocity-ii-2/) – May 1, 2013.
 104. [Max Planck Institute – Higher Differential Geometry Seminar](http://www.mpim-bonn.mpg.de/node/4486) – April 24, 2013.
-105. [UBC Algebraic Geometry Seminar](http://www.math.ubc.ca/Dept/Events/index.shtml?period=past&series=3) – Oct. 29, 2012.
+105. UBC Algebraic Geometry Seminar – Oct. 29, 2012.
 106. [Notre Dame Topology Seminar](http://math.nd.edu/events/2012/09/27/13280-topology-seminar-jesse-wolfson-northwestern-university/) – Sept. 27, 2012.
 107. 2012 ESI Program on $K$-Theory and Quantum Fields – June 14, 2012.
 
@@ -125,15 +125,15 @@ permalink: /talks/
 2. [IPMU Special Seminar – Nerves and Group Completion for Categories and Operads](http://db.ipmu.jp/seminar/?seminar_id=1275), Parts 1–3, Aug.–Sept. 2014.
 3. [IPMU Conformal Blocks Seminar – Loop Groups and Conformal Blocks](http://db.ipmu.jp/seminar/?seminar_id=1072) – Nov. 19, 2013.
 4. [MIT Babytop – The Structure of Higher Bundles](http://math.mit.edu/topology/babytop/) – Nov. 27, 2012.
-5. [2012 Simons Center Graduate Workshop on SUSY Field Theories – Supermanifolds](http://media.scgp.stonybrook.edu/video/video.php?f=20120305_5_qtp.mp4) – March 6, 2012.
-6. [2011 Talbot Workshop – Principal Bundles, Real Structures, Toledo Invariant and Milnor-Wood](http://math.mit.edu/conferences/talbot/index.php?year=2011) – May 2, 2011.
+5. [2012 Simons Center Graduate Workshop on SUSY Field Theories – Supermanifolds](https://scgp.stonybrook.edu/archives/1964) – March 6, 2012.
+6. [2011 Talbot Workshop – Principal Bundles, Real Structures, Toledo Invariant and Milnor-Wood](https://math.mit.edu/events/talbot/index.php?year=2011) – May 2, 2011.
 7. Northwestern Graduate Seminar – The Chern-Weil Construction – April 21, 2011.
 8. Northwestern Graduate Seminar – Symmetries of Spaces and Bundles – Jan. 20, 2011.
 9. Northwestern Graduate Seminar – Spin Structures – Oct. 7, 2010.
 10. Discrete and Continuous Geometries, Northwestern Conference for Undergraduates – The Euler Characteristic – June 23, 2010.
-11. [2010 Talbot Workshop – Complex $K$-Theory](http://math.mit.edu/conferences/talbot/index.php?year=2010) – May 23, 2010.
+11. [2010 Talbot Workshop – Complex $K$-Theory](https://math.mit.edu/events/talbot/index.php?year=2010) – May 23, 2010.
 12. Northwestern Graduate Seminar – Introduction to Complex $K$-Theory – May 18, 2010.
 
 <p class="section-label">Posters</p>
 
-1. [Newton Institute's Higher Structure 2013: Operads and Deformation Theory – "Mapping Spaces in Higher Stacks, and Applications"](https://www.isaacnewton.ac.uk/programmes/GDO/Wolfson.pdf) – April 2, 2013.
+1. [Newton Institute's Higher Structure 2013: Operads and Deformation Theory – "Mapping Spaces in Higher Stacks, and Applications"](https://www.newton.ac.uk/event/gdow02/) – April 2, 2013.
