@@ -177,7 +177,9 @@ def classify(result: dict, reachability: str) -> str:
     if reachability == "sandbox_blocked":
         return "pending_external_verification"
     if result["error"] and result["error"] != "SANDBOX_PROXY_BLOCKED":
-        return "broken"
+        # Timeout, SSL errors, connection errors — server is reachable but
+        # uncooperative; not definitively dead.
+        return "uncertain"
     status = result.get("http_status")
     if status is None:
         return "unknown"
@@ -185,10 +187,12 @@ def classify(result: dict, reachability: str) -> str:
         return "ok"
     if status in (301, 302, 307, 308):
         return "redirect"
-    if status == 404:
+    if status in (404, 410):
+        # Definitively gone.
         return "broken"
     if status >= 400:
-        return "broken"
+        # 401/403 = auth/bot-block; 5xx = server error — not definitively dead.
+        return "uncertain"
     return "unknown"
 
 
@@ -258,9 +262,10 @@ def main():
 
     sort_order = {
         "broken": 0, "redirect": 1,
-        "pending_external_verification": 2,
-        "internal_unverified": 3,
-        "ok": 4, "unknown": 5,
+        "uncertain": 2,
+        "pending_external_verification": 3,
+        "internal_unverified": 4,
+        "ok": 5, "unknown": 6,
     }
     results.sort(key=lambda r: sort_order.get(r["classification"], 9))
 
