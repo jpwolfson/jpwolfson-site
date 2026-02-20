@@ -12,7 +12,7 @@ My email address is: wolfson at uci dot edu
 
 ---
 
-[Problems in Arithmetic Topology](https://arxiv.org/abs/2012.15434) (with [Claudio Gomez-Gonzales](https://math.uchicago.edu/~claudio/)) – research problems posed at the [PIMS 2019 "Arithmetic Topology" workshop](https://www.pims.math.ca/scientific-event/190610-pwat).
+[Problems in Arithmetic Topology](https://arxiv.org/abs/2012.15434) (with [Claudio Gomez-Gonzales](https://claudiojacobo.com/)) – research problems posed at the [PIMS 2019 "Arithmetic Topology" workshop](https://www.pims.math.ca/scientific-event/190610-pwat).
 
 [A Quanta article on a circle of questions my work fits into.](https://www.quantamagazine.org/mathematicians-resurrect-hilberts-13th-problem-20210114/) ([podcast version](https://podcasts.apple.com/us/podcast/quanta-science-podcast/id1021340531?i=1000517268546))
 

@@ -12,8 +12,8 @@ permalink: /workshops/
 
 **[Braids, Resolvent Degree and Hilbert's 13th Problem](https://www.ipam.ucla.edu/programs/workshops/braids-resolvent-degree-and-hilberts-13th-problem/) (IPAM, Feb. 19–21, 2019)**
 
-**[Jornadas de geometría algebraica en Oaxaca](http://www.matem.unam.mx/lozano/jornadas.html) (Sept. 17–19, 2018)**
+**Jornadas de geometría algebraica en Oaxaca (Sept. 17–19, 2018)**
 
 **NSF/PIMS Summer School – The Roots of Topology (UChicago, June 11–15, 2018)**
 
-[Background reading here.](http://math.uchicago.edu/~ronno/rtg2018/)
+Background reading here.
