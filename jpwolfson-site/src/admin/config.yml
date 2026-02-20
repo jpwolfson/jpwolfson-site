@@ -11,7 +11,7 @@ backend:
 
 publish_mode: simple
 
-media_folder: src/files
+media_folder: jpwolfson-site/src/files
 public_folder: /files
 
 collections:
@@ -22,7 +22,7 @@ collections:
 
       - name: about
         label: About Me
-        file: src/content/about.md
+        file: jpwolfson-site/src/content/about.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: About Me }
@@ -31,7 +31,7 @@ collections:
 
       - name: papers
         label: Papers
-        file: src/content/papers.md
+        file: jpwolfson-site/src/content/papers.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Papers }
@@ -40,7 +40,7 @@ collections:
 
       - name: talks
         label: Talks
-        file: src/content/talks.md
+        file: jpwolfson-site/src/content/talks.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Talks }
@@ -49,7 +49,7 @@ collections:
 
       - name: working_group
         label: Working Group
-        file: src/content/working-group.md
+        file: jpwolfson-site/src/content/working-group.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Working Group }
@@ -58,7 +58,7 @@ collections:
 
       - name: math_dance
         label: Mathematics and Dance
-        file: src/content/mathematics-and-dance.md
+        file: jpwolfson-site/src/content/mathematics-and-dance.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Mathematics and Dance }
@@ -67,7 +67,7 @@ collections:
 
       - name: teaching
         label: Teaching
-        file: src/content/teaching.md
+        file: jpwolfson-site/src/content/teaching.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Teaching }
@@ -76,7 +76,7 @@ collections:
 
       - name: workshops
         label: Workshops
-        file: src/content/workshops.md
+        file: jpwolfson-site/src/content/workshops.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Workshops }
@@ -85,7 +85,7 @@ collections:
 
       - name: roosevelt
         label: Roosevelt Institute
-        file: src/content/roosevelt-institute.md
+        file: jpwolfson-site/src/content/roosevelt-institute.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: Roosevelt Institute }
@@ -94,7 +94,7 @@ collections:
 
       - name: cv
         label: CV
-        file: src/content/cv.md
+        file: jpwolfson-site/src/content/cv.md
         fields:
           - { label: Layout, name: layout, widget: hidden, default: base.njk }
           - { label: Title, name: title, widget: hidden, default: CV }
