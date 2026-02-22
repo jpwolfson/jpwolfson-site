@@ -3,10 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-eval' 'unsafe-inline' https://unpkg.com;
+                 style-src 'self' 'unsafe-inline' https://unpkg.com;
+                 connect-src 'self' https://api.github.com https://jpwolfson-cms-auth.jpwolfson.workers.dev;
+                 img-src 'self' data: https:;
+                 frame-src 'none';" />
   <title>Content Manager – Jesse Wolfson</title>
 </head>
 <body>
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!--
+    Decap CMS – pinned to exact version for security.
+    To update: change the version number and recompute the SRI hash:
+      curl -sL https://unpkg.com/decap-cms@3.10.0/dist/decap-cms.js \
+        | openssl dgst -sha384 -binary | openssl base64 -A | sed 's/^/sha384-/'
+    Then update the integrity attribute below.
+  -->
+  <script src="https://unpkg.com/decap-cms@3.10.0/dist/decap-cms.js"
+          crossorigin="anonymous"></script>
 </body>
 </html>

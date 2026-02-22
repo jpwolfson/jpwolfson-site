@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+                 style-src 'self' 'unsafe-inline';
+                 img-src 'self' data: https:;
+                 font-src 'self' https://cdn.jsdelivr.net;
+                 connect-src 'self';" />
   <title>{% if title %}{{ title }} – {% endif %}Jesse Wolfson</title>
   <link rel="stylesheet" href="/css/style.css" />
   <script>
@@ -11,7 +18,15 @@
       options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
     };
   </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <!--
+    MathJax – pinned to exact version for security.
+    To update: change the version number and recompute the SRI hash:
+      curl -sL https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js \
+        | openssl dgst -sha384 -binary | openssl base64 -A | sed 's/^/sha384-/'
+    Then update the integrity attribute below.
+  -->
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"
+          crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
