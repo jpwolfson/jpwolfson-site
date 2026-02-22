@@ -553,3 +553,40 @@ Each file was reviewed line by line with attention to:
 - **Access control:** Who can authenticate, who can write, branch protection
 
 The seven threat-model questions were evaluated against the actual code behavior, not documentation or intent.
+
+---
+
+## Remediation Status
+
+All code-fixable findings have been remediated in this commit:
+
+| # | Finding | Status | Notes |
+|---|---------|--------|-------|
+| F-01 | postMessage wildcard `'*'` | **FIXED** | postMessage now targets `ALLOWED_DOMAINS` origin only |
+| F-02 | 5-second fallback to `'*'` | **FIXED** | Fallback now also uses restricted `targetOrigin` |
+| F-03 | No SRI on Decap CMS | **PARTIAL** | Pinned to `3.10.0` + `crossorigin`; SRI hash must be computed locally (see comment in file) |
+| F-04 | No SRI on MathJax | **PARTIAL** | Pinned to `3.2.2` + `crossorigin`; SRI hash must be computed locally (see comment in file) |
+| F-05 | Scope `repo,user` | **FIXED** | Changed to `repo` only |
+| F-06 | ALLOWED_DOMAINS unenforced | **FIXED** | Worker now reads and enforces `ALLOWED_DOMAINS` via Referer check and postMessage origin |
+| F-07 | Missing security headers | **FIXED** | Added `Cache-Control: no-store`, `X-Frame-Options: DENY`, CSP, `Referrer-Policy: no-referrer` |
+| F-08 | No CSP on admin panel | **FIXED** | Added CSP meta tag restricting scripts to `self` + `unpkg.com` |
+| F-09 | No CSP on public pages | **FIXED** | Added CSP meta tag restricting scripts to `self` + `cdn.jsdelivr.net` |
+| F-10 | No branch protection | **MANUAL** | Requires GitHub UI: Settings → Branches → Add rule for `main` |
+| F-11 | State parameter passthrough | **FIXED** | Empty state now rejected with 400 (requires `state` parameter) |
+| F-12 | Verbose error messages | **FIXED** | Errors logged to console; generic message returned to user |
+| F-13 | Actions pinned to major version | **FIXED** | Pinned to full commit SHAs |
+| F-14 | Unpinned pip install | **FIXED** | Pinned to `requests==2.32.5 beautifulsoup4==4.14.3` |
+| F-15 | `{{ content \| safe }}` | N/A | No action needed (acceptable pattern) |
+| F-16 | wrangler.toml | N/A | No issues found |
+
+### Remaining manual steps
+
+1. **Compute and add SRI hashes** (F-03, F-04): Run the commands in the HTML comments to generate `integrity` attributes, then add them to the `<script>` tags.
+
+2. **Enable branch protection** (F-10): Go to GitHub → `jpwolfson/jpwolfson-site` → Settings → Branches → Add branch protection rule for `main`. Recommended settings:
+   - Require a pull request before merging
+   - Restrict who can push to matching branches
+
+3. **Redeploy the Cloudflare Worker**: Copy the updated `oauth-worker/worker.js` to the Cloudflare Workers dashboard, or deploy via `wrangler deploy`. The `ALLOWED_DOMAINS` secret should already be set to `jpwolfson.com`.
+
+4. **Test the CMS login flow** after deploying the worker changes. The postMessage origin restriction may require that the admin panel is accessed at `https://jpwolfson.com/admin/` (not the `.pages.dev` URL).
