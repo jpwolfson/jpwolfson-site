@@ -3,7 +3,6 @@ layout: base.njk
 title: Workshops
 permalink: /workshops/
 ---
-
 ## Past Workshops
 
 **[Humans, Math and Machines (UCI, March 7–8, 2025)](https://www.lps.uci.edu/workshops/aimath2025.php)**
@@ -15,5 +14,3 @@ permalink: /workshops/
 **Jornadas de geometría algebraica en Oaxaca (Sept. 17–19, 2018)**
 
 **NSF/PIMS Summer School – The Roots of Topology (UChicago, June 11–15, 2018)**
-
-Background reading here.
