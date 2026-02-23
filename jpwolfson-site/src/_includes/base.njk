@@ -8,15 +8,17 @@
     - 'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8=' is the SHA-256 hash of the
       MathJax configuration inline script block below. This replaces 'unsafe-inline'
       in script-src, allowing only this specific inline script to execute.
-    - If Cloudflare Web Analytics stops working (check DevTools Console for CSP errors),
-      add 'unsafe-inline' back alongside the hash in script-src.
-    - To recompute the hash after editing the MathJax config block, run from
+    - 'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU=' is the SHA-256 hash of
+      Cloudflare Web Analytics' edge-injected inline beacon script. If Cloudflare
+      updates their beacon, this hash will become stale and analytics will break again
+      (you'll see a CSP error in DevTools with the new hash to use).
+    - To recompute the MathJax hash after editing the config block, run from
       jpwolfson-site/:
         python3 -c "import hashlib,base64,sys; c=open('src/_includes/base.njk').read(); s=c.split(chr(60)+'script'+chr(62))[1].split(chr(60)+'/script'+chr(62))[0]; print('sha256-'+base64.b64encode(hashlib.sha256(s.encode()).digest()).decode())"
   -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
-                 script-src 'self' 'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8=' https://cdn.jsdelivr.net https://static.cloudflareinsights.com;
+                 script-src 'self' 'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8=' 'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU=' https://cdn.jsdelivr.net https://static.cloudflareinsights.com;
                  style-src 'self' 'unsafe-inline';
                  img-src 'self' data: https:;
                  font-src 'self' https://cdn.jsdelivr.net;
