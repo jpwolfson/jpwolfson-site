@@ -1,6 +1,7 @@
 node_modules/
 _site/
 .DS_Store
+__pycache__/
 
 # Exported WordPress stats (private data — do not commit)
 wp_stats_export/
