@@ -26,7 +26,7 @@ permalink: /working-group/
 
 <h2>Current Undergraduate Members</h2>
 
-Ryder Mendelson.
+* Ryder Mendelson.
 
 <h2>Past Postdoctoral Members</h2>
 
