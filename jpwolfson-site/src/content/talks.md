@@ -5,9 +5,9 @@ permalink: /talks/
 ---
 <p class="section-label">Upcoming</p>
 
-1. Alignment Revisited: The Case of Mathematical Proof - ProperAI Seminar, Institute for Engineering AI for Society, UC Irvine, Mar. 16, 2026.
-2. Mathematical mushrooms: Hilbert's 13th problem before and after the destruction of Göttingen – IAS, History of Modern Math, Mar. 24–26, 2026.
-
+1. [Alignment Revisited: The Case of Mathematical Proof ](https://properai.eng.uci.edu/weekly/)- ProperAI Seminar, Institute for Engineering AI for Society, UC Irvine, Mar. 16, 2026.
+2. Field-Testing AI on Open-Math Problems  - expMath Kick-Off, DARPA, Mar. 18-19, 2026.
+3. Mathematical mushrooms: Hilbert's 13th problem before and after the destruction of Göttingen – IAS, History of Modern Math, Mar. 24–26, 2026.
 
 <p class="section-label">Research Talks</p>
 
