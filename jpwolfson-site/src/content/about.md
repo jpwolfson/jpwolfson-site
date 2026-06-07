@@ -3,14 +3,13 @@ layout: base.njk
 title: About Me
 permalink: /
 ---
-
-I am a professor and vice chair for inclusive excellence in the math department at the University of California, Irvine. I'm interested in the interplay of arithmetic, geometry, and topology.
+I am a professor in the Department of Mathematics at the University of California, Irvine, with a joint appointment in the Department of Logic and Philosophy of Science. I'm interested in the interplay of arithmetic, geometry, and topology, as well as aspects of mathematical practice including but not limited to impacts of AI.
 
 With Jeff Streets, I co-direct the [Southern California Geometry and Topology Center](https://sites.google.com/uci.edu/scgtc/home), currently supported by an NSF RTG. We are actively recruiting [graduate students](https://apply.grad.uci.edu/apply/) with interests in geometry and topology.
 
 My email address is: wolfson at uci dot edu
 
----
+- - -
 
 [Problems in Arithmetic Topology](https://arxiv.org/abs/2012.15434) (with [Claudio Gomez-Gonzales](https://claudiojacobo.com/)) – research problems posed at the [PIMS 2019 "Arithmetic Topology" workshop](https://www.pims.math.ca/scientific-event/190610-pwat).
 
