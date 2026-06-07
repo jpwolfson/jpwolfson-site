@@ -3,14 +3,12 @@ layout: base.njk
 title: Papers
 permalink: /papers/
 ---
-
 <p class="section-label">Pre-prints</p>
 
 1. [Essential dimension relative to branched covers of degree at most n](https://arxiv.org/abs/2510.22786) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). Submitted for publication.
 2. [Solvable Points on Intersections of Quadrics, Cubics and Quartics](https://arxiv.org/abs/2508.00215) (with [Claudio Gómez-Gonzáles](https://claudiojacobo.wordpress.com/)). Submitted for publication.
 3. [Lie's Third Theorem for Lie $\infty$-algebras](https://arxiv.org/abs/2409.08957) (with [Chris Rogers](https://hoalg.net/chrisrogers/)). Submitted for publication.
-4. [A higher Kac-Moody extension for two-dimensional gauge groups](https://arxiv.org/abs/2110.01649) (with [Jens Kaad](https://portal.findresearcher.sdu.dk/en/persons/kaad) and [Ryszard Nest](http://www.math.ku.dk/~rnest/)). Submitted for publication.
-5. [Alexander Ostrowski's "On Dirichlet Series and Algebraic Differential Equations"](https://arxiv.org/abs/2211.02088) (with Erik Christian Hansen and Yonathan Stone). English translation of German original.
+4. [A higher Kac-Moody extension for two-dimensional gauge groups](https://arxiv.org/abs/2110.01649) (with [Jens Kaad](https://portal.findresearcher.sdu.dk/en/persons/kaad) and [Ryszard Nest](http://www.math.ku.dk/~rnest/)). Submitted for publication.[](https://arxiv.org/abs/2211.02088)
 
 <p class="section-label">Publications</p>
 
@@ -32,7 +30,8 @@ permalink: /papers/
 16. [The $A_\infty$-Structure of the Index Map](https://arxiv.org/abs/1806.08766) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Annals of K-Theory,* vol. 3, no. 4, 2018, pp. 581–614.
 17. [Etale homological stability and arithmetic statistics](https://academic.oup.com/qjmath/article/69/3/951/4917319) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). *Quarterly Journal of Mathematics,* vol. 69, no. 3, 2018, pp. 951–974.
 18. [On the normally ordered tensor product and duality for Tate objects](http://www.tac.mta.ca/tac/volumes/33/13/33-13.pdf) (with [Oliver Braunling](http://braunling.org), [Michael Groechenig](http://individual.utoronto.ca/groechenig/) and Aron Heleodoro). *Theory and Applications of Categories,* vol. 33, 2018, no. 13, pp. 296–349.
-    - [Corrigendum](http://www.tac.mta.ca/tac/volumes/39/7/39-07abs.html) *Theory and Applications of Categories,* vol. 39, 2023, no. 7, pp. 186–188.
+
+    * [Corrigendum](http://www.tac.mta.ca/tac/volumes/39/7/39-07abs.html) *Theory and Applications of Categories,* vol. 39, 2023, no. 7, pp. 186–188.
 19. [The Index Map in Algebraic K-Theory](http://rdcu.be/yvb8) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Selecta Mathematica,* vol. 24, no. 2, 2018, pp. 1039–1091.
 20. [Resolvent degree, Hilbert's 13th problem and geometry](https://publications.mfo.de/handle/mfo/3624) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). "Topology of Arrangements and Representation Stability", *Oberwolfach Research Reports,* no. 2, 2018, pp. 84–87.
 21. [Topology and arithmetic of resultants, II](http://arxiv.org/abs/1507.01283) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). *Algebraic Geometry,* vol. 4, no. 3, 2017, pp. 337–352.
@@ -42,7 +41,8 @@ permalink: /papers/
 25. [Coincidences of homological densities, predicted by arithmetic](https://publications.mfo.de/handle/mfo/3539) (with [Benson Farb](http://www.math.uchicago.edu/~farb/) and [Melanie Matchett Wood](https://math.berkeley.edu/~mmwood/)). "Topologie", *Oberwolfach Research Reports,* vol. 16, no. 3, 2016, pp. 2041–2043.
 26. [Geometric and Analytic Structures on the Higher Adeles](http://arxiv.org/abs/1510.05597) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Research in the Mathematical Sciences,* vol. 3, no. 1, 2016, article 22.
 27. [Topology and arithmetic of resultants, I](https://arxiv.org/abs/1506.02713) (with [Benson Farb](http://www.math.uchicago.edu/~farb)). *New York Journal of Mathematics,* vol. 22, 2016, pp. 801–821.
-    - [Corrigendum](https://nyjm.albany.edu/j/2019/25-10.html), *New York Journal of Mathematics,* vol. 25, 2019, pp. 195–197.
+
+    * [Corrigendum](https://nyjm.albany.edu/j/2019/25-10.html), *New York Journal of Mathematics,* vol. 25, 2019, pp. 195–197.
 28. [Tate Objects in Exact Categories](http://arxiv.org/abs/1402.4969) (with [Oliver Braunling](http://braunling.org/) and [Michael Groechenig](http://individual.utoronto.ca/groechenig/)). *Moscow Mathematical Journal,* vol. 16, no. 3, 2016, pp. 433–504.
 29. [Descent for $n$-Bundles](http://arxiv.org/abs/1308.1113). *Advances in Mathematics,* vol. 288, 2016, pp. 527–575.
 
