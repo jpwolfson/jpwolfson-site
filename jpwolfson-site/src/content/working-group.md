@@ -36,7 +36,7 @@ permalink: /working-group/
 
 <h2>Past Graduate Advisees</h2>
 
-* [Adam Marks](https://reversible.io/) (UC Irvine PhD 2025)
+* [Adam Marks](https://reversible.io/) (UC Irvine PhD 2025, postdoc in quantum error correction at Sygaldry)
 * [Anubhav Nanavaty](https://anubhavn.github.io/) (UC Irvine PhD 2025, H.C. Wang Assistant Professor at Cornell)
 * [Sidhanth Raman](https://www.svraman.com/) (UC Irvine PhD 2025, NSF Postdoc with Benson Farb and L.E. Dickson Instructor at UChicago)
 * [Hannah Knight](https://sites.google.com/view/hannahkknight) (UC Irvine PhD 2023, NSF Postdoc with Alexander Merkurjev at UCLA)
