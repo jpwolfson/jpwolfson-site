@@ -6,6 +6,7 @@ permalink: /talks/
 <p class="section-label">Upcoming</p>
 
 1. [](https://properai.eng.uci.edu/weekly/)TBD, AI/Lean Workshop, CCR La Jolla, Oct. 14, 2026.
+2. AI, Mathematics, and the Policy and Funding Landscape - Math x AI - The Next Equation, UCI Math Dept. Retreat, Oct. 21, 2026.
 
 <p class="section-label">Research Talks</p>
 
