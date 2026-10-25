@@ -27,28 +27,31 @@ Spec R3 forbids a Cloudflare write credential anywhere an ordinary agent session
 reach, and the environment attached to this repo is shared by every session on it.
 So the token goes into a **new environment used for exactly one session**, then deleted.
 This is a time-boxed, recorded exception to R3 (24-hour token, one session, one purpose).
+Labels below are the ones in the cloud-environments documentation.
 
-1. In Claude Code (web or app) open the environments list (from the cloud environment
-   menu in a session's title bar, or the Environments page of the Claude Code web app)
-   and create a new environment named `batch-a-cloudflare`. Labels below are from the
-   environment docs (*Network access*, *Allowed domains*, *Network secrets*); if the
-   create screen words them differently, the intent is the same: one environment holding
-   only this secret and this allow-list.
-2. Repositories: `jpwolfson/jpwolfson-site`.
-3. Network access → **Limited** → Allowed domains: `api.cloudflare.com`, `jpwolfson.com`,
-   `jpwolfson-cms-auth.jpwolfson.workers.dev`, `rdap.verisign.com`; keep *Allow package
-   managers* ticked.
-4. Network secrets (or Environment variables if the app shows that instead): name
-   `CLOUDFLARE_API_TOKEN`, value = the 24-hour token created under **My Profile → API
-   Tokens** (scopes in `BATCH-A-CLOUD-RUNBOOK.md` §0).
-5. Save. Start **one new session** in that environment on this repository and give it:
+1. At https://claude.ai/code, on the **new-session screen** (before typing a message),
+   click the **first control in the row under the message box** (the environment
+   selector). At the bottom of the menu click **New environment**.
+2. In the **New environment** dialog: name `batch-a-cloudflare`. Click the **Network
+   access** row → **Custom** → **Allowed domains**, one per line:
+   `jpwolfson.com`, `jpwolfson-cms-auth.jpwolfson.workers.dev`, `rdap.verisign.com`;
+   tick **Also include default list of common package managers**. Click **Add environment**.
+3. Reopen it: selector → find `batch-a-cloudflare` under **Cloud** (or **More**) → hover
+   → settings icon → **Edit cloud environment** dialog → **Network secrets** row →
+   **Add secret**. **Secret type** Bearer; **Name** `Cloudflare Batch A`; **Allowed
+   websites** `api.cloudflare.com`; **Custom headers** row left as `Authorization` /
+   prefix `Bearer`, token pasted as **Value**. Click **Add** (saves immediately; the value
+   cannot be viewed again). The token now lives outside the session VM; the proxy attaches
+   it only to `api.cloudflare.com` requests.
+4. With `batch-a-cloudflare` selected, send this as the session's first message:
 
 ```
 Execute security-audits/2026-10/BATCH-A-CLOUD-RUNBOOK.md from main, in order, stopping at any failed verification. Do not browse the web.
 ```
 
-6. When that session reports done: **delete the `batch-a-cloudflare` environment** and
-   **delete the Cloudflare API token** (My Profile → API Tokens → ⋯ → Delete).
+5. When that session reports done: edit the environment, delete the Network secret,
+   then archive the environment; delete the Cloudflare API token (My Profile → API
+   Tokens → ⋯ → Delete).
 
 ## Afterwards (owner, any time)
 
