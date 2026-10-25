@@ -23,11 +23,18 @@ export R=jpwolfson/jpwolfson-site
 export WRANGLER=wrangler@4.149.0            # pinned, published 2026-10-08; never `@latest` in a session holding your identity
 export npm_config_ignore_scripts=true       # npx must not run install scripts either
 export CF=https://api.cloudflare.com/client/v4
-export REPO_ROOT="$(git rev-parse --show-toplevel)"
 ENV
-echo 'export CLOUDFLARE_API_TOKEN=…' >> ~/.batch-a.env   # owner types the token here; 24-hour expiry; never paste into chat
+printf 'export REPO_ROOT=%q\n' "$(git rev-parse --show-toplevel)" >> ~/.batch-a.env   # resolved now, not at source time
 chmod 600 ~/.batch-a.env
+```
+
+**Owner, before the next block:** open `~/.batch-a.env` in an editor and add one line,
+`export CLOUDFLARE_API_TOKEN=<the token>` (24-hour expiry; never paste it into chat).
+The agent then continues:
+
+```bash
 source ~/.batch-a.env
+grep -q '^export CLOUDFLARE_API_TOKEN=.\{20,\}' ~/.batch-a.env || { echo "token not set in ~/.batch-a.env"; exit 1; }
 (cd "$REPO_ROOT/jpwolfson-site" && npx --yes "$WRANGLER" whoami)   # run from jpwolfson-site/ (its .npmrc applies); logged in to the account that owns jpwolfson.com
 ```
 
@@ -133,10 +140,11 @@ gh pr view $N --json reviews --jq '.reviews[] | {author: .author.login, state}'
 ```
 
 Merge only if a review exists from a session other than the author with no BLOCKING
-finding (see `CLAUDE.md` rule 2). Then:
+finding (see `CLAUDE.md` rule 2). Then (by branch name, so it works in a fresh shell):
 
 ```bash
-gh pr merge $N --squash --delete-branch
+source ~/.batch-a.env
+gh pr merge claude/happy-babbage-nioug8 --squash --delete-branch
 ```
 
 Cloudflare Pages will build `main` within a few minutes. Confirm before continuing:
@@ -221,6 +229,8 @@ source ~/.batch-a.env
 H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ZONE=$(curl -s "$CF/zones?name=jpwolfson.com" -H "$H" | jq -r '.result[0].id')
 ACCT=$(curl -s "$CF/zones/$ZONE" -H "$H" | jq -r '.result.account.id')
+[ -n "$ZONE" ] && [ "$ZONE" != null ] && [ -n "$ACCT" ] && [ "$ACCT" != null ] || { echo "zone/account lookup failed (token scope?)"; exit 1; }
+sed -i.bak '/^export \(H\|ZONE\|ACCT\|P\)=/d' ~/.batch-a.env && rm -f ~/.batch-a.env.bak   # idempotent re-run
 printf 'export H=%q\nexport ZONE=%q\nexport ACCT=%q\nexport P=jpwolfson-site\n' "$H" "$ZONE" "$ACCT" >> ~/.batch-a.env
 curl -s "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, production_branch, build_config, source: .source.config}'
 ```
