@@ -1,4 +1,10 @@
-# Batch A — local settings session runbook
+# Batch A — local settings session runbook (Option B, alternative)
+
+> **Superseded for this rollout by Option A:** `BATCH-A-OWNER-CHECKLIST.md` (GitHub
+> settings as browser clicks) + `BATCH-A-CLOUD-RUNBOOK.md` (Cloudflare via API from a
+> cloud session). Kept as the alternative when a local machine with `gh` is preferred.
+> Its Worker step uses `wrangler`; the cloud runbook uses the Workers REST API instead
+> and needs no Node.
 
 **Run this once, from a Claude Code session on the owner's Mac**, in a fresh clone of
 `jpwolfson/jpwolfson-site`. It changes GitHub repository settings and Cloudflare
