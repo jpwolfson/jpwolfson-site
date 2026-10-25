@@ -24,27 +24,30 @@ Decap CMS and its OAuth Worker were removed in October 2026.
 
 | Control | Where | Status |
 |---|---|---|
-| No dynamic surface: no `/admin/`, no Worker, no OAuth App | repo (removed) + Cloudflare (Worker deleted) | code done; Worker/OAuth-App deletion **pending Batch A** |
+| No dynamic surface: no `/admin/`, no Worker, no OAuth App | repo (removed) + Cloudflare (Worker deleted) | done 2026-10-25: Worker `jpwolfson-cms-auth` deleted via API (script list empty; `workers.dev` URL 404; `/admin/` 404). GitHub OAuth App deletion remains owner step H4 (inert without the Worker) |
 | Content Security Policy on every page: hash-allow-listed inline scripts only, `base-uri 'self'`, `form-action 'none'`, `object-src 'none'`, `frame-src` limited to Vimeo/YouTube | `src/_includes/base.njk`; verified by `scripts/ci/check-csp.py` | done |
-| HTTP headers: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, HSTS | `src/_headers` | done (Cloudflare Transform Rule mirror **pending Batch A**) |
-| `/files/*` served with `Content-Security-Policy: default-src 'none'`; only PDF/PNG/JPG under 25 MB may be committed there, content-sniffed | `src/_headers`; `scripts/ci/check-files.sh` | done |
+| HTTP headers: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, HSTS | `src/_headers` + Cloudflare Transform Rule "Security headers (mirror of _headers)" | done 2026-10-25: Transform Rule deployed and live (`curl -sI https://jpwolfson.com/` shows all five; HSTS `max-age=31536000; includeSubDomains`, all DNS records proxied). Cloudflare's zone-level HSTS toggle is also on at a shorter max-age; redundant, the rule wins |
+| `/files/*` served with `Content-Security-Policy: default-src 'none'`; only PDF/PNG/JPG under 25 MB may be committed there, content-sniffed | `src/_headers`; `scripts/ci/check-files.sh` | done (live on origin fetch 2026-10-25; the edge cache entries for the three PDFs predate the deploy and keep revalidating without the header until the owner purges `/files/*`, see `BATCH-A-LOG.md` step 11) |
 | Subresource Integrity + exact version pin on MathJax; CI re-downloads and compares | `base.njk`; `scripts/ci/check-sri.sh` | done |
 | npm lifecycle scripts disabled everywhere (Pages, CI, local) | `jpwolfson-site/.npmrc` | done |
 | Node pinned at or above the CVE-2026-111497 fix | `jpwolfson-site/.node-version` | done |
 | Lockfile-only installs; `npm audit` fails CI on high/critical; registry signature check | `build.yml` | done |
-| Dependabot with 7-day cooldown for npm, pip, GitHub Actions | `.github/dependabot.yml` | done (alerts/security-updates toggle **pending Batch A**) |
+| Dependabot with 7-day cooldown for npm, pip, GitHub Actions | `.github/dependabot.yml` | done (API 2026-10-25: `dependabot_security_updates.status: enabled`; the alerts toggle is not readable through the proxy, owner-attested) |
 | Full-history secret scan with checksum-pinned gitleaks on every PR | `scripts/ci/gitleaks.sh` | done |
 | HTML validation; file-level invariants (404 present, no `/admin/`, output limited to html/css/pdf/png/jpg); DOM invariants parsed with `html.parser` (one canonical CSP per page, exactly the two known inline hashes, only the MathJax scripts, iframes on allowed hosts, no `<base>`/`<object>`/`<embed>`/`<form>`/inline handlers) | `build.yml`, `scripts/ci/check-output.sh`, `scripts/ci/check-csp.py` | done |
 | All GitHub Actions pinned to commit SHAs; least privilege (`build`: `contents: read`; link audit adds `issues: write` for the tracking issue); no repository secrets | `.github/workflows/*` | done |
-| Ruleset on `main`: PR required, `build` required, no force-push, no deletion, linear history, **empty bypass list** | GitHub settings | **pending Batch A** (requires public repo or Pro) |
-| Actions: default token read-only; only GitHub-owned and verified actions | GitHub settings | **pending Batch A** |
-| Secret scanning + push protection | GitHub settings (public repo) | **pending Batch A** |
-| DNSSEC, CAA records, Pages preview deployments disabled or gated | Cloudflare + registrar | **pending Batch A** (DS record publication at the registrar is manual) |
+| Ruleset on `main`: PR required, `build` required, no force-push, no deletion, linear history, **empty bypass list** | GitHub settings | done 2026-10-25: ruleset 13104728 "Protect main" API-verified against `security-audits/2026-10/main-ruleset.json` (empty bypass, five rules, squash-only, 0 approvals, required check `build`) |
+| Actions: default token read-only; only GitHub-owned and verified actions | GitHub settings | owner-attested 2026-10-25 (checklist step; not readable through the proxy) |
+| Secret scanning + push protection | GitHub settings (public repo) | done 2026-10-25 (API: both `enabled`) |
+| DNSSEC, CAA records, Pages preview deployments disabled or gated | Cloudflare + registrar | CAA (issue + issuewild for the five Universal SSL CAs) and previews `none`: done 2026-10-25. DNSSEC enabled at Cloudflare, **pending** the owner publishing the DS record at WordPress.com (record in `BATCH-A-LOG.md` step 8) |
 | Hardware-key 2FA on GitHub, Cloudflare, WordPress.com (registrar) | accounts | **owner** |
 | External change monitor outside this repo's CI | owner-controlled service | **pending Batch C** |
 
-Batch A is executed by a one-time local Claude Code session following
-`security-audits/2026-10/BATCH-A-LOCAL-RUNBOOK.md`. That runbook updates this table.
+Batch A was executed on 2026-10-25: the GitHub half by the owner
+(`security-audits/2026-10/BATCH-A-OWNER-CHECKLIST.md`), the Cloudflare half by a one-purpose cloud
+session (`BATCH-A-CLOUD-RUNBOOK.md`); every command and output is in `BATCH-A-LOG.md`. Still open from
+it: DS record at the registrar; Cloudflare Managed WAF ruleset not deployed (needs Zone WAF Edit, owner);
+Pages deployment-failure email alert is set.
 
 ## Agent governance
 
@@ -53,7 +56,7 @@ The safety argument: the worst a hijacked agent can do is deface the site or abu
 CI minutes, because (a) the ruleset forbids history rewriting, (b) CI holds no
 credentials and its token is read-only, (c) no agent holds a Cloudflare write
 credential, (d) the HTTP security headers are mirrored at Cloudflare where a merge cannot
-touch them (pending Batch A; the CSP itself still lives in the page `<meta>` and is
+touch them (done 2026-10-25; the CSP itself still lives in the page `<meta>` and is
 not yet mirrored, decision Q3), and (e) sessions that read the open web do not hold merge rights.
 Recovery from a bad merge is `git revert` plus a Pages redeploy.
 
@@ -90,7 +93,6 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 | Claude GitHub App installed on more than this repository | Owner's choice (2026-10-25): the app is used on other repositories. A hijacked session here could reach them through the same installation. Compensating controls: the ruleset and no-secrets CI bound what a session can do *to this repo*; nothing here bounds the others. |
 | Public repository (done 2026-10-25) | Required for free branch protection and secret scanning. Content is public anyway; history was secret-scanned clean (every PR; one mirror scan including PR refs). |
 | `/files/*` CSP omits `sandbox` | Spec B4 proposed `default-src 'none'; sandbox`. `sandbox` breaks Chrome's built-in PDF viewer, so only `default-src 'none'` is set; the primary control is the CI allow-list that keeps non-PDF/image files out of `src/files/`. |
-| HSTS without `includeSubDomains` | Added only after Batch A confirms no HTTP-only subdomain exists (runbook step 10b). |
 
 ## Incident runbook
 
