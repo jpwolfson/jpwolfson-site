@@ -16,6 +16,8 @@ These change the shape of the review and are treated as fixed inputs.
 | D1 | **Drop Decap CMS and the OAuth Worker.** Content is edited through agent sessions and the GitHub UI. | Removes `/admin/`, the Worker, the GitHub OAuth App, the `repo`-scoped token flow, `unsafe-eval`/`unsafe-inline` CSP, and a 9-month-stale pinned dependency. The site becomes static HTML + PDFs behind Cloudflare with no reachable dynamic code. |
 | D2 | **Owner is out of the PR merge loop.** Agents author, review, and merge. | Acceptable only because D1 caps the worst case at defacement. Requires the controls in §1.3 that agents cannot edit. |
 | D3 | **Supply chain and pruning move ahead of CSP work** in ordering. | Reflects what the October 2026 disclosures actually show is spiking. |
+| D0 | **PENDING (Q0): make the repo public, or pay for GitHub Pro.** Without one of these there is no branch protection, no ruleset, and R1 cannot exist; agent merges would then be unbounded by history protection. Public also unlocks free secret scanning + push protection. The repo holds no secrets (Feb gitleaks clean; re-run in 1.1f before flipping). | Gates R1, A1, A5 and the start of autonomous merging. |
+| D5 | **Execution model: maximally agentic.** Owner's irreducible steps are listed in §1.6; everything else is agent work. | — |
 | D4 | **WordPress.com (Automattic) is the domain registrar; account remains live.** Verified via RDAP. Domain expires 2026-11-30, 36 days out. | The registrar account is a root of trust for the domain. Auto-renew must be confirmed before any WordPress.com pruning. See A8. |
 
 ---
@@ -26,7 +28,8 @@ These change the shape of the review and are treated as fixed inputs.
 
 | Area | Observed | Source |
 |---|---|---|
-| Branch protection on `main` | API returns `protected: false`. SECURITY.md says enabled. Every commit since Feb 26 is a direct push. Caveat: flag ignores Rulesets. | `list_branches`, `git log` |
+| Branch protection on `main` | **Not available on this repo.** `GET /rulesets` and `GET /branches/main/protection` both return 403 "Upgrade to GitHub Pro or make this repository public to enable this feature." The Feb 2026 "branch protection enabled, owner-verified" claim was never achievable on a private Free-plan repo; F-10 was never fixed. Every commit since Feb 26 is a direct push. | GitHub API probe 2026-10-25 |
+| Agent reach into GitHub/Cloudflare settings from the cloud sandbox | The Anthropic egress proxy blocks `/actions/permissions*` and `/vulnerability-alerts` API paths regardless of credential, and rejects `api.cloudflare.com` under the current network policy. Repo-settings automation must run from a **local** Claude Code session (owner's machine, `gh` + `wrangler` authenticated) or a cloud environment with those hosts allowed and short-lived tokens. | proxy responses |
 | PR review practice | All 37 PRs merged 6–60 s after creation. No review was occurring. | `list_pull_requests` |
 | Link-audit CI | Red every run since 2026-09-10. One real broken link (`talks.md:46`). Pinned actions target Node 20, now force-run on Node 24 with deprecation warnings. | Actions logs |
 | Feb 26 remediation plan | 0 of 15 items done. | file listing |
@@ -61,13 +64,27 @@ D2 is safe only if every item here is in place **before** agents merge infrastru
 
 | # | Control | Why it bounds the ceiling |
 |---|---|---|
-| R1 | GitHub Ruleset on `main`, **empty bypass list**: require PR, require status check `build`, block force-push, block deletion, require linear history. No required approvals. | Agents can merge; nobody can rewrite history. Forensics and `git revert` always available. |
+| R1 | GitHub Ruleset on `main`, **empty bypass list**: require PR, require status check `build`, block force-push, block deletion, require linear history. No required approvals. **Requires Q0 resolved first** (public repo or GitHub Pro); unavailable on private Free. | Agents can merge; nobody can rewrite history. Forensics and `git revert` always available. |
 | R2 | Repo Actions settings: default `GITHUB_TOKEN` permissions **read-only**; no repository or environment secrets; allow only actions from GitHub and verified creators. | A hostile workflow merged by an injected agent has nothing to steal and cannot push. |
 | R3 | **No Cloudflare write credential** anywhere an agent can reach (not GitHub secrets, not the Claude environment). Read-only token for Phase 1 probes only. | Cuts the path from repo compromise to DNS/Pages/Workers takeover. |
 | R4 | Security headers (CSP, HSTS, `X-Frame-Options`, etc.) set as **Cloudflare Transform Rules** in the dashboard; repo `_headers` becomes defense-in-depth. | A merge cannot weaken the headers that matter. |
 | R5 | **External monitor** outside the repo's CI (uptime service or a Cloudflare cron Worker owned by the owner): daily diff of live `<script>` tags, `_headers` response, and `/files/` listing; email on change. GitHub email notifications on every push to `main`. | Detection that a bad merge cannot disable. |
 | R6 | **Two-environment rule for agents.** Environment A: broad network, read-only clone, no GitHub write — research, link audit, changelog reading. Environment B: GitHub write, network limited to package managers — implementation and merge. A produces documents; B consumes them. | No single session both ingests untrusted content and holds merge rights. This is the control that actually addresses injection. |
 | R7 | Claude GitHub App installed on **this repo only**; verify in GitHub → Settings → Applications. | Limits a hijacked session to one repo. |
+
+### 1.6 Irreducible owner steps (everything not listed here is agent work)
+
+| # | Step | Why an agent cannot do it | Time |
+|---|---|---|---|
+| H1 | Answer Q0 (public vs. Pro) and, if public, flip visibility or, if Pro, subscribe | Billing / visibility is an account-owner act; the flip itself is API-able with an admin credential | 2 min |
+| H2 | Enroll hardware-key 2FA on GitHub, Cloudflare, WordPress.com | Physical key, interactive login | 10–15 min |
+| H3 | Start one **local** Claude Code session on the Mac with `gh auth login` and `wrangler login` done, and hand it the Batch A runbook | The cloud proxy blocks the settings endpoints; local runs with the owner's identity, no tokens to mint or paste | 5 min setup, then unattended |
+| H4 | Delete the Decap GitHub OAuth App (Settings → Developer settings → OAuth Apps) | No REST endpoint for OAuth App deletion; inert once the Worker is gone, so this can wait for any future login | 1 min |
+| H5 | December: obtain the transfer auth code from WordPress.com and approve the Cloudflare Registrar transfer | Registrar UI only | 10 min, later |
+
+Everything else in Batches A–C, including Cloudflare Transform Rules, Pages build settings, Worker deletion, DNS CAA, DNSSEC enablement at Cloudflare (DS publication at the registrar may still be UI; see A8), Dependabot config, Actions permissions, and all code PRs, is executable by agents: GitHub settings via `gh api` from the local session, Cloudflare via the API/`wrangler` from the local session, code via the cloud sessions under R6.
+
+**Trade-off stated plainly:** the local settings session runs with the owner's full GitHub and Cloudflare identity for the duration of Batch A. It must be a one-purpose session, fed only the runbook, with no web browsing. That is the price of removing the owner from the loop; it is bounded in time and content, and it is the same identity the owner would use to click through the dashboards.
 
 ### 1.4 Executor tags and model routing
 
@@ -149,10 +166,11 @@ Spec format for every item: `finding IDs · exact change (diff or dashboard clic
 
 | # | Candidate | Notes |
 |---|---|---|
-| A1 | Ruleset per R1 | Decap's direct pushes no longer need an exception |
+| A0 | Resolve Q0: `gh api -X PATCH repos/jpwolfson/jpwolfson-site -f private=false` (after 1.1f gitleaks re-run is clean and B8 has scrubbed nothing-secret-but-stale text), or subscribe to GitHub Pro | Gates A1, A5 |
+| A1 | Ruleset per R1 via `gh api repos/.../rulesets` from the local session | Decap's direct pushes no longer need an exception |
 | A2 | Actions settings per R2; verify CI holds no secrets | D-checkable via 1.1a |
 | A3 | Claude App scoped to this repo (R7) | — |
-| A4 | **Delete** the GitHub OAuth App used by Decap; **delete** the Worker `jpwolfson-cms-auth`; revoke any lingering Cloudflare API tokens | Snapshot first (1.1h) |
+| A4 | **Delete** the Worker `jpwolfson-cms-auth` (`wrangler delete`, local session); revoke any lingering Cloudflare API tokens; OAuth App deletion is H4 | Snapshot first (1.1h) |
 | A5 | Secret scanning + push protection; Dependabot alerts + security updates; `dependabot.yml` with a **cooldown** (e.g., 7–14 days) for `npm`, `pip`, `github-actions` | Soak period is the ChainDrop lesson |
 | A6 | Hardware-key 2FA on GitHub, Cloudflare, **and WordPress.com**; DNSSEC on; CAA records; DMARC `p=reject` if the domain sends no mail | — |
 | A7 | Delete 14 stale `claude/*` branches; enable auto-delete of merged heads | D |
@@ -188,6 +206,7 @@ Spec format for every item: `finding IDs · exact change (diff or dashboard clic
 
 ### 3.4 Decision points for the owner
 
+0. **Q0 Repo visibility:** public (free protection, free secret scanning, history visible) or GitHub Pro ($4/mo, stays private)?
 1. **Registrar:** transfer `jpwolfson.com` to Cloudflare Registrar, or harden at WordPress.com?
 2. **Pages preview deployments:** disable, or gate with Cloudflare Access?
 3. **CSP delivery:** Transform Rule only, or Transform Rule + repo `_headers`/meta?
@@ -213,7 +232,7 @@ Human steps remain only for Batch A and the dashboard halves of B1/B4/A10.
 
 ### 4.2 Recommended order
 
-1. **Owner day (no code):** A4 delete OAuth App + Worker; A1–A3 ruleset and Actions settings; A5 scanning + Dependabot; A6 2FA everywhere incl. WordPress.com; A8 registrar lock + RDAP check; A10 Transform Rules + preview decision; Pages `NODE_VERSION` + `--ignore-scripts` build command.
+1. **Owner: H1–H3** (≈20 min). Then the **local settings session** executes A0–A5, A7, A10, Worker deletion, Pages `NODE_VERSION` + `--ignore-scripts` build command, CAA, DNSSEC at Cloudflare, notifications. Owner reviews nothing; GitHub and Cloudflare audit logs are the record.
 2. **PR 1:** B0 Decap removal + B7 gitignore.
 3. **PR 2:** B2 build CI + B1 dependency bumps. Make `build` the required check (A1 depends on this existing).
 4. **PR 3:** B3/B4 headers and CSP in repo (R4 already live from step 1).
