@@ -244,15 +244,18 @@ curl -sS "$CF/zones/$ZONE/rulesets/phases/http_request_firewall_managed/entrypoi
 Record whether the Cloudflare Managed Ruleset is deployed; if the GET is a 404, note it
 for the owner (deploying it needs Zone WAF Edit, which this token lacks on purpose).
 
-## 10. Repository hygiene (git works through the proxy)
+## 10. Repository hygiene (read-only here)
+
+The GitHub proxy used by cloud sessions **rejects branch deletions**, so this step only
+records what the owner should delete (checklist step 8). `delete_branch_on_merge` is on,
+so no new stale branches accumulate.
 
 ```bash
 cd /home/user/jpwolfson-site && git fetch --prune origin
-for b in $(git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/); do
-  [ "$b" = "claude/batch-a-log" ] && continue
-  git push origin --delete "$b"
-done
-git for-each-ref --format='%(refname:lstrip=3)' --no-merged origin/main refs/remotes/origin/claude/    # unmerged: leave, list in log
+echo "merged into main (owner deletes these at Settings → Branches):"
+git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/ | grep -v '^claude/batch-a-log$'
+echo "NOT merged (leave alone, list in the log):"
+git for-each-ref --format='%(refname:lstrip=3)' --no-merged origin/main refs/remotes/origin/claude/
 ```
 
 ## 11. Live verification
