@@ -7,6 +7,27 @@ Session: Claude Code cloud, environment with a proxy-attached Network secret for
 Repo attached read+push via the session's GitHub proxy; checkout at `/home/user/jpwolfson-site`,
 HEAD `7d2ba98b` (main, "Batch A cloud runbook: Network secret via proxy-attached header; checklist uses the dialog's labels (#44)").
 
+### Amendments made during review (2026-10-25)
+
+The transcript below was first committed at 16:37Z and amended twice after independent review of the PR.
+Nothing in the blocks is reconstructed from memory; each amendment is one of:
+
+* **Completed from the session's own command history** (the command was run at the time and its line or
+  output had been left out of the log): step 6 (resumed) — the `curl … > /tmp/headers-before.json` read
+  that preceded the guard at ~16:24Z (the guard was run on that fresh read, not on the stopped attempt's
+  snapshot; the rule it saw was still `b349d6a0…` because the PUT had not happened yet) and the
+  `{success, count, total}` DNS line from the same block; step 8 — the jq actually run printed `success`,
+  `errors`, `flags` and `public_key`, which had been cut; step 9 — the `-w '\nHTTP %{http_code}\n'` that
+  produced `HTTP 404`.
+* **Re-run later, marked inline with `# --- re-run <time> ---`**: the three-PDF plain/cache-busted probes
+  (16:42Z) and the beacon check and token comparison (16:46Z) in step 11. The original step 11 at ~16:28Z
+  probed only `wolfson-cv.pdf`; its two lines are kept above the re-run block.
+* **Wording**: the Free-plan remark in step 9 and the cache mechanism in step 11 were tagged UNVERIFIED.
+
+A first version of the beacon check (committed 16:44Z) showed an output line that the command shown could
+not have produced; it was a hand-redacted paste. It is replaced by the 16:46Z block, whose output is as
+printed.
+
 ## 0. Preconditions
 
 ```
@@ -414,6 +435,7 @@ $ curl -s -o /dev/null -w 'config %{http_code}\n' https://jpwolfson.com/admin/co
 config 404
 $ curl -sI https://jpwolfson.com/files/wolfson-cv.pdf | grep -i content-security-policy
 (no output)
+# --- re-run 2026-10-25T16:42Z (after the first review; see Amendments) ---
 $ for f in wolfson-cv.pdf 'Lecture%201%20-%20Topological%20Data%20Analysis.pdf' 'Batson%20-%20How%20to%20See%20a%20Meromorphic%201-Form.pdf'; do
     echo "== /files/$f (plain)";        curl -sI "https://jpwolfson.com/files/$f" | grep -iE '^HTTP/2|content-security-policy|cf-cache-status|cache-control'
     echo "== /files/$f (cache-busted)"; curl -sI "https://jpwolfson.com/files/$f?v=$RANDOM$RANDOM" | grep -iE '^HTTP/2|content-security-policy|cf-cache-status'
@@ -442,9 +464,15 @@ cf-cache-status: REVALIDATED
 HTTP/2 200
 content-security-policy: default-src 'none'
 cf-cache-status: MISS
-$ curl -s https://jpwolfson.com/ | grep -c 'cloudflareinsights.com/beacon'; curl -s https://jpwolfson.com/ | grep -o 'data-cf-beacon=.\{0,30\}' | sed 's/[a-f0-9]\{32\}/<32-hex token>/'
+# --- re-run 2026-10-25T16:46Z (after the second review; see Amendments) ---
+$ curl -s https://jpwolfson.com/ | grep -c 'cloudflareinsights.com/beacon'
 1
-data-cf-beacon='{"token": "<32-hex token>
+$ curl -s https://jpwolfson.com/ | grep -o 'data-cf-beacon=[^>]*' | sed -E 's/"token": "[a-f0-9]{32}"/"token": "<32-hex token>"/'
+data-cf-beacon='{"token": "<32-hex token>"}'
+$ served=$(curl -s https://jpwolfson.com/ | grep -oE '"token": "[a-f0-9]{32}"' | grep -oE '[a-f0-9]{32}')
+$ pages=$(curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq -r '.result.build_config.web_analytics_token')
+$ [ -n "$served" ] && [ "$served" = "$pages" ] && echo "served beacon token == Pages build_config.web_analytics_token (32 hex chars, not printed)" || echo "MISMATCH or empty"
+served beacon token == Pages build_config.web_analytics_token (32 hex chars, not printed)
 $ curl -s -o /dev/null -w 'worker %{http_code}\n' https://jpwolfson-cms-auth.jpwolfson.workers.dev/
 worker 404
 $ curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com | jq '{status, dnssec: .secureDNS.delegationSigned, expires: ...}'
@@ -459,8 +487,9 @@ unchanged. **Caveat:** for all three PDFs under `/files/`, the plain URL is answ
 but the cached objects do not yet reflect it. Inferred, UNVERIFIED mechanism: the cached entries predate
 today's `_headers` deploy (commit e248914) and a 304 on revalidation keeps the cached headers. **Owner
 action:** purge the cache for `/files/*` (Caching → Configuration → Purge by URL/prefix); this token has no
-Cache Purge scope, on purpose. The beacon lines confirm the Cloudflare Web Analytics script with its token
-is in the served page (the token redacted in step 3 is this public value).
+Cache Purge scope, on purpose. The beacon lines show the Cloudflare Web Analytics script in the served
+page and that its token equals the Pages `web_analytics_token` redacted in step 3 (compared in the shell,
+neither value printed).
 
 ## 12. Close-out
 
