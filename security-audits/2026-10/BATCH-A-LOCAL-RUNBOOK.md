@@ -136,7 +136,7 @@ If you are re-running on a later hardening PR, replace the number.
 
 ```bash
 source ~/.batch-a.env
-gh pr view 38 --json state,mergedAt,mergeCommit --jq '{state, mergedAt, merge: .mergeCommit.oid}'   # state MERGED
+gh pr view 38 -R "$R" --json state,mergedAt,mergeCommit --jq '{state, mergedAt, merge: .mergeCommit.oid}'   # state MERGED
 gh api repos/$R/commits/main/check-runs --jq '.check_runs[] | "\(.name) \(.status) \(.conclusion)"'  # build success, Cloudflare Pages success
 ```
 
@@ -228,7 +228,7 @@ H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ZONE=$(curl -s "$CF/zones?name=jpwolfson.com" -H "$H" | jq -r '.result[0].id')
 ACCT=$(curl -s "$CF/zones/$ZONE" -H "$H" | jq -r '.result.account.id')
 [ -n "$ZONE" ] && [ "$ZONE" != null ] && [ -n "$ACCT" ] && [ "$ACCT" != null ] || { echo "zone/account lookup failed (token scope?)"; exit 1; }
-sed -i.bak '/^export \(H\|ZONE\|ACCT\|P\)=/d' ~/.batch-a.env && rm -f ~/.batch-a.env.bak   # idempotent re-run
+sed -E -i.bak '/^export (H|ZONE|ACCT|P)=/d' ~/.batch-a.env && rm -f ~/.batch-a.env.bak   # idempotent re-run
 printf 'export H=%q\nexport ZONE=%q\nexport ACCT=%q\nexport P=jpwolfson-site\n' "$H" "$ZONE" "$ACCT" >> ~/.batch-a.env
 curl -s "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, production_branch, build_config, source: .source.config}'
 ```
