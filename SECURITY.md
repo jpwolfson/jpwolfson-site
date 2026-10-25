@@ -87,6 +87,7 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 | Raw HTML enabled in Markdown (`html: true`) | Needed for video embeds and section labels. Compensated by `base-uri`, `form-action`, `object-src`, `frame-src`, and the `/files/*` allow-list. Only PR authors can write content, and merges are recoverable. |
 | Cloudflare Web Analytics beacon without SRI | Injected at the edge by the hosting provider; the trust boundary is Cloudflare itself. |
 | MathJax served from jsdelivr | Pinned version + SRI; CI detects drift. Self-hosting is an open option (review workflow Q4). |
+| Claude GitHub App installed on more than this repository | Owner's choice (2026-10-25): the app is used on other repositories. A hijacked session here could reach them through the same installation. Compensating controls: the ruleset and no-secrets CI bound what a session can do *to this repo*; nothing here bounds the others. |
 | Public repository (pending A0) | Required for free branch protection and secret scanning. Content is public anyway; history has been scanned and contains no secrets. |
 | `/files/*` CSP omits `sandbox` | Spec B4 proposed `default-src 'none'; sandbox`. `sandbox` breaks Chrome's built-in PDF viewer, so only `default-src 'none'` is set; the primary control is the CI allow-list that keeps non-PDF/image files out of `src/files/`. |
 | HSTS without `includeSubDomains` | Added only after Batch A confirms no HTTP-only subdomain exists (runbook step 10b). |

@@ -1,10 +1,11 @@
 # Batch A — cloud session runbook (Cloudflare half + repo hygiene)
 
-Run this in a **fresh Claude Code cloud session on this repository** after the owner
-has completed `BATCH-A-OWNER-CHECKLIST.md` (GitHub clicks) and added the environment
-settings listed there (`CLOUDFLARE_API_TOKEN` as a Network secret; allowed domains
-`api.cloudflare.com`, `jpwolfson.com`, `jpwolfson-cms-auth.jpwolfson.workers.dev`,
-`rdap.verisign.com`). It is a one-purpose session: do not browse the web, do not read
+Run this in **one fresh Claude Code cloud session in the dedicated `batch-a-cloudflare`
+environment** (never the shared environment; spec R3) after the owner has completed
+`BATCH-A-OWNER-CHECKLIST.md` (GitHub clicks) and created that environment with
+`CLOUDFLARE_API_TOKEN` as a Network secret and allowed domains `api.cloudflare.com`,
+`jpwolfson.com`, `jpwolfson-cms-auth.jpwolfson.workers.dev`, `rdap.verisign.com`.
+The environment and the token are deleted by the owner when this session reports done. It is a one-purpose session: do not browse the web, do not read
 pages other than the API responses below.
 
 Rules: idempotent steps, in order; each ends with a verification; stop on a failed
@@ -40,18 +41,30 @@ curl -sS "https://api.github.com/repos/$R/rulesets" | jq '.[] | {id, name, enfor
 ```
 
 Required before continuing: `private: false`; `allow_merge_commit: false`;
-`delete_branch_on_merge: true`; one ruleset named "main: PR + build check, no history
-rewrite" with `enforcement: active`. If `private` is still `true`, stop: the owner must
-finish checklist step 1 first (rulesets do not exist on a private Free repo). Actions
-permissions and Dependabot toggles cannot be read through the proxy; record them as
-"owner-attested" in the log, not as verified.
+`allow_rebase_merge: false`; `delete_branch_on_merge: true`;
+`security_and_analysis.secret_scanning.status` and
+`secret_scanning_push_protection.status` both `enabled` (these two **are** readable
+through the proxy; verify them, do not take them on attestation). If `private` is still
+`true`, stop: the owner must finish checklist step 1 first. What the proxy refuses even
+for GET: `vulnerability-alerts`, `automated-security-fixes`, `actions/permissions*`;
+record Dependabot alerts and Actions permissions as "owner-attested" in the log.
 
-Fetch the ruleset detail and confirm `bypass_actors` is empty and the required check is
-`build` with `integration_id` 15368:
+Exactly **one active ruleset** must target the default branch: the owner edits the
+pre-existing "Protect main" (created 2026-02-22, enforced only since the repo went
+public) to the state in `main-ruleset.json`. Select it by its conditions, not by list
+position, and assert the rules:
 
 ```bash
-curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets" | jq -r '.[0].id' | xargs -I{} curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets/{}" | jq '{bypass_actors, rules: [.rules[] | .type], checks: [.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[]]}'
+RS=$(curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets" | jq -r '[.[] | select(.enforcement=="active" and .target=="branch")] | if length==1 then .[0].id else error("expected exactly 1 active branch ruleset, found \(length)") end')
+curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets/$RS" | jq '{name, bypass_actors, include: .conditions.ref_name.include, rules: [.rules[] | .type], pr: (.rules[] | select(.type=="pull_request") | .parameters | {required_approving_review_count, allowed_merge_methods, require_extra_approval_for_unattributed_changes}), checks: [.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[]]}'
 ```
+
+Required: `bypass_actors: []`; include covers `main` (`refs/heads/main` or
+`~DEFAULT_BRANCH`); rules contain `deletion`, `non_fast_forward`,
+`required_linear_history`, `pull_request`, `required_status_checks`;
+`allowed_merge_methods: ["squash"]`; `require_extra_approval_for_unattributed_changes`
+false or absent; checks `[{"context":"build","integration_id":15368}]`. Anything else:
+stop and tell the owner which field differs (they fix it in the ruleset editor).
 
 ## 2. Start the log and branch
 
@@ -96,13 +109,16 @@ source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result | {build_config, env: {production: .deployment_configs.production.env_vars, preview: .deployment_configs.preview.env_vars}, preview_setting: .source.config.preview_deployment_setting}'
 ```
 
-`build_config.root_dir` must be `jpwolfson-site` and `destination_dir` `_site`. If a
-`NODE_VERSION` env var exists in either environment, remove it (it would override the
-repo's `.node-version`):
+`build_config.root_dir` must be `jpwolfson-site` and `destination_dir` `_site`. **Only
+if** the GET above shows a `NODE_VERSION` key in an environment's `env_vars`, remove it
+from that environment (it would override the repo's `.node-version`); do not PATCH
+`deployment_configs` otherwise:
 
 ```bash
 source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 for env in production preview; do
+  has=$(curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq -r ".result.deployment_configs.$env.env_vars.NODE_VERSION // empty")
+  [ -z "$has" ] && { echo "$env: no NODE_VERSION override"; continue; }
   curl -sS -X PATCH "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" -H 'Content-Type: application/json' \
     --data "{\"deployment_configs\":{\"$env\":{\"env_vars\":{\"NODE_VERSION\":null}}}}" | jq -c '{success, errors}'
 done
@@ -153,6 +169,11 @@ CSP stays in the page `<meta>` (decision Q3 open).
 
 ## 7. CAA records (idempotent)
 
+CAA restricts which CAs may issue for the whole name. Before adding, review the DNS
+listing from step 6: any subdomain hosted by a third party (a CNAME to another provider)
+may need that provider's CA added, or the record will block its renewals. Record the
+listing and the decision in the log.
+
 ```bash
 source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 curl -sS "$CF/zones/$ZONE/dns_records?type=CAA&per_page=100" -H "$H" | jq -r '.result[] | "\(.data.tag) \(.data.value)"' | sort > /tmp/caa-have.txt
@@ -189,7 +210,8 @@ Create a policy of the Pages deployment-failure alert type found above, deliveri
 the owner's account email (`mechanisms: {"email":[{"id":"<owner email>"}]}`; the email
 is on the Cloudflare profile, not in this repo; ask the owner for it if the API needs
 it). If the shape is rejected, record the response and leave notifications for the
-owner's dashboard; do not loop.
+owner's dashboard; do not loop. **Redact the email address in the log**: the log is
+committed to a public repository.
 
 ```bash
 source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
@@ -204,7 +226,7 @@ for the owner (deploying it needs Zone WAF Edit, which this token lacks on purpo
 ```bash
 cd /home/user/jpwolfson-site && git fetch --prune origin
 for b in $(git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/); do
-  [ "$b" = "batch-a-log" ] && continue
+  [ "$b" = "claude/batch-a-log" ] && continue
   git push origin --delete "$b"
 done
 git for-each-ref --format='%(refname:lstrip=3)' --no-merged origin/main refs/remotes/origin/claude/    # unmerged: leave, list in log
@@ -235,5 +257,5 @@ worker not 200; RDAP `delegationSigned` still false until the owner publishes th
    `build` is green and the review has no BLOCKING finding (`CLAUDE.md` rule 2; the
    ruleset now enforces the check).
 4. Report to the owner: the DS record, anything UNVERIFIED or left for the dashboard,
-   and a reminder to delete the Cloudflare API token and remove the
-   `CLOUDFLARE_API_TOKEN` Network secret from the environment.
+   and a reminder to **delete the `batch-a-cloudflare` environment and the Cloudflare
+   API token** now that the one-session exception to R3 is over.
