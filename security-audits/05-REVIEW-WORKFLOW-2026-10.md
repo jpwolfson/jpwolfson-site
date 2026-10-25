@@ -1,7 +1,15 @@
 # jpwolfson.com — Top-to-Bottom Security, Stability & Resilience Review: Workflow
 
-**Prepared:** 2026-10-25 (revision 2)
-**Status:** PROPOSAL ONLY. Nothing in this document has been implemented.
+**Prepared:** 2026-10-25 (revision 3)
+**Status:** IN EXECUTION. Decisions D0–D5 taken; Q0 answered (public repo); settings work runs locally (H3).
+
+**Progress log**
+
+| Date | Item | State |
+|---|---|---|
+| 2026-10-25 | B0 Decap/Worker removal, B1 supply chain (`.npmrc`, `.node-version`, Eleventy 3.1.7, 0 audit findings), B2 `build` CI with `scripts/ci/*`, B3 CSP directives, B4 `_headers`, B6 link audit → issue, B7 gitignore, B8 docs (`README`, `CLAUDE.md`, `SECURITY.md`, `OPERATIONS.md`), B9 carry-overs (404, aria-current, skip link, focus, meta/OG) | in PR from `claude/happy-babbage-nioug8`, awaiting `build` + reviewer |
+| 2026-10-25 | Batch A runbook written (`2026-10/BATCH-A-LOCAL-RUNBOOK.md`) | awaiting owner H1–H3 |
+| — | B5 self-host MathJax (Q4), B10 covered by `OPERATIONS.md`, C1–C5 | not started |
 **Scope of inspection behind this proposal:** full repo at `main` (`74bb566`), all five prior audit reports, the Phase 2 structural review and remediation plan, GitHub repo metadata (branches, PRs, collaborators, Actions runs and logs), npm registry metadata, Decap CMS release notes and advisories, a local `npm ci` + Eleventy build + `npm audit`, lockfile cross-check against the 2026 npm supply-chain campaigns, and primary-source verification of the October 2026 PHP, Node.js, npm, and Cloudflare disclosures.
 **Not inspectable from this environment:** the live site, the Worker, `*.pages.dev`, DNS/RDAP, Cloudflare/GitHub dashboard settings. The sandbox proxy blocks these hosts. Live-state claims are marked UNVERIFIED.
 
@@ -78,7 +86,7 @@ D2 is safe only if every item here is in place **before** agents merge infrastru
 |---|---|---|---|
 | H1 | Answer Q0 (public vs. Pro) and, if public, flip visibility or, if Pro, subscribe | Billing / visibility is an account-owner act; the flip itself is API-able with an admin credential | 2 min |
 | H2 | Enroll hardware-key 2FA on GitHub, Cloudflare, WordPress.com | Physical key, interactive login | 10–15 min |
-| H3 | Start one **local** Claude Code session on the Mac with `gh auth login` and `wrangler login` done, and hand it the Batch A runbook | The cloud proxy blocks the settings endpoints; local runs with the owner's identity, no tokens to mint or paste | 5 min setup, then unattended |
+| H3 | Start one **local** Claude Code session on the Mac with `gh auth login` and `wrangler login` done, plus one Cloudflare API token (scoped to the zone and account products listed in the runbook, 24-hour expiry, exported as `CLOUDFLARE_API_TOKEN`), and hand it `security-audits/2026-10/BATCH-A-LOCAL-RUNBOOK.md` | The cloud proxy blocks the settings endpoints; `wrangler login` covers Workers but not Pages settings, DNS, or Transform Rules, so one short-lived token is unavoidable | 10 min setup, then unattended |
 | H4 | Delete the Decap GitHub OAuth App (Settings → Developer settings → OAuth Apps) | No REST endpoint for OAuth App deletion; inert once the Worker is gone, so this can wait for any future login | 1 min |
 | H5 | December: obtain the transfer auth code from WordPress.com and approve the Cloudflare Registrar transfer | Registrar UI only | 10 min, later |
 
