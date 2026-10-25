@@ -56,15 +56,26 @@ position, and assert the rules:
 
 ```bash
 RS=$(curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets" | jq -r '[.[] | select(.enforcement=="active" and .target=="branch")] | if length==1 then .[0].id else error("expected exactly 1 active branch ruleset, found \(length)") end')
-curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets/$RS" | jq '{name, bypass_actors, include: .conditions.ref_name.include, rules: [.rules[] | .type], pr: (.rules[] | select(.type=="pull_request") | .parameters | {required_approving_review_count, allowed_merge_methods, require_extra_approval_for_unattributed_changes}), checks: [.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[]]}'
+curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets/$RS" > /tmp/ruleset.json
+jq '{name, bypass_actors, include: .conditions.ref_name.include, rules: [.rules[] | .type], pr: (first(.rules[] | select(.type=="pull_request") | .parameters) // null), checks: [.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[]]}' /tmp/ruleset.json
+jq -e '
+  (.bypass_actors | length == 0) and
+  (.conditions.ref_name.include | any(. == "refs/heads/main" or . == "~DEFAULT_BRANCH")) and
+  ([.rules[].type] | contains(["deletion","non_fast_forward","required_linear_history","pull_request","required_status_checks"])) and
+  ((first(.rules[] | select(.type=="pull_request") | .parameters) // {}) as $pr |
+     ($pr.allowed_merge_methods == ["squash"]) and
+     (($pr.require_extra_approval_for_unattributed_changes // false) == false) and
+     (($pr.required_approving_review_count // 0) == 0)) and
+  ([.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[] | {context, integration_id}] == [{"context":"build","integration_id":15368}])
+' /tmp/ruleset.json >/dev/null && echo "ruleset OK" || { echo "ruleset does not match main-ruleset.json; see the printed fields"; exit 1; }
 ```
 
-Required: `bypass_actors: []`; include covers `main` (`refs/heads/main` or
-`~DEFAULT_BRANCH`); rules contain `deletion`, `non_fast_forward`,
-`required_linear_history`, `pull_request`, `required_status_checks`;
-`allowed_merge_methods: ["squash"]`; `require_extra_approval_for_unattributed_changes`
-false or absent; checks `[{"context":"build","integration_id":15368}]`. Anything else:
-stop and tell the owner which field differs (they fix it in the ruleset editor).
+The `jq -e` encodes the required state: empty bypass list; include covers `main`
+(`refs/heads/main` or `~DEFAULT_BRANCH`); the five rule types; squash-only; 0 approvals;
+`require_extra_approval_for_unattributed_changes` false or absent; exactly the `build`
+check from GitHub Actions (15368). On failure, stop and tell the owner which printed field
+differs (they fix it in the ruleset editor, or import `main-ruleset.json` and delete
+"Protect main" per the checklist fallback).
 
 ## 2. Start the log and branch
 

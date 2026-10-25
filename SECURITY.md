@@ -13,7 +13,7 @@ code, no database, no form, and no credential anywhere in the repository or its 
 Decap CMS and its OAuth Worker were removed in October 2026.
 
 ```
- GitHub repo (public: pending A0) ──push──▶  Cloudflare Pages build  ──▶  jpwolfson.com
+ GitHub repo (public since 2026-10-25) ──push──▶  Cloudflare Pages build  ──▶  jpwolfson.com
    agents open PRs                        .node-version pins Node       _headers + CSP
    `build` check required                 .npmrc ignore-scripts         /files/* locked down
    ruleset: no force-push,                npm ci from lockfile
@@ -88,7 +88,7 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 | Cloudflare Web Analytics beacon without SRI | Injected at the edge by the hosting provider; the trust boundary is Cloudflare itself. |
 | MathJax served from jsdelivr | Pinned version + SRI; CI detects drift. Self-hosting is an open option (review workflow Q4). |
 | Claude GitHub App installed on more than this repository | Owner's choice (2026-10-25): the app is used on other repositories. A hijacked session here could reach them through the same installation. Compensating controls: the ruleset and no-secrets CI bound what a session can do *to this repo*; nothing here bounds the others. |
-| Public repository (pending A0) | Required for free branch protection and secret scanning. Content is public anyway; history has been scanned and contains no secrets. |
+| Public repository (done 2026-10-25) | Required for free branch protection and secret scanning. Content is public anyway; history was secret-scanned clean (every PR; one mirror scan including PR refs). |
 | `/files/*` CSP omits `sandbox` | Spec B4 proposed `default-src 'none'; sandbox`. `sandbox` breaks Chrome's built-in PDF viewer, so only `default-src 'none'` is set; the primary control is the CI allow-list that keeps non-PDF/image files out of `src/files/`. |
 | HSTS without `includeSubDomains` | Added only after Batch A confirms no HTTP-only subdomain exists (runbook step 10b). |
 

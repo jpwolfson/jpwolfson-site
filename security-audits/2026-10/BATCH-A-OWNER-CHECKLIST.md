@@ -13,7 +13,7 @@ session (`BATCH-A-CLOUD-RUNBOOK.md`). Nothing here is a terminal command.
 | 2 | General → Pull Requests | Untick *Allow merge commits* and *Allow rebase merging*; keep *Allow squash merging*; tick *Automatically delete head branches* | Linear history; no stale branches. **Done 2026-10-25 (API-verified).** |
 | 3 | https://github.com/jpwolfson/jpwolfson-site/settings/security_analysis | Turn on *Dependabot alerts*, *Dependabot security updates*, and under **Secret Protection**: *Secret scanning* then *Push protection* | A5. **Owner reports done 2026-10-25;** the cloud runbook verifies secret scanning/push protection from the API. |
 | 4 | https://github.com/jpwolfson/jpwolfson-site/settings/actions | *Actions permissions*: "Allow jpwolfson, and select non-jpwolfson, actions and reusable workflows" + tick *Allow actions created by GitHub* and *Allow actions by Marketplace verified creators*. *Workflow permissions*: "Read repository contents and packages permissions"; untick *Allow GitHub Actions to create and approve pull requests*. Save. | R2 |
-| 5 | https://github.com/jpwolfson/jpwolfson-site/settings/rules → **Protect main** | A ruleset named **"Protect main"** has existed since 2026-02-22 (unenforced while the repo was private; live now). **Edit it in place** rather than importing a second one: tick *Require linear history*; in *Require a pull request before merging* keep 0 approvals, **untick every checkbox in that block** (this clears `require_extra_approval_for_unattributed_changes`), allowed merge methods **Squash only**; tick *Require status checks to pass* → *Add checks* → `build` (GitHub Actions) → tick *Require branches to be up to date*; keep *Block force pushes* and *Restrict deletions*; bypass list empty; **Save changes**. `main-ruleset.json` in this folder is the expected end state for comparison. | R1. The cloud runbook asserts exactly one active ruleset on the default branch with these rules. |
+| 5 | https://github.com/jpwolfson/jpwolfson-site/settings/rules → **Protect main** | A ruleset named **"Protect main"** has existed since 2026-02-22 (unenforced while the repo was private; live now). **Edit it in place** rather than importing a second one: tick *Require linear history*; in *Require a pull request before merging* keep 0 approvals, **untick every checkbox in that block** (this clears `require_extra_approval_for_unattributed_changes`), allowed merge methods **Squash only**; tick *Require status checks to pass* → *Add checks* → `build` (GitHub Actions) → tick *Require branches to be up to date*; keep *Block force pushes* and *Restrict deletions*; bypass list empty; **Save changes**. `main-ruleset.json` in this folder is the expected end state for comparison. **Fallback:** if the editor offers no way to clear the unattributed-changes option (the cloud runbook will report `require_extra_approval_for_unattributed_changes: true`), use *New ruleset ▾ → Import a ruleset* with `main-ruleset.json`, then delete "Protect main", so exactly one ruleset remains. | R1. The cloud runbook asserts exactly one active ruleset on the default branch with these rules. |
 | 6 | https://github.com/settings/installations → Claude → Configure | *Only select repositories* → `jpwolfson-site` only | R7. **Owner declined 2026-10-25** (the Claude app is used on other repositories). Accepted risk: a hijacked session on this repo can reach those repos through the same installation. Recorded in SECURITY.md. |
 | 7 | https://github.com/settings/developers → OAuth Apps | Delete the Decap CMS OAuth App | A4. **Owner reports done 2026-10-25.** |
 
@@ -28,9 +28,12 @@ reach, and the environment attached to this repo is shared by every session on i
 So the token goes into a **new environment used for exactly one session**, then deleted.
 This is a time-boxed, recorded exception to R3 (24-hour token, one session, one purpose).
 
-1. In Claude Code (web or app) open the environments list (the cloud environment menu
-   in a session's title bar → *Manage environments*, or the Environments page of the
-   Claude Code web app) → **Create environment**. Name it `batch-a-cloudflare`.
+1. In Claude Code (web or app) open the environments list (from the cloud environment
+   menu in a session's title bar, or the Environments page of the Claude Code web app)
+   and create a new environment named `batch-a-cloudflare`. Labels below are from the
+   environment docs (*Network access*, *Allowed domains*, *Network secrets*); if the
+   create screen words them differently, the intent is the same: one environment holding
+   only this secret and this allow-list.
 2. Repositories: `jpwolfson/jpwolfson-site`.
 3. Network access → **Limited** → Allowed domains: `api.cloudflare.com`, `jpwolfson.com`,
    `jpwolfson-cms-auth.jpwolfson.workers.dev`, `rdap.verisign.com`; keep *Allow package
