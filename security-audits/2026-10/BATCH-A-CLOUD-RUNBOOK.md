@@ -165,7 +165,7 @@ curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.source.con
 ```bash
 source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" | jq '.result.rules // []' | tee /tmp/headers-before.json
-jq -e 'length == 0 or (length == 1 and .[0].description == "Security headers (mirror of _headers)")' /tmp/headers-before.json >/dev/null \
+jq -e 'length == 0 or (length == 1 and (.[0].description == "Security headers (mirror of _headers)" or .[0].description == "Security headers"))' /tmp/headers-before.json >/dev/null \
   || { echo "phase holds other rules; stop and record them before replacing"; exit 1; }
 # includeSubDomains is safe only if every A/AAAA/CNAME is Cloudflare-proxied:
 curl -sS "$CF/zones/$ZONE/dns_records?per_page=100" -H "$H" | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "\(.name) \(.type) proxied=\(.proxied)"'
@@ -252,7 +252,7 @@ so no new stale branches accumulate.
 
 ```bash
 cd /home/user/jpwolfson-site && git fetch --prune origin
-echo "merged into main (owner deletes these at Settings → Branches):"
+echo "merged into main (owner deletes these at /branches/stale):"
 git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/ | grep -v '^claude/batch-a-log$'
 echo "NOT merged (leave alone, list in the log):"
 git for-each-ref --format='%(refname:lstrip=3)' --no-merged origin/main refs/remotes/origin/claude/
