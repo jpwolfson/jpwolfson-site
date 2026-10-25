@@ -4,17 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!--
-    CSP notes:
-    - 'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8=' is the SHA-256 hash of the
-      MathJax configuration inline script block below. This replaces 'unsafe-inline'
-      in script-src, allowing only this specific inline script to execute.
-    - 'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU=' is the SHA-256 hash of
-      Cloudflare Web Analytics' edge-injected inline beacon script. If Cloudflare
-      updates their beacon, this hash will become stale and analytics will break again
-      (you'll see a CSP error in DevTools with the new hash to use).
-    - To recompute the MathJax hash after editing the config block, run from
-      jpwolfson-site/:
-        python3 -c "import hashlib,base64,sys; c=open('src/_includes/base.njk').read(); s=c.split(chr(60)+'script'+chr(62))[1].split(chr(60)+'/script'+chr(62))[0]; print('sha256-'+base64.b64encode(hashlib.sha256(s.encode()).digest()).decode())"
+    Content Security Policy notes
+    - script-src allows exactly two inline scripts by SHA-256 hash:
+        'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8='  the MathJax config block below
+        'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU='  Cloudflare Web Analytics' edge-injected beacon
+      If you edit the MathJax block, CI (scripts/ci/check-csp.py) recomputes the hash and
+      fails with the new value to paste here. If Cloudflare changes its beacon, analytics
+      stops and DevTools shows the new hash in a CSP error.
+    - base-uri / form-action / object-src are locked because Markdown content may contain
+      raw HTML (html: true), so the template must not trust the body.
+    - frame-ancestors cannot be set in a <meta> CSP; X-Frame-Options: DENY in _headers covers it.
   -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
@@ -23,8 +22,17 @@
                  img-src 'self' data: https:;
                  font-src 'self' https://cdn.jsdelivr.net;
                  connect-src 'self' https://cloudflareinsights.com;
-                 frame-src https://player.vimeo.com https://www.youtube.com;" />
+                 frame-src https://player.vimeo.com https://www.youtube.com;
+                 base-uri 'self';
+                 form-action 'none';
+                 object-src 'none';" />
+  {%- set pageDescription = description or "Jesse Wolfson, Professor of Mathematics at the University of California, Irvine. Research on the interplay of arithmetic, geometry, and topology." -%}
   <title>{% if title %}{{ title }} – {% endif %}Jesse Wolfson</title>
+  <meta name="description" content="{{ pageDescription }}" />
+  <meta property="og:title" content="{% if title %}{{ title }} – {% endif %}Jesse Wolfson" />
+  <meta property="og:description" content="{{ pageDescription }}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jpwolfson.com{{ page.url }}" />
   <link rel="stylesheet" href="/css/style.css" />
   <!-- CSP hash for this script: sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8= (referenced in script-src above) -->
   <script>
@@ -34,32 +42,36 @@
     };
   </script>
   <!--
-    MathJax – pinned to exact version for security.
-    To update: change the version number and recompute the SRI hash:
-      curl -sL https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js \
-        | openssl dgst -sha384 -binary | openssl base64 -A | sed 's/^/sha384-/'
-    Then update the integrity attribute below.
+    MathJax – pinned to an exact version with Subresource Integrity.
+    CI (scripts/ci/check-sri.sh) re-downloads this file and fails if the hash drifts.
+    To update: change the version, then run the command printed by that script.
   -->
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"
           integrity="sha384-AHAnt9ZhGeHIrydA1Kp1L7FN+2UosbF7RQg6C+9Is/a7kDpQ1684C2iH2VWil6r4"
           crossorigin="anonymous"></script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
   <header>
     <div class="site-title"><a href="/">Jesse Wolfson</a></div>
     <nav>
-      <a href="/working-group/">Working Group</a>
-      <a href="/papers/">Papers</a>
-      <a href="/talks/">Talks</a>
-      <a href="/mathematics-and-dance/">Mathematics and Dance</a>
-      <a href="/teaching/">Teaching</a>
-      <a href="/workshops/">Workshops</a>
-      <a href="/roosevelt-institute/">Roosevelt Institute</a>
-      <a href="/cv/">CV</a>
+      {%- set navItems = [
+        ["/working-group/", "Working Group"],
+        ["/papers/", "Papers"],
+        ["/talks/", "Talks"],
+        ["/mathematics-and-dance/", "Mathematics and Dance"],
+        ["/teaching/", "Teaching"],
+        ["/workshops/", "Workshops"],
+        ["/roosevelt-institute/", "Roosevelt Institute"],
+        ["/cv/", "CV"]
+      ] %}
+      {%- for item in navItems %}
+      <a href="{{ item[0] }}"{% if page.url == item[0] %} aria-current="page"{% endif %}>{{ item[1] }}</a>
+      {%- endfor %}
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <h1>{{ title }}</h1>
     {{ content | safe }}
   </main>

@@ -190,3 +190,31 @@ footer {
   nav { gap: 0 1rem; }
   nav a { font-size: 0.82rem; }
 }
+
+/* ── Keyboard accessibility ───────────────────────────────── */
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+nav a:focus-visible {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.88rem;
+  z-index: 100;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 0.5rem;
+}
