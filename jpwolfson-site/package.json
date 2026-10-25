@@ -4,9 +4,19 @@
   "type": "module",
   "scripts": {
     "build": "eleventy",
-    "start": "eleventy --serve"
+    "start": "eleventy --serve",
+    "clean": "rm -rf _site",
+    "lint:html": "html-validate \"_site/**/*.html\"",
+    "test": "eleventy --dryrun"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.1.7"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "private": true,
+  "devDependencies": {
+    "html-validate": "^11.17.0"
   }
 }
