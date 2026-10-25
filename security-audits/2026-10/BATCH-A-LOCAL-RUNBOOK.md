@@ -6,7 +6,10 @@ account settings that the cloud sandbox cannot reach. It is a one-purpose sessio
 feed it this file and nothing else; it must not browse the web.
 
 Everything here is idempotent. Run steps in order. Each step ends with a verification
-command; do not continue past a failed verification. Record every command and its
+command; do not continue past a failed verification.
+
+**Shell state does not persist between an agent's Bash calls.** Every block below starts
+with `source ~/.batch-a.env`; step 0 writes that file. Run each block as one Bash call. Record every command and its
 output in `security-audits/2026-10/BATCH-A-LOG.md` and open a PR with that log and
 the `SECURITY.md` status-table updates at the end.
 
@@ -15,11 +18,20 @@ the `SECURITY.md` status-table updates at the end.
 ```bash
 node --version                      # must be >= 22.23.4 (CLAUDE.md rule 6); otherwise `nvm install 22` first
 gh auth status                      # logged in as jpwolfson, scopes include repo, admin:repo_hook, workflow
-export WRANGLER=wrangler@4.149.0    # pinned, published 2026-10-08; never `@latest` in a session holding your identity
-export npm_config_ignore_scripts=true   # npx must not run install scripts either
-(cd jpwolfson-site && npx --yes "$WRANGLER" whoami)   # run from jpwolfson-site/ (its .npmrc applies); logged in to the account that owns jpwolfson.com
-export CLOUDFLARE_API_TOKEN=…       # see scope below; 24-hour expiry; never paste into chat
+cat > ~/.batch-a.env <<'ENV'
+export R=jpwolfson/jpwolfson-site
+export WRANGLER=wrangler@4.149.0            # pinned, published 2026-10-08; never `@latest` in a session holding your identity
+export npm_config_ignore_scripts=true       # npx must not run install scripts either
+export CF=https://api.cloudflare.com/client/v4
+export REPO_ROOT="$(git rev-parse --show-toplevel)"
+ENV
+echo 'export CLOUDFLARE_API_TOKEN=…' >> ~/.batch-a.env   # owner types the token here; 24-hour expiry; never paste into chat
+chmod 600 ~/.batch-a.env
+source ~/.batch-a.env
+(cd "$REPO_ROOT/jpwolfson-site" && npx --yes "$WRANGLER" whoami)   # run from jpwolfson-site/ (its .npmrc applies); logged in to the account that owns jpwolfson.com
 ```
+
+Delete `~/.batch-a.env` in step 11.
 
 Create the Cloudflare API token at **My Profile → API Tokens → Create Token → Custom**,
 TTL 1 day, permissions:
@@ -44,7 +56,7 @@ in the same sitting.
 ## 1. Baseline snapshot (GitHub)
 
 ```bash
-R=jpwolfson/jpwolfson-site
+source ~/.batch-a.env
 gh api repos/$R --jq '{private,default_branch,delete_branch_on_merge,allow_auto_merge,security_and_analysis}'
 gh api repos/$R/branches --jq '.[].name'
 ```
@@ -57,8 +69,9 @@ user token, so this cannot be scripted from `gh`.)
 ## 2. Pre-public gate
 
 ```bash
+source ~/.batch-a.env
 # Scan a mirror so refs/pull/* (which become public too) are included.
-REPO_ROOT=$(git rev-parse --show-toplevel); MIRROR=$(mktemp -d)/site-mirror.git
+MIRROR=$(mktemp -d)/site-mirror.git
 git clone --mirror https://github.com/jpwolfson/jpwolfson-site "$MIRROR"
 ( cd "$MIRROR" && bash "$REPO_ROOT/jpwolfson-site/scripts/ci/gitleaks.sh" )   # must print "no leaks found"
 git grep -nIE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}' -- . ':!jpwolfson-site/package-lock.json' | grep -v noreply
@@ -69,6 +82,7 @@ The second command should show nothing beyond addresses already published on the
 ## 3. Make the repository public and set merge behaviour
 
 ```bash
+source ~/.batch-a.env
 gh api -X PATCH repos/$R -F private=false -F delete_branch_on_merge=true -F allow_auto_merge=true \
   -F allow_squash_merge=true -F allow_merge_commit=false -F allow_rebase_merge=false
 gh api repos/$R --jq '{private,delete_branch_on_merge,allow_auto_merge,allow_merge_commit}'
@@ -79,6 +93,7 @@ Expect `private: false`, merge commits off (linear history).
 ## 4. Secret scanning, push protection, Dependabot
 
 ```bash
+source ~/.batch-a.env
 gh api -X PATCH repos/$R --input - <<'JSON'
 {"security_and_analysis":{"secret_scanning":{"status":"enabled"},"secret_scanning_push_protection":{"status":"enabled"}}}
 JSON
@@ -91,6 +106,7 @@ gh api repos/$R/vulnerability-alerts && echo "dependabot alerts: on"
 ## 5. Actions permissions (read-only token, trusted actions only)
 
 ```bash
+source ~/.batch-a.env
 gh api -X PUT repos/$R/actions/permissions --input - <<'JSON'
 {"enabled":true,"allowed_actions":"selected"}
 JSON
@@ -110,6 +126,7 @@ The PR from branch `claude/happy-babbage-nioug8` removes Decap, adds the `build`
 check, pins Node, disables npm scripts, and rewrites the docs.
 
 ```bash
+source ~/.batch-a.env
 N=$(gh pr list --head claude/happy-babbage-nioug8 --json number --jq '.[0].number')
 gh pr checks $N --watch                      # every check green
 gh pr view $N --json reviews --jq '.reviews[] | {author: .author.login, state}'
@@ -137,6 +154,7 @@ command or root directory). Do not change repo files from this session; open an 
 ## 7. Ruleset on `main` (empty bypass list)
 
 ```bash
+source ~/.batch-a.env
 gh api -X POST repos/$R/rulesets --input - <<'JSON'
 {
   "name": "main: PR + build check, no history rewrite",
@@ -171,6 +189,7 @@ will block every merge; verify with
 ## 8. Branch hygiene
 
 ```bash
+source ~/.batch-a.env
 git fetch --prune
 for b in $(git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/); do
   git push origin --delete "$b"
@@ -182,7 +201,8 @@ gh api repos/$R/branches --jq '.[].name'      # main only
 ## 9. Cloudflare: Worker and OAuth remnants
 
 ```bash
-cd jpwolfson-site
+source ~/.batch-a.env
+cd "$REPO_ROOT/jpwolfson-site"
 npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # snapshot for the log (cwd is jpwolfson-site/, see the cd above)
 npx --yes "$WRANGLER" delete --name jpwolfson-cms-auth --force
 npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # must error: not found
@@ -197,12 +217,16 @@ https://github.com/settings/developers. It is inert once the Worker is gone.
 Resolve identifiers once:
 
 ```bash
-CF=https://api.cloudflare.com/client/v4
+source ~/.batch-a.env
 H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ZONE=$(curl -s "$CF/zones?name=jpwolfson.com" -H "$H" | jq -r '.result[0].id')
 ACCT=$(curl -s "$CF/zones/$ZONE" -H "$H" | jq -r '.result.account.id')
+printf 'export H=%q\nexport ZONE=%q\nexport ACCT=%q\nexport P=jpwolfson-site\n' "$H" "$ZONE" "$ACCT" >> ~/.batch-a.env
 curl -s "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, production_branch, build_config, source: .source.config}'
 ```
+
+Every 10x block below begins with `source ~/.batch-a.env`; `P` is the Pages project name
+(fix it in the env file if the listing shows a different name).
 
 **10a. Pages project.** Record the project name as `P` (expected: `jpwolfson-site`).
 Confirm `build_config.root_dir` is `jpwolfson-site` and `destination_dir` is `_site`.
@@ -210,6 +234,7 @@ Confirm `build_config.root_dir` is `jpwolfson-site` and `destination_dir` is `_s
 Check for an env var that would override the repo's `.node-version`:
 
 ```bash
+source ~/.batch-a.env
 curl -s "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.deployment_configs | {production: .production.env_vars, preview: .preview.env_vars}'
 ```
 
@@ -222,6 +247,7 @@ Disable preview deployments (decision Q2). **Always PATCH the whole `source` obj
 never a partial one, or the Git integration can be disconnected:
 
 ```bash
+source ~/.batch-a.env
 curl -s "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.source' > /tmp/source.json
 jq '.config.preview_deployment_setting = "none"' /tmp/source.json > /tmp/source.new.json
 diff /tmp/source.json /tmp/source.new.json          # exactly one line should change
@@ -236,8 +262,11 @@ The PUT below **replaces every rule in the phase**. Snapshot first and abort if 
 rule already exists that is not ours:
 
 ```bash
+source ~/.batch-a.env
 curl -s "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" | jq '.result.rules // []' | tee /tmp/headers-phase-before.json
-[ "$(jq length /tmp/headers-phase-before.json)" -eq 0 ] || { echo "phase already has rules; stop and record them in the log before replacing"; exit 1; }
+# Idempotent: the phase may be empty, or hold only our own rule from an earlier run.
+jq -e 'length == 0 or (length == 1 and .[0].description == "Security headers (mirror of _headers)")' /tmp/headers-phase-before.json >/dev/null \
+  || { echo "phase holds other rules; stop and record them in the log before replacing"; exit 1; }
 ```
 
 HSTS `includeSubDomains` is only safe if no subdomain is served over plain HTTP.
@@ -246,10 +275,12 @@ you may add `; includeSubDomains` to the HSTS value below and in `src/_headers`
 (via a PR); otherwise omit it and note why in the log:
 
 ```bash
+source ~/.batch-a.env
 curl -s "$CF/zones/$ZONE/dns_records?per_page=100" -H "$H" | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "\(.name) \(.type) proxied=\(.proxied)"'
 ```
 
 ```bash
+source ~/.batch-a.env
 curl -s -X PUT "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" \
   -H "$H" -H 'Content-Type: application/json' --data @- <<'JSON' | jq '.success, .errors'
 {"rules":[{"description":"Security headers (mirror of _headers)","expression":"true","action":"rewrite","action_parameters":{"headers":{
@@ -269,6 +300,7 @@ here would need a second rule scoped with `not starts_with(http.request.uri.path
 Cloudflare's docs before running):
 
 ```bash
+source ~/.batch-a.env
 for ca in letsencrypt.org pki.goog ssl.com sectigo.com digicert.com; do
   for tag in issue issuewild; do
     curl -s -X POST "$CF/zones/$ZONE/dns_records" -H "$H" -H 'Content-Type: application/json' \
@@ -281,6 +313,7 @@ dig +short CAA jpwolfson.com
 **10d. DNSSEC** (Cloudflare side; the DS record then goes to the registrar):
 
 ```bash
+source ~/.batch-a.env
 curl -s -X PATCH "$CF/zones/$ZONE/dnssec" -H "$H" -H 'Content-Type: application/json' --data '{"status":"active"}' \
   | jq '.result | {status, ds, digest_type, algorithm, key_tag}'
 ```
@@ -300,10 +333,11 @@ deploy it per Cloudflare's documentation.
 ## 11. Close out
 
 ```bash
+source ~/.batch-a.env
 curl -sI https://jpwolfson.com/ ; curl -s -o /dev/null -w '%{http_code}\n' https://jpwolfson.com/admin/
 curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com | jq '.secureDNS, .status, [.events[] | select(.eventAction=="expiration") | .eventDate]'
 ```
 
 Update the status column in `SECURITY.md` for every row marked **pending Batch A**,
 add `BATCH-A-LOG.md`, open a PR, let `build` run, have a reviewer session review it,
-merge. Then **delete the Cloudflare API token** and end the session.
+merge. Then **delete the Cloudflare API token**, `rm ~/.batch-a.env`, and end the session.

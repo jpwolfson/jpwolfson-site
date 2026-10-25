@@ -37,8 +37,10 @@ ALLOWED_HASHES = {
 MATHJAX_SRC = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"
 FRAME_HOSTS = {"player.vimeo.com", "www.youtube.com"}
 FORBIDDEN_TAGS = {"base", "object", "embed", "form", "applet"}
-# Any markup declaration other than the doctype or an HTML comment.
-BAD_DECL = re.compile(r"<!(?!doctype\s|--)", re.I)
+# Any markup declaration other than the doctype or a well-formed HTML comment, plus the
+# comment forms that browsers and html.parser (notably Python 3.12) tokenize differently:
+# the empty comment <!--> / <!---> and the --!> closer.
+BAD_DECL = re.compile(r"<!(?!doctype\s|--)|<!---?>|--!>", re.I)
 
 def normalise(policy: str) -> str:
     directives = []
