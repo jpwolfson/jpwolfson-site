@@ -5,7 +5,7 @@ permalink: /talks/
 ---
 <p class="section-label">Upcoming</p>
 
-1. [](https://properai.eng.uci.edu/weekly/)TBD, AI/Lean Workshop, CCR La Jolla, Oct. 14, 2026.
+1. TBD, AI/Lean Workshop, CCR La Jolla, Oct. 14, 2026.
 2. AI, Mathematics, and the Policy and Funding Landscape - Math x AI - The Next Equation, UCI Math Dept. Retreat, Oct. 21, 2026.
 
 <p class="section-label">Research Talks</p>
@@ -43,7 +43,7 @@ permalink: /talks/
 31. University of Minnesota Topology Seminar – Essential Dimension via Prismatic Cohomology – Oct. 9, 2023.
 32. UCLA Algebraic Topology Seminar – Essential Dimension via Prismatic Cohomology – May 3, 2023.
 33. Mid-Atlantic Topology Conference (@UPenn) – Essential Dimension via Prismatic Cohomology – April 15–16, 2023.
-34. [UCI Geometry & Topology Seminar](https://www.math.uci.edu/node/37653) – Resolvent degree for arithmetic groups and variations of Hodge structures – Jan. 23, 2023.
+34. UCI Geometry & Topology Seminar – Resolvent degree for arithmetic groups and variations of Hodge structures – Jan. 23, 2023.
 35. [UChicago No Boundaries Seminar](https://math.uchicago.edu/~michaelklug/NBS.html) – Resolvent degree for arithmetic groups and variations of Hodge structures – Dec. 2, 2022.
 36. Reggie Wilson/Fist and Heel Performance Group Symposium @ Lynden Sculpture Garden, WI – Aug. 14, 2022.
 37. [ICERM Workshop on Braids in Symplectic and Algebraic Geometry](https://icerm.brown.edu/programs/sp-s22/w2/), March 21–25, 2022.
