@@ -16,7 +16,8 @@ the `SECURITY.md` status-table updates at the end.
 node --version                      # must be >= 22.23.4 (CLAUDE.md rule 6); otherwise `nvm install 22` first
 gh auth status                      # logged in as jpwolfson, scopes include repo, admin:repo_hook, workflow
 export WRANGLER=wrangler@4.149.0    # pinned, published 2026-10-08; never `@latest` in a session holding your identity
-npx --yes "$WRANGLER" whoami        # logged in to the Cloudflare account that owns jpwolfson.com
+export npm_config_ignore_scripts=true   # npx must not run install scripts either
+(cd jpwolfson-site && npx --yes "$WRANGLER" whoami)   # run from jpwolfson-site/ (its .npmrc applies); logged in to the account that owns jpwolfson.com
 export CLOUDFLARE_API_TOKEN=…       # see scope below; 24-hour expiry; never paste into chat
 ```
 
@@ -57,8 +58,9 @@ user token, so this cannot be scripted from `gh`.)
 
 ```bash
 # Scan a mirror so refs/pull/* (which become public too) are included.
-git clone --mirror https://github.com/jpwolfson/jpwolfson-site /tmp/site-mirror.git
-( cd /tmp/site-mirror.git && bash "$OLDPWD/jpwolfson-site/scripts/ci/gitleaks.sh" )   # must print "no leaks found"
+REPO_ROOT=$(git rev-parse --show-toplevel); MIRROR=$(mktemp -d)/site-mirror.git
+git clone --mirror https://github.com/jpwolfson/jpwolfson-site "$MIRROR"
+( cd "$MIRROR" && bash "$REPO_ROOT/jpwolfson-site/scripts/ci/gitleaks.sh" )   # must print "no leaks found"
 git grep -nIE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}' -- . ':!jpwolfson-site/package-lock.json' | grep -v noreply
 ```
 
@@ -181,7 +183,7 @@ gh api repos/$R/branches --jq '.[].name'      # main only
 
 ```bash
 cd jpwolfson-site
-npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # snapshot for the log
+npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # snapshot for the log (cwd is jpwolfson-site/, see the cd above)
 npx --yes "$WRANGLER" delete --name jpwolfson-cms-auth --force
 npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # must error: not found
 curl -s -o /dev/null -w '%{http_code}\n' https://jpwolfson-cms-auth.jpwolfson.workers.dev/   # not 200
@@ -235,6 +237,7 @@ rule already exists that is not ours:
 
 ```bash
 curl -s "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" | jq '.result.rules // []' | tee /tmp/headers-phase-before.json
+[ "$(jq length /tmp/headers-phase-before.json)" -eq 0 ] || { echo "phase already has rules; stop and record them in the log before replacing"; exit 1; }
 ```
 
 HSTS `includeSubDomains` is only safe if no subdomain is served over plain HTTP.

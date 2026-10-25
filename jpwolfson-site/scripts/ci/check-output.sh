@@ -11,6 +11,9 @@ chk "no admin/ in output (Decap removed)" 'test ! -e _site/admin'
 chk "_headers is deployed"                'test -f _site/_headers'
 chk "_headers has HSTS"                   'grep -q "Strict-Transport-Security" _site/_headers'
 chk "_headers has /files/* CSP"           'grep -A2 "^/files/\*" _site/_headers | grep -q "Content-Security-Policy"'
+# Cloudflare Pages would deploy these as server-side code, outside anything _site checks see.
+chk "no Pages Functions directory"        'test ! -e functions'
+chk "no wrangler config in project root"  'test ! -e wrangler.toml && test ! -e wrangler.json && test ! -e wrangler.jsonc'
 
 # Everything that reaches the origin must be one of these types. Catches a stray
 # .js/.svg/.html dropped into a passthrough directory (css/, files/).

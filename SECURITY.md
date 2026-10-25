@@ -75,7 +75,7 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 | Build, audit, CSP, SRI, files, secrets | every PR and push to `main` | `build.yml` |
 | External links | weekly | `link-audit.yml` opens or updates an issue |
 | Live headers, `/admin/` 404, Worker gone | after Batch A, then via external monitor | `curl -sI https://jpwolfson.com/` |
-| Domain: expiry 2026-11-30 (auto-renew: owner-stated 2026-10-25, not independently verified; A8), transfer lock, DNSSEC | quarterly | `curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com` |
+| Domain: expiry 2026-11-30 (auto-renew: owner-stated 2026-10-25, recorded in the review workflow progress log, not independently verified; A8), transfer lock, DNSSEC | quarterly | `curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com` |
 | Full review | 6 months, or on any Node/npm/Cloudflare advisory touching the build | this workflow |
 
 ## Accepted risks
