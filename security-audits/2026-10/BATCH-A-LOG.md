@@ -98,7 +98,7 @@ $ curl -sS "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, 
 ```
 
 PASS. `P=jpwolfson-site` as assumed. (Zone and account IDs are not secrets; the web analytics tag/token
-are the public beacon identifiers already embedded in every served page.)
+are the public beacon identifiers; step 11 shows the beacon script carrying this token in the served `/` page.)
 
 ## 4. Delete the OAuth Worker
 
@@ -209,15 +209,20 @@ The guard now also accepts a single rule with description `Security headers`. Th
 recorded above under step 6 (the first, stopped attempt).
 
 ```
-$ jq -e 'length == 0 or (length == 1 and (.[0].description == "Security headers (mirror of _headers)" or .[0].description == "Security headers"))' /tmp/headers-before.json
+$ curl -sS "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" | jq '.result.rules // []' > /tmp/headers-before.json    # fresh read before the PUT
+$ jq -e 'length == 0 or (length == 1 and (.[0].description == "Security headers (mirror of _headers)" or .[0].description == "Security headers"))' /tmp/headers-before.json >/dev/null \
+    && echo "guard OK ($(jq -r '.[0].description' /tmp/headers-before.json), id $(jq -r '.[0].id' /tmp/headers-before.json))" || { echo "phase holds other rules"; exit 1; }
 guard OK (Security headers, id b349d6a009e140d09aa58d54c90e2fb4)
-$ curl -sS "$CF/zones/$ZONE/dns_records?per_page=100" -H "$H" | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "\(.name) \(.type) \(.content) proxied=\(.proxied)"'
+$ curl -sS "$CF/zones/$ZONE/dns_records?per_page=100" -H "$H" > /tmp/dns.json
+$ jq '{success, count: (.result|length), total: .result_info.total_count}' /tmp/dns.json
+{ "success": true, "count": 3, "total": 3 }
+$ jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "\(.name) \(.type) \(.content) proxied=\(.proxied)"' /tmp/dns.json
 *.jpwolfson.com CNAME jpwolfson.com proxied=true
 jpwolfson.com CNAME jpwolfson-site.pages.dev proxied=true
 www.jpwolfson.com CNAME jpwolfson.com proxied=true
 ```
 
-The zone has exactly 3 DNS records (result_info.total_count = 3), all CNAME, all `proxied=true`; no
+The zone has exactly 3 DNS records (`total_count` 3 above), all CNAME, all `proxied=true`; no
 third-party-hosted subdomain. Decision: HSTS `max-age=31536000; includeSubDomains`, and a one-line PR
 adding `; includeSubDomains` to `src/_headers` (separate PR; `src/_headers` needs an Opus-class reviewer
 per CLAUDE.md rule 9).
@@ -293,13 +298,19 @@ PASS. 10 CAA records on `jpwolfson.com` (issue + issuewild for each of the 5 Uni
 ## 8. DNSSEC (Cloudflare side)
 
 ```
-$ curl -sS -X PATCH "$CF/zones/$ZONE/dnssec" -H "$H" -H 'Content-Type: application/json' --data '{"status":"active"}' | jq '.result | {status, ds, digest_type, algorithm, key_tag}'
+$ curl -sS -X PATCH "$CF/zones/$ZONE/dnssec" -H "$H" -H 'Content-Type: application/json' --data '{"status":"active"}' | jq '{success, errors, result: (.result | {status, ds, digest_type, algorithm, key_tag, flags, public_key})}'
 {
-  "status": "pending",
-  "ds": "jpwolfson.com. 3600 IN DS 2371 13 2 835936523FFDD7AC3B4D5E414FD8349575A1EA6F3AD63D15EF661FF7DD22ABD7",
-  "digest_type": "2",
-  "algorithm": "13",
-  "key_tag": 2371
+  "success": true,
+  "errors": [],
+  "result": {
+    "status": "pending",
+    "ds": "jpwolfson.com. 3600 IN DS 2371 13 2 835936523FFDD7AC3B4D5E414FD8349575A1EA6F3AD63D15EF661FF7DD22ABD7",
+    "digest_type": "2",
+    "algorithm": "13",
+    "key_tag": 2371,
+    "flags": 257,
+    "public_key": "mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ=="
+  }
 }
 ```
 
@@ -344,16 +355,16 @@ the runbook's `mechanisms` shape was accepted). Email address redacted; it is th
 account email, supplied in-session.
 
 ```
-$ curl -sS "$CF/zones/$ZONE/rulesets/phases/http_request_firewall_managed/entrypoint" -H "$H"
-HTTP 404
+$ curl -sS -w '\nHTTP %{http_code}\n' "$CF/zones/$ZONE/rulesets/phases/http_request_firewall_managed/entrypoint" -H "$H"
 { "result": null, "success": false, "errors": [ { "code": 10003, "message": "could not find entrypoint ruleset in the http_request_firewall_managed phase" } ] }
+HTTP 404
 ```
 
 **Cloudflare Managed Ruleset is NOT deployed** on the zone (no entrypoint in the managed-WAF phase).
 Deploying it needs Zone WAF Edit, which this token lacks on purpose: **owner action** in the dashboard
-(Security → WAF → Managed rules → deploy "Cloudflare Managed Ruleset"). Free plan note: the Free Managed
-Ruleset is applied automatically by Cloudflare and does not appear in this phase; a 404 here is
-consistent with the Free plan and is informational.
+(Security → WAF → Managed rules → deploy "Cloudflare Managed Ruleset"). UNVERIFIED (not checked from
+this session; no web reading): whether the zone is on the Free plan, and whether on Free the automatically
+applied "Free Managed Ruleset" is absent from this phase, which would make the 404 expected rather than a gap.
 
 ## 10. Repository hygiene (read-only)
 
@@ -402,10 +413,38 @@ admin 404
 $ curl -s -o /dev/null -w 'config %{http_code}\n' https://jpwolfson.com/admin/config.yml
 config 404
 $ curl -sI https://jpwolfson.com/files/wolfson-cv.pdf | grep -i content-security-policy
-(no output; cf-cache-status: REVALIDATED)
-$ curl -sI "https://jpwolfson.com/files/wolfson-cv.pdf?v=$RANDOM" | grep -iE 'content-security|cf-cache-status'
+(no output)
+$ for f in wolfson-cv.pdf 'Lecture%201%20-%20Topological%20Data%20Analysis.pdf' 'Batson%20-%20How%20to%20See%20a%20Meromorphic%201-Form.pdf'; do
+    echo "== /files/$f (plain)";        curl -sI "https://jpwolfson.com/files/$f" | grep -iE '^HTTP/2|content-security-policy|cf-cache-status|cache-control'
+    echo "== /files/$f (cache-busted)"; curl -sI "https://jpwolfson.com/files/$f?v=$RANDOM$RANDOM" | grep -iE '^HTTP/2|content-security-policy|cf-cache-status'
+  done
+== /files/wolfson-cv.pdf (plain)
+HTTP/2 200
+cache-control: public, max-age=14400, must-revalidate
+cf-cache-status: REVALIDATED
+== /files/wolfson-cv.pdf (cache-busted)
+HTTP/2 200
 content-security-policy: default-src 'none'
 cf-cache-status: MISS
+== /files/Lecture%201%20-%20Topological%20Data%20Analysis.pdf (plain)
+HTTP/2 200
+cache-control: public, max-age=14400, must-revalidate
+cf-cache-status: REVALIDATED
+== /files/Lecture%201%20-%20Topological%20Data%20Analysis.pdf (cache-busted)
+HTTP/2 200
+content-security-policy: default-src 'none'
+cf-cache-status: MISS
+== /files/Batson%20-%20How%20to%20See%20a%20Meromorphic%201-Form.pdf (plain)
+HTTP/2 200
+cache-control: public, max-age=14400, must-revalidate
+cf-cache-status: REVALIDATED
+== /files/Batson%20-%20How%20to%20See%20a%20Meromorphic%201-Form.pdf (cache-busted)
+HTTP/2 200
+content-security-policy: default-src 'none'
+cf-cache-status: MISS
+$ curl -s https://jpwolfson.com/ | grep -c 'cloudflareinsights.com/beacon'; curl -s https://jpwolfson.com/ | grep -o 'data-cf-beacon=.\{0,30\}' | sed 's/[a-f0-9]\{32\}/<32-hex token>/'
+1
+data-cf-beacon='{"token": "<32-hex token>
 $ curl -s -o /dev/null -w 'worker %{http_code}\n' https://jpwolfson-cms-auth.jpwolfson.workers.dev/
 worker 404
 $ curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com | jq '{status, dnssec: .secureDNS.delegationSigned, expires: ...}'
@@ -414,13 +453,14 @@ $ curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com | jq '{status, d
 
 PASS with one caveat. Five headers present; `/admin/` and `/admin/config.yml` 404; Worker 404; RDAP
 `delegationSigned: false` (expected until the DS is published); expiry 2026-11-30 and transfer lock
-unchanged. **Caveat:** the plain `/files/wolfson-cv.pdf` URL is served from a Cloudflare edge cache
-entry created before today's `_headers` deploy (commit e248914) and so carries no CSP header; because the
-object has `must-revalidate` and the origin keeps answering 304, the stale headers persist on
-revalidation. A cache-busted fetch (origin MISS) shows `content-security-policy: default-src 'none'`, so
-the control is deployed. **Owner action:** purge the cache for `/files/*` (Caching → Configuration →
-Purge by URL/prefix); this token has no Cache Purge scope, on purpose. The other two PDFs under
-`/files/` are in the same situation.
+unchanged. **Caveat:** for all three PDFs under `/files/`, the plain URL is answered from the edge cache
+(`cf-cache-status: REVALIDATED`) **without** a CSP header, while a cache-busted URL goes to the origin
+(`MISS`) and carries `content-security-policy: default-src 'none'`. So the `_headers` rule is deployed
+but the cached objects do not yet reflect it. Inferred, UNVERIFIED mechanism: the cached entries predate
+today's `_headers` deploy (commit e248914) and a 304 on revalidation keeps the cached headers. **Owner
+action:** purge the cache for `/files/*` (Caching → Configuration → Purge by URL/prefix); this token has no
+Cache Purge scope, on purpose. The beacon lines confirm the Cloudflare Web Analytics script with its token
+is in the served page (the token redacted in step 3 is this public value).
 
 ## 12. Close-out
 
@@ -440,7 +480,7 @@ Purge by URL/prefix); this token has no Cache Purge scope, on purpose. The other
 
 CI note: the first push of this log failed the `build` check's full-history gitleaks step (rule
 `generic-api-key`) on the Pages `web_analytics_token` value printed in step 3. It is the public beacon token
-present in every served page, not a credential, but the scan is the control; the value was redacted and the
+present in the served page (step 11), not a credential, but the scan is the control; the value was redacted and the
 branch squashed to one commit so the string is not in history. Because the scan runs with `--all` on a
 full checkout, it also failed the unrelated `_headers` PR until this branch was rewritten.
 

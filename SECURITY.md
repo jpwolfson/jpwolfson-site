@@ -26,8 +26,8 @@ Decap CMS and its OAuth Worker were removed in October 2026.
 |---|---|---|
 | No dynamic surface: no `/admin/`, no Worker, no OAuth App | repo (removed) + Cloudflare (Worker deleted) | done 2026-10-25: Worker `jpwolfson-cms-auth` deleted via API (script list empty; `workers.dev` URL 404; `/admin/` 404). GitHub OAuth App deletion remains owner step H4 (inert without the Worker) |
 | Content Security Policy on every page: hash-allow-listed inline scripts only, `base-uri 'self'`, `form-action 'none'`, `object-src 'none'`, `frame-src` limited to Vimeo/YouTube | `src/_includes/base.njk`; verified by `scripts/ci/check-csp.py` | done |
-| HTTP headers: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, HSTS | `src/_headers` + Cloudflare Transform Rule "Security headers (mirror of _headers)" | done 2026-10-25: Transform Rule deployed and live (`curl -sI https://jpwolfson.com/` shows all five; HSTS `max-age=31536000; includeSubDomains`, all DNS records proxied). Cloudflare's zone-level HSTS toggle is also on at a shorter max-age; redundant, the rule wins |
-| `/files/*` served with `Content-Security-Policy: default-src 'none'`; only PDF/PNG/JPG under 25 MB may be committed there, content-sniffed | `src/_headers`; `scripts/ci/check-files.sh` | done (live on origin fetch 2026-10-25; the edge cache entries for the three PDFs predate the deploy and keep revalidating without the header until the owner purges `/files/*`, see `BATCH-A-LOG.md` step 11) |
+| HTTP headers: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, HSTS | `src/_headers` + Cloudflare Transform Rule "Security headers (mirror of _headers)" | done 2026-10-25: Transform Rule deployed and live (`curl -sI https://jpwolfson.com/` shows all five; HSTS `max-age=31536000; includeSubDomains`, all DNS records proxied). Cloudflare's zone-level HSTS toggle is also on (`max_age 15552000`, no `includeSubDomains`); it was what the edge sent before the rule existed, so if the rule were ever removed it, not `_headers`, would decide HSTS. Owner may disable it |
+| `/files/*` served with `Content-Security-Policy: default-src 'none'`; only PDF/PNG/JPG under 25 MB may be committed there, content-sniffed | `src/_headers`; `scripts/ci/check-files.sh` | deployed, **not yet served on the plain URLs**: 2026-10-25 cache-busted fetches of all three PDFs return the header (`cf-cache-status: MISS`), while the plain URLs are answered from edge cache entries that predate the deploy (`REVALIDATED`, no CSP). Owner purges `/files/*`; evidence in `BATCH-A-LOG.md` step 11 |
 | Subresource Integrity + exact version pin on MathJax; CI re-downloads and compares | `base.njk`; `scripts/ci/check-sri.sh` | done |
 | npm lifecycle scripts disabled everywhere (Pages, CI, local) | `jpwolfson-site/.npmrc` | done |
 | Node pinned at or above the CVE-2026-111497 fix | `jpwolfson-site/.node-version` | done |
@@ -45,9 +45,11 @@ Decap CMS and its OAuth Worker were removed in October 2026.
 
 Batch A was executed on 2026-10-25: the GitHub half by the owner
 (`security-audits/2026-10/BATCH-A-OWNER-CHECKLIST.md`), the Cloudflare half by a one-purpose cloud
-session (`BATCH-A-CLOUD-RUNBOOK.md`); every command and output is in `BATCH-A-LOG.md`. Still open from
-it: DS record at the registrar; Cloudflare Managed WAF ruleset not deployed (needs Zone WAF Edit, owner);
-Pages deployment-failure email alert is set.
+session (`BATCH-A-CLOUD-RUNBOOK.md`); every command and output is in `BATCH-A-LOG.md`. Done there beyond the table: Pages
+deployment-failure email alert. Still open from it, all owner: publish the DS record at the registrar;
+purge the edge cache for `/files/*`; deploy the Cloudflare Managed WAF ruleset if the plan offers it (the
+managed-WAF phase returned 404; the token lacked Zone WAF Edit); delete the 14 merged `claude/*` branches;
+optionally disable the zone-level HSTS toggle; delete the GitHub OAuth App (H4).
 
 ## Agent governance
 
