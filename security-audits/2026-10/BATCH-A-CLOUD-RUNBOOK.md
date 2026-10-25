@@ -2,16 +2,26 @@
 
 Run this in **one fresh Claude Code cloud session in the dedicated `batch-a-cloudflare`
 environment** (never the shared environment; spec R3) after the owner has completed
-`BATCH-A-OWNER-CHECKLIST.md` (GitHub clicks) and created that environment with
-`CLOUDFLARE_API_TOKEN` as a Network secret and allowed domains `api.cloudflare.com`,
-`jpwolfson.com`, `jpwolfson-cms-auth.jpwolfson.workers.dev`, `rdap.verisign.com`.
+`BATCH-A-OWNER-CHECKLIST.md` (GitHub clicks) and created that environment with:
+
+* a **Network secret** (type Bearer, allowed website `api.cloudflare.com`, header
+  `Authorization` / prefix `Bearer`, value = the 24-hour Cloudflare token). Anthropic's
+  agent proxy attaches the header to every request this session makes to
+  `api.cloudflare.com`; **the token is never visible in the session**, so no command below
+  sends an `Authorization` header or reads a token variable;
+* **Custom** network access with allowed domains `jpwolfson.com`,
+  `jpwolfson-cms-auth.jpwolfson.workers.dev`, `rdap.verisign.com` (the secret's host is
+  reachable on its own), package-manager defaults included.
+
 The environment and the token are deleted by the owner when this session reports done. It is a one-purpose session: do not browse the web, do not read
 pages other than the API responses below.
 
 Rules: idempotent steps, in order; each ends with a verification; stop on a failed
-verification and report. **Never print, echo, or commit the token.** Shell state does
-not persist between Bash calls: every block re-reads `$CLOUDFLARE_API_TOKEN` from the
-environment and sources `~/.batch-a.env` for the non-secret values written in step 3.
+verification and report. **Never add an `Authorization` header to Cloudflare requests**
+(the proxy adds it; a second one could break the request), and never try to discover
+the token. Shell state does not persist between Bash calls: every block sources
+`~/.batch-a.env` for the non-secret values written in step 3. `H` is a harmless
+`Accept` header kept so every call has the same shape.
 Record every command and output (token redacted) in
 `security-audits/2026-10/BATCH-A-LOG.md` on branch `claude/batch-a-log`, and finish
 with a PR per `CLAUDE.md`.
@@ -19,13 +29,14 @@ with a PR per `CLAUDE.md`.
 ## 0. Preconditions
 
 ```bash
-[ -n "$CLOUDFLARE_API_TOKEN" ] || { echo "CLOUDFLARE_API_TOKEN not set in this environment"; exit 1; }
 CF=https://api.cloudflare.com/client/v4
-curl -sS "$CF/user/tokens/verify" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | jq '{success, status: .result.status, expires: .result.expires_on}'
+curl -sS "$CF/user/tokens/verify" -H "Accept: application/json" | jq '{success, status: .result.status, expires: .result.expires_on, errors}'
 ```
 
-Expect `success: true`, `status: "active"`. A proxy 403 or DNS failure means the
-domain allow-list was not applied: stop and tell the owner which host was refused.
+Expect `success: true`, `status: "active"`. `success: false` with an authentication
+error means the Network secret is missing, not attached to `api.cloudflare.com`, or
+marked **Not sent** in the environment dialog: stop and tell the owner. A proxy 403 or
+DNS failure on `jpwolfson.com` later means the allowed-domains list was not applied.
 
 Token scopes the owner was asked to grant (verify failures later map to these):
 Account → Cloudflare Pages Edit, Workers Scripts Edit, Notifications Edit;
@@ -89,7 +100,7 @@ Append to this file after every step (`cat >> …`). Commit at the end.
 ## 3. Resolve Cloudflare identifiers (non-secret values only go in the env file)
 
 ```bash
-CF=https://api.cloudflare.com/client/v4; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+CF=https://api.cloudflare.com/client/v4; H="Accept: application/json"
 ZONE=$(curl -sS "$CF/zones?name=jpwolfson.com" -H "$H" | jq -r '.result[0].id')
 ACCT=$(curl -sS "$CF/zones/$ZONE" -H "$H" | jq -r '.result.account.id')
 [ -n "$ZONE" ] && [ "$ZONE" != null ] && [ -n "$ACCT" ] && [ "$ACCT" != null ] || { echo "zone/account lookup failed (token scope?)"; exit 1; }
@@ -98,12 +109,13 @@ curl -sS "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, pr
 ```
 
 `P` is the Pages project name; correct it in `~/.batch-a.env` if the listing differs.
-Every block below starts with `source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"`.
+Every block below starts with `source ~/.batch-a.env; H="Accept: application/json"`
+(no token anywhere; the proxy authenticates the request).
 
 ## 4. Delete the OAuth Worker
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/accounts/$ACCT/workers/scripts" -H "$H" | jq '[.result[] | {id, modified_on}]'          # snapshot for the log
 curl -sS -X DELETE "$CF/accounts/$ACCT/workers/scripts/jpwolfson-cms-auth?force=true" -H "$H" | jq '{success, errors}'
 curl -sS "$CF/accounts/$ACCT/workers/scripts" -H "$H" | jq '[.result[] | .id]'                       # must not list jpwolfson-cms-auth
@@ -116,7 +128,7 @@ success for this step; record it.
 ## 5. Pages project: Node override check and preview deployments off
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result | {build_config, env: {production: .deployment_configs.production.env_vars, preview: .deployment_configs.preview.env_vars}, preview_setting: .source.config.preview_deployment_setting}'
 ```
 
@@ -126,7 +138,7 @@ from that environment (it would override the repo's `.node-version`); do not PAT
 `deployment_configs` otherwise:
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 for env in production preview; do
   has=$(curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq -r ".result.deployment_configs.$env.env_vars.NODE_VERSION // empty")
   [ -z "$has" ] && { echo "$env: no NODE_VERSION override"; continue; }
@@ -139,7 +151,7 @@ Disable preview deployments by PATCHing the **whole** `source` object (a partial
 disconnect the Git integration):
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.source' > /tmp/source.json
 jq '.config.preview_deployment_setting = "none"' /tmp/source.json > /tmp/source.new.json
 diff /tmp/source.json /tmp/source.new.json || true      # exactly one changed line expected
@@ -151,7 +163,7 @@ curl -sS "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.source.con
 ## 6. Response-header Transform Rule (mirror of `_headers`, out of reach of a merge)
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" | jq '.result.rules // []' | tee /tmp/headers-before.json
 jq -e 'length == 0 or (length == 1 and .[0].description == "Security headers (mirror of _headers)")' /tmp/headers-before.json >/dev/null \
   || { echo "phase holds other rules; stop and record them before replacing"; exit 1; }
@@ -164,7 +176,7 @@ below and open a one-line PR adding `; includeSubDomains` to `src/_headers`; oth
 keep `max-age=31536000` and record why.
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS -X PUT "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" -H 'Content-Type: application/json' --data @- <<'JSON' | jq '{success, errors}'
 {"rules":[{"description":"Security headers (mirror of _headers)","expression":"true","action":"rewrite","action_parameters":{"headers":{
   "Strict-Transport-Security":{"operation":"set","value":"max-age=31536000"},
@@ -186,7 +198,7 @@ may need that provider's CA added, or the record will block its renewals. Record
 listing and the decision in the log.
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/zones/$ZONE/dns_records?type=CAA&per_page=100" -H "$H" | jq -r '.result[] | "\(.data.tag) \(.data.value)"' | sort > /tmp/caa-have.txt
 for ca in letsencrypt.org pki.goog ssl.com sectigo.com digicert.com; do for tag in issue issuewild; do
   grep -qx "$tag $ca" /tmp/caa-have.txt && continue
@@ -202,7 +214,7 @@ and continue.
 ## 8. DNSSEC (Cloudflare side)
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS -X PATCH "$CF/zones/$ZONE/dnssec" -H "$H" -H 'Content-Type: application/json' --data '{"status":"active"}' | jq '.result | {status, ds, digest_type, algorithm, key_tag}'
 ```
 
@@ -213,7 +225,7 @@ the DS; that is expected.
 ## 9. Notifications and WAF (best effort)
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/accounts/$ACCT/alerting/v3/available_alerts" -H "$H" | jq -r '.result | to_entries[] | .value[]? | .type' | grep -i pages
 ```
 
@@ -225,22 +237,25 @@ owner's dashboard; do not loop. **Redact the email address in the log**: the log
 committed to a public repository.
 
 ```bash
-source ~/.batch-a.env; H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+source ~/.batch-a.env; H="Accept: application/json"
 curl -sS "$CF/zones/$ZONE/rulesets/phases/http_request_firewall_managed/entrypoint" -H "$H" | jq '{success, rules: [.result.rules[]? | {description, enabled}], errors}'
 ```
 
 Record whether the Cloudflare Managed Ruleset is deployed; if the GET is a 404, note it
 for the owner (deploying it needs Zone WAF Edit, which this token lacks on purpose).
 
-## 10. Repository hygiene (git works through the proxy)
+## 10. Repository hygiene (read-only here)
+
+The GitHub proxy used by cloud sessions **rejects branch deletions**, so this step only
+records what the owner should delete (checklist step 8). `delete_branch_on_merge` is on,
+so no new stale branches accumulate.
 
 ```bash
 cd /home/user/jpwolfson-site && git fetch --prune origin
-for b in $(git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/); do
-  [ "$b" = "claude/batch-a-log" ] && continue
-  git push origin --delete "$b"
-done
-git for-each-ref --format='%(refname:lstrip=3)' --no-merged origin/main refs/remotes/origin/claude/    # unmerged: leave, list in log
+echo "merged into main (owner deletes these at Settings → Branches):"
+git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/ | grep -v '^claude/batch-a-log$'
+echo "NOT merged (leave alone, list in the log):"
+git for-each-ref --format='%(refname:lstrip=3)' --no-merged origin/main refs/remotes/origin/claude/
 ```
 
 ## 11. Live verification
@@ -268,5 +283,6 @@ worker not 200; RDAP `delegationSigned` still false until the owner publishes th
    `build` is green and the review has no BLOCKING finding (`CLAUDE.md` rule 2; the
    ruleset now enforces the check).
 4. Report to the owner: the DS record, anything UNVERIFIED or left for the dashboard,
-   and a reminder to **delete the `batch-a-cloudflare` environment and the Cloudflare
-   API token** now that the one-session exception to R3 is over.
+   and a reminder to **archive or delete the `batch-a-cloudflare` environment (delete its
+   Network secret first) and delete the Cloudflare API token** now that the one-session
+   exception to R3 is over.
