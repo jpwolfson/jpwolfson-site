@@ -127,27 +127,25 @@ gh api repos/$R/actions/permissions/workflow
 gh api repos/$R/actions/secrets --jq '.total_count'      # must be 0
 ```
 
-## 6. Merge the hardening PR
+## 6. Confirm the hardening PR is merged and deployed
 
-The PR from branch `claude/happy-babbage-nioug8` removes Decap, adds the `build`
-check, pins Node, disables npm scripts, and rewrites the docs.
-
-```bash
-source ~/.batch-a.env
-N=$(gh pr list --head claude/happy-babbage-nioug8 --json number --jq '.[0].number')
-gh pr checks $N --watch                      # every check green
-gh pr view $N --json reviews --jq '.reviews[] | {author: .author.login, state}'
-```
-
-Merge only if a review exists from a session other than the author with no BLOCKING
-finding (see `CLAUDE.md` rule 2). Then (by branch name, so it works in a fresh shell):
+PR #38 (branch `claude/happy-babbage-nioug8`) removed Decap, added the `build` check,
+pinned Node, disabled npm scripts, and rewrote the docs. **It was merged on 2026-10-25
+02:23 UTC via the GitHub UI**, before this runbook ran, so this step only verifies.
+If you are re-running on a later hardening PR, replace the number.
 
 ```bash
 source ~/.batch-a.env
-gh pr merge claude/happy-babbage-nioug8 --squash --delete-branch
+gh pr view 38 -R "$R" --json state,mergedAt,mergeCommit --jq '{state, mergedAt, merge: .mergeCommit.oid}'   # state MERGED
+gh api repos/$R/commits/main/check-runs --jq '.check_runs[] | "\(.name) \(.status) \(.conclusion)"'  # build success, Cloudflare Pages success
 ```
 
-Cloudflare Pages will build `main` within a few minutes. Confirm before continuing:
+If a hardening PR is still open instead: `gh pr checks <n> --watch` must be all green and
+`gh pr view <n> --json reviews` must show a review from a session other than the author
+with no BLOCKING finding (`CLAUDE.md` rule 2); then
+`gh pr merge <branch> --squash --delete-branch`.
+
+Confirm production before continuing (Cloudflare Pages builds `main` within minutes):
 
 ```bash
 curl -sI https://jpwolfson.com/ | grep -iE 'strict-transport|x-frame|content-type-options'
@@ -156,7 +154,7 @@ curl -s -o /dev/null -w '%{http_code}\n' https://jpwolfson.com/admin/config.yml 
 curl -sI https://jpwolfson.com/files/wolfson-cv.pdf | grep -i content-security-policy
 ```
 
-If the Pages build fails, read the build log in the dashboard (likely cause: build
+If the Pages build failed, read the build log in the dashboard (likely cause: build
 command or root directory). Do not change repo files from this session; open an issue.
 
 ## 7. Ruleset on `main` (empty bypass list)
@@ -230,7 +228,7 @@ H="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
 ZONE=$(curl -s "$CF/zones?name=jpwolfson.com" -H "$H" | jq -r '.result[0].id')
 ACCT=$(curl -s "$CF/zones/$ZONE" -H "$H" | jq -r '.result.account.id')
 [ -n "$ZONE" ] && [ "$ZONE" != null ] && [ -n "$ACCT" ] && [ "$ACCT" != null ] || { echo "zone/account lookup failed (token scope?)"; exit 1; }
-sed -i.bak '/^export \(H\|ZONE\|ACCT\|P\)=/d' ~/.batch-a.env && rm -f ~/.batch-a.env.bak   # idempotent re-run
+sed -E -i.bak '/^export (H|ZONE|ACCT|P)=/d' ~/.batch-a.env && rm -f ~/.batch-a.env.bak   # idempotent re-run
 printf 'export H=%q\nexport ZONE=%q\nexport ACCT=%q\nexport P=jpwolfson-site\n' "$H" "$ZONE" "$ACCT" >> ~/.batch-a.env
 curl -s "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, production_branch, build_config, source: .source.config}'
 ```
