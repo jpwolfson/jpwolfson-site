@@ -59,9 +59,9 @@ RS=$(curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets" |
 curl -sS "https://api.github.com/repos/jpwolfson/jpwolfson-site/rulesets/$RS" > /tmp/ruleset.json
 jq '{name, bypass_actors, include: .conditions.ref_name.include, rules: [.rules[] | .type], pr: (first(.rules[] | select(.type=="pull_request") | .parameters) // null), checks: [.rules[] | select(.type=="required_status_checks") | .parameters.required_status_checks[]]}' /tmp/ruleset.json
 jq -e '
-  (.bypass_actors | length == 0) and
+  (.bypass_actors == []) and
   (.conditions.ref_name.include | any(. == "refs/heads/main" or . == "~DEFAULT_BRANCH")) and
-  ([.rules[].type] | contains(["deletion","non_fast_forward","required_linear_history","pull_request","required_status_checks"])) and
+  ((["deletion","non_fast_forward","required_linear_history","pull_request","required_status_checks"] - [.rules[].type]) | length == 0) and
   ((first(.rules[] | select(.type=="pull_request") | .parameters) // {}) as $pr |
      ($pr.allowed_merge_methods == ["squash"]) and
      (($pr.require_extra_approval_for_unattributed_changes // false) == false) and
