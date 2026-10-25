@@ -1,77 +1,94 @@
 name: Link Audit
 
+# Checks every external link in the site content. A broken link opens or
+# updates a tracking issue instead of leaving a permanently red run; the job
+# itself fails only if the crawler crashes. Holds no secrets.
+
 on:
-  # Run weekly on Monday mornings
   schedule:
     - cron: '0 8 * * 1'
-  # Allow manual trigger from the Actions tab
   workflow_dispatch:
-  # Run on pushes that touch content or the audit script itself
   push:
+    branches: [main]
     paths:
       - 'jpwolfson-site/src/**'
-      - 'jpwolfson-site/crawl_links.py'
+      - 'jpwolfson-site/scripts/crawl_links.py'
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     defaults:
       run:
         working-directory: jpwolfson-site
 
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
 
-      - name: Install dependencies
-        run: pip install requests==2.32.5 beautifulsoup4==4.14.3
+      - name: Install pinned dependencies
+        run: pip install -r scripts/requirements-ci.txt
 
       - name: Run link audit
-        # No HTTPS_PROXY here, so all 191 URLs are checked live.
-        # Script exits 1 if any confirmed-broken links are found.
-        run: python crawl_links.py
+        id: crawl
+        continue-on-error: true
+        run: python scripts/crawl_links.py
 
-      - name: Upload link_audit.json
-        if: always()   # upload even when the step above fails
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
         with:
           name: link-audit-results
           path: jpwolfson-site/link_audit.json
           retention-days: 90
 
-      - name: Post summary
+      - name: Summarize and track broken links in an issue
         if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          CRAWL_OUTCOME: ${{ steps.crawl.outcome }}
         run: |
-          python - <<'EOF'
-          import json, os
-          data = json.load(open("link_audit.json"))
+          python - <<'EOF2'
+          import json, os, subprocess, sys
+          try:
+              data = json.load(open("link_audit.json"))
+          except Exception as e:
+              print(f"Crawler produced no readable output ({e}); outcome={os.environ['CRAWL_OUTCOME']}")
+              sys.exit(1)
           s = data["summary"]
-          lines = [
-            f"## Link Audit Results",
-            f"",
-            f"Checked **{s['total_unique_urls']}** unique URLs ({s['total_raw_instances']} raw instances)",
-            f"",
-            f"| Classification | Count |",
-            f"|---|---|",
-          ]
-          order = ["broken","redirect","pending_external_verification","internal_unverified","ok","unknown"]
-          by_class = s.get("by_classification", {})
-          for k in order + [k for k in by_class if k not in order]:
-              if k in by_class:
-                  lines.append(f"| {k} | {by_class[k]} |")
           broken = [r for r in data["links"] if r["classification"] == "broken"]
+          lines = ["## Link Audit Results", "",
+                   f"Checked **{s['total_unique_urls']}** unique URLs ({s['total_raw_instances']} raw instances)", "",
+                   "| Classification | Count |", "|---|---|"]
+          for k, v in sorted(s.get("by_classification", {}).items()):
+              lines.append(f"| {k} | {v} |")
           if broken:
               lines += ["", "### Broken links"]
               for r in broken:
                   occ = r["occurrences"][0]
                   lines.append(f"- `{r['url']}` — {occ['source_file']}:{occ['line']}")
-          print("\n".join(lines))
+          body = "\n".join(lines)
+          print(body)
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as f:
-              f.write("\n".join(lines) + "\n")
-          EOF
+              f.write(body + "\n")
+
+          title = "Link audit: broken links"
+          existing = subprocess.run(
+              ["gh", "issue", "list", "--state", "open", "--search", f'"{title}" in:title', "--json", "number", "--jq", ".[0].number"],
+              capture_output=True, text=True).stdout.strip()
+          if broken:
+              if existing:
+                  subprocess.run(["gh", "issue", "edit", existing, "--body", body], check=True)
+              else:
+                  subprocess.run(["gh", "issue", "create", "--title", title, "--body", body], check=True)
+          elif existing:
+              subprocess.run(["gh", "issue", "close", existing, "--comment", "All links resolve again."], check=True)
+          EOF2

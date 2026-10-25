@@ -6,3 +6,12 @@ __pycache__/
 # Exported WordPress stats (private data — do not commit)
 wp_stats_export/
 wp_stats_archive.html
+
+# Local secrets / tool state (never commit)
+.env
+.env.*
+.dev.vars
+.wrangler/
+
+# Generated link-audit output (uploaded as a CI artifact instead)
+jpwolfson-site/link_audit.json
