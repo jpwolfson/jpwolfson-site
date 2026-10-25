@@ -13,8 +13,10 @@ the `SECURITY.md` status-table updates at the end.
 ## 0. Preconditions (owner, ~5 minutes, before starting the session)
 
 ```bash
+node --version                      # must be >= 22.23.4 (CLAUDE.md rule 6); otherwise `nvm install 22` first
 gh auth status                      # logged in as jpwolfson, scopes include repo, admin:repo_hook, workflow
-npx wrangler@latest whoami          # logged in to the Cloudflare account that owns jpwolfson.com
+export WRANGLER=wrangler@4.149.0    # pinned, published 2026-10-08; never `@latest` in a session holding your identity
+npx --yes "$WRANGLER" whoami        # logged in to the Cloudflare account that owns jpwolfson.com
 export CLOUDFLARE_API_TOKEN=…       # see scope below; 24-hour expiry; never paste into chat
 ```
 
@@ -29,6 +31,7 @@ TTL 1 day, permissions:
 | Zone → DNS | Edit |
 | Zone → Zone Settings | Edit |
 | Zone → Transform Rules | Edit |
+| Zone → Zone WAF | Read |
 | Zone → Zone | Read |
 | Zone resources | Include → Specific zone → jpwolfson.com |
 
@@ -43,17 +46,19 @@ in the same sitting.
 R=jpwolfson/jpwolfson-site
 gh api repos/$R --jq '{private,default_branch,delete_branch_on_merge,allow_auto_merge,security_and_analysis}'
 gh api repos/$R/branches --jq '.[].name'
-gh api user/installations --jq '.installations[] | {id, app_slug, repository_selection}'
 ```
 
-For the Claude installation: `gh api user/installations/<id>/repositories --jq '.repositories[].full_name'`
-must list **only** `jpwolfson/jpwolfson-site`. If it lists more, fix it at
-https://github.com/settings/installations before continuing (owner, UI).
+**Owner, UI (R7):** open https://github.com/settings/installations, click the Claude
+app, and confirm "Repository access" is *Only select repositories* with
+`jpwolfson/jpwolfson-site` alone. (The `/user/installations` API needs a GitHub App
+user token, so this cannot be scripted from `gh`.)
 
 ## 2. Pre-public gate
 
 ```bash
-bash jpwolfson-site/scripts/ci/gitleaks.sh            # must print "no leaks found"
+# Scan a mirror so refs/pull/* (which become public too) are included.
+git clone --mirror https://github.com/jpwolfson/jpwolfson-site /tmp/site-mirror.git
+( cd /tmp/site-mirror.git && bash "$OLDPWD/jpwolfson-site/scripts/ci/gitleaks.sh" )   # must print "no leaks found"
 git grep -nIE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}' -- . ':!jpwolfson-site/package-lock.json' | grep -v noreply
 ```
 
@@ -149,14 +154,15 @@ gh api -X POST repos/$R/rulesets --input - <<'JSON'
         "required_review_thread_resolution": false}},
     {"type": "required_status_checks", "parameters": {
         "strict_required_status_checks_policy": true,
-        "required_status_checks": [{"context": "build"}]}}
+        "required_status_checks": [{"context": "build", "integration_id": 15368}]}}
   ]
 }
 JSON
 gh api repos/$R/rulesets --jq '.[] | {id,name,enforcement}'
 ```
 
-The `build` context must have reported at least once (it did, on the PR) or the rule
+`integration_id` 15368 is GitHub Actions (verify with `gh api apps/github-actions --jq .id`);
+without it any commit status named `build` would satisfy the rule. The `build` context must have reported at least once (it did, on the PR) or the rule
 will block every merge; verify with
 `gh api repos/$R/commits/main/check-runs --jq '.check_runs[].name'`.
 
@@ -164,7 +170,10 @@ will block every merge; verify with
 
 ```bash
 git fetch --prune
-for b in $(git branch -r | sed 's#origin/##' | grep '^claude/'); do git push origin --delete "$b"; done
+for b in $(git for-each-ref --format='%(refname:lstrip=3)' --merged origin/main refs/remotes/origin/claude/); do
+  git push origin --delete "$b"
+done
+git for-each-ref --no-merged origin/main refs/remotes/origin/claude/    # anything left here is unmerged: leave it, list it in the log
 gh api repos/$R/branches --jq '.[].name'      # main only
 ```
 
@@ -172,9 +181,9 @@ gh api repos/$R/branches --jq '.[].name'      # main only
 
 ```bash
 cd jpwolfson-site
-npx wrangler@latest deployments list --name jpwolfson-cms-auth   # snapshot for the log
-npx wrangler@latest delete --name jpwolfson-cms-auth --force
-npx wrangler@latest deployments list --name jpwolfson-cms-auth   # must error: not found
+npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # snapshot for the log
+npx --yes "$WRANGLER" delete --name jpwolfson-cms-auth --force
+npx --yes "$WRANGLER" deployments list --name jpwolfson-cms-auth   # must error: not found
 curl -s -o /dev/null -w '%{http_code}\n' https://jpwolfson-cms-auth.jpwolfson.workers.dev/   # not 200
 ```
 
@@ -193,27 +202,55 @@ ACCT=$(curl -s "$CF/zones/$ZONE" -H "$H" | jq -r '.result.account.id')
 curl -s "$CF/accounts/$ACCT/pages/projects" -H "$H" | jq '.result[] | {name, production_branch, build_config, source: .source.config}'
 ```
 
-**10a. Pages project.** Record the project name as `P`. Confirm `build_config.root_dir`
-is `jpwolfson-site` and `destination_dir` is `_site`. Disable preview deployments
-(decision Q2 chose none unless the owner says otherwise):
+**10a. Pages project.** Record the project name as `P` (expected: `jpwolfson-site`).
+Confirm `build_config.root_dir` is `jpwolfson-site` and `destination_dir` is `_site`.
+
+Check for an env var that would override the repo's `.node-version`:
 
 ```bash
-curl -s -X PATCH "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" -H 'Content-Type: application/json' \
-  --data '{"source":{"config":{"production_branch":"main","preview_deployment_setting":"none","deployments_enabled":true}}}' | jq '.success, .errors'
+curl -s "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.deployment_configs | {production: .production.env_vars, preview: .preview.env_vars}'
 ```
 
-If the API rejects the shape, read the current `source.config` object from the GET
-above and PATCH the whole object with `preview_deployment_setting` changed. Node
-version and `ignore-scripts` are already repo-controlled (`.node-version`, `.npmrc`);
-do **not** add `NODE_VERSION` env vars that would override the file.
+If `NODE_VERSION` exists in either, it must be removed or set to `22.23.4`
+(a PATCH of `deployment_configs.<env>.env_vars` with `{"NODE_VERSION": null}` removes it;
+GET again to confirm). Never add new env vars here; Node and `ignore-scripts` are
+repo-controlled.
 
-**10b. Response-header Transform Rule** (mirrors `_headers` so a merge cannot remove them):
+Disable preview deployments (decision Q2). **Always PATCH the whole `source` object**,
+never a partial one, or the Git integration can be disconnected:
+
+```bash
+curl -s "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.source' > /tmp/source.json
+jq '.config.preview_deployment_setting = "none"' /tmp/source.json > /tmp/source.new.json
+diff /tmp/source.json /tmp/source.new.json          # exactly one line should change
+curl -s -X PATCH "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" -H 'Content-Type: application/json' \
+  --data "{\"source\": $(cat /tmp/source.new.json)}" | jq '.success, .errors'
+curl -s "$CF/accounts/$ACCT/pages/projects/$P" -H "$H" | jq '.result.source.config.preview_deployment_setting'
+```
+
+**10b. Response-header Transform Rule** (mirrors `_headers` so a merge cannot remove them).
+
+The PUT below **replaces every rule in the phase**. Snapshot first and abort if any
+rule already exists that is not ours:
+
+```bash
+curl -s "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" -H "$H" | jq '.result.rules // []' | tee /tmp/headers-phase-before.json
+```
+
+HSTS `includeSubDomains` is only safe if no subdomain is served over plain HTTP.
+List DNS records; if every A/AAAA/CNAME is Cloudflare-proxied (`proxied: true`),
+you may add `; includeSubDomains` to the HSTS value below and in `src/_headers`
+(via a PR); otherwise omit it and note why in the log:
+
+```bash
+curl -s "$CF/zones/$ZONE/dns_records?per_page=100" -H "$H" | jq -r '.result[] | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "\(.name) \(.type) proxied=\(.proxied)"'
+```
 
 ```bash
 curl -s -X PUT "$CF/zones/$ZONE/rulesets/phases/http_response_headers_transform/entrypoint" \
   -H "$H" -H 'Content-Type: application/json' --data @- <<'JSON' | jq '.success, .errors'
 {"rules":[{"description":"Security headers (mirror of _headers)","expression":"true","action":"rewrite","action_parameters":{"headers":{
-  "Strict-Transport-Security":{"operation":"set","value":"max-age=31536000; includeSubDomains"},
+  "Strict-Transport-Security":{"operation":"set","value":"max-age=31536000"},
   "X-Frame-Options":{"operation":"set","value":"DENY"},
   "X-Content-Type-Options":{"operation":"set","value":"nosniff"},
   "Referrer-Policy":{"operation":"set","value":"strict-origin-when-cross-origin"},

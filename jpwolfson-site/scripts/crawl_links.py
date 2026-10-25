@@ -200,7 +200,8 @@ def classify(result: dict, reachability: str) -> str:
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    os.chdir(Path(__file__).parent)
+    # Script lives in scripts/; the Eleventy project (src/) is one level up.
+    os.chdir(Path(__file__).resolve().parent.parent)
 
     in_sandbox = bool(os.environ.get("HTTPS_PROXY"))
     env_label = "sandbox (proxy-restricted)" if in_sandbox else "unrestricted"

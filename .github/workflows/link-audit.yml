@@ -18,6 +18,10 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: link-audit
+  cancel-in-progress: false
+
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -81,9 +85,15 @@ jobs:
               f.write(body + "\n")
 
           title = "Link audit: broken links"
-          existing = subprocess.run(
+          lookup = subprocess.run(
               ["gh", "issue", "list", "--state", "open", "--search", f'"{title}" in:title', "--json", "number", "--jq", ".[0].number"],
-              capture_output=True, text=True).stdout.strip()
+              capture_output=True, text=True)
+          if lookup.returncode != 0:
+              print("gh issue list failed; not touching issues:", lookup.stderr); sys.exit(1)
+          existing = lookup.stdout.strip().strip('"')
+          if existing in ("", "null"):
+              existing = ""
+
           if broken:
               if existing:
                   subprocess.run(["gh", "issue", "edit", existing, "--body", body], check=True)

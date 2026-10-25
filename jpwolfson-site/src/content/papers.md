@@ -6,7 +6,9 @@ permalink: /papers/
 <p class="section-label">Pre-prints</p>
 
 1. [Essential dimension relative to branched covers of degree at most n](https://arxiv.org/abs/2510.22786) (with [Benson Farb](http://www.math.uchicago.edu/~farb/)). Submitted for publication.
+
 2. [Solvable Points on Intersections of Quadrics, Cubics and Quartics](https://arxiv.org/abs/2508.00215) (with [Claudio Gómez-Gonzáles](https://claudiojacobo.wordpress.com/)). Submitted for publication.
+
 3. [A higher Kac-Moody extension for two-dimensional gauge groups](https://arxiv.org/abs/2110.01649) (with [Jens Kaad](https://portal.findresearcher.sdu.dk/en/persons/kaad) and [Ryszard Nest](http://www.math.ku.dk/~rnest/)). Submitted for publication.
 
 <p class="section-label">Publications</p>

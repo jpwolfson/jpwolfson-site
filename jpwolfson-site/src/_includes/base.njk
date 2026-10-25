@@ -17,16 +17,16 @@
   -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
-                 script-src 'self' 'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8=' 'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU=' https://cdn.jsdelivr.net https://static.cloudflareinsights.com;
+                 script-src 'self' 'sha256-MdMapQxvxeL6vP8KdU8o5Ie9nNnnk3l94+maA3yW+k8=' 'sha256-ieoeWczDHkReVBsRBqaal5AFMlBtNjMzgwKvLqi/tSU=' https://cdn.jsdelivr.net/npm/mathjax@3.2.2/ https://static.cloudflareinsights.com;
                  style-src 'self' 'unsafe-inline';
                  img-src 'self' data: https:;
-                 font-src 'self' https://cdn.jsdelivr.net;
+                 font-src 'self' https://cdn.jsdelivr.net/npm/mathjax@3.2.2/;
                  connect-src 'self' https://cloudflareinsights.com;
                  frame-src https://player.vimeo.com https://www.youtube.com;
                  base-uri 'self';
                  form-action 'none';
                  object-src 'none';" />
-  {%- set pageDescription = description or "Jesse Wolfson, Professor of Mathematics at the University of California, Irvine. Research on the interplay of arithmetic, geometry, and topology." -%}
+  {%- set pageDescription = description or "Jesse Wolfson, a professor in the Department of Mathematics at the University of California, Irvine. Research on the interplay of arithmetic, geometry, and topology." -%}
   <title>{% if title %}{{ title }} – {% endif %}Jesse Wolfson</title>
   <meta name="description" content="{{ pageDescription }}" />
   <meta property="og:title" content="{% if title %}{{ title }} – {% endif %}Jesse Wolfson" />

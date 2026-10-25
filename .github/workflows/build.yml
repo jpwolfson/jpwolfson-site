@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: build-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -54,7 +54,7 @@ jobs:
       - name: HTML validation
         run: npm run lint:html
 
-      - name: CSP directives and inline-script hash
+      - name: DOM invariants (canonical CSP, scripts, iframes)
         run: python3 scripts/ci/check-csp.py
 
       - name: SRI hashes match CDN

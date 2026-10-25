@@ -13,7 +13,7 @@ code, no database, no form, and no credential anywhere in the repository or its 
 Decap CMS and its OAuth Worker were removed in October 2026.
 
 ```
- GitHub (public repo)  ──push to main──▶  Cloudflare Pages build  ──▶  jpwolfson.com
+ GitHub repo (public: pending A0) ──push──▶  Cloudflare Pages build  ──▶  jpwolfson.com
    agents open PRs                        .node-version pins Node       _headers + CSP
    `build` check required                 .npmrc ignore-scripts         /files/* locked down
    ruleset: no force-push,                npm ci from lockfile
@@ -34,8 +34,8 @@ Decap CMS and its OAuth Worker were removed in October 2026.
 | Lockfile-only installs; `npm audit` fails CI on high/critical; registry signature check | `build.yml` | done |
 | Dependabot with 7-day cooldown for npm, pip, GitHub Actions | `.github/dependabot.yml` | done (alerts/security-updates toggle **pending Batch A**) |
 | Full-history secret scan with checksum-pinned gitleaks on every PR | `scripts/ci/gitleaks.sh` | done |
-| HTML validation, output invariants (404 present, no `/admin/`, iframes within `frame-src`) | `build.yml`, `scripts/ci/check-output.sh` | done |
-| All GitHub Actions pinned to commit SHAs; `permissions: contents: read`; no repository secrets | `.github/workflows/*` | done |
+| HTML validation; file-level invariants (404 present, no `/admin/`, output limited to html/css/pdf/png/jpg); DOM invariants parsed with `html.parser` (one canonical CSP per page, exactly the two known inline hashes, only the MathJax scripts, iframes on allowed hosts, no `<base>`/`<object>`/`<embed>`/`<form>`/inline handlers) | `build.yml`, `scripts/ci/check-output.sh`, `scripts/ci/check-csp.py` | done |
+| All GitHub Actions pinned to commit SHAs; least privilege (`build`: `contents: read`; link audit adds `issues: write` for the tracking issue); no repository secrets | `.github/workflows/*` | done |
 | Ruleset on `main`: PR required, `build` required, no force-push, no deletion, linear history, **empty bypass list** | GitHub settings | **pending Batch A** (requires public repo or Pro) |
 | Actions: default token read-only; only GitHub-owned and verified actions | GitHub settings | **pending Batch A** |
 | Secret scanning + push protection | GitHub settings (public repo) | **pending Batch A** |
@@ -52,8 +52,9 @@ Agents author, review, and merge without a human. The rules are in `CLAUDE.md`.
 The safety argument: the worst a hijacked agent can do is deface the site or abuse
 CI minutes, because (a) the ruleset forbids history rewriting, (b) CI holds no
 credentials and its token is read-only, (c) no agent holds a Cloudflare write
-credential, (d) security headers are mirrored at Cloudflare where a merge cannot
-touch them, and (e) sessions that read the open web do not hold merge rights.
+credential, (d) the HTTP security headers are mirrored at Cloudflare where a merge cannot
+touch them (pending Batch A; the CSP itself still lives in the page `<meta>` and is
+not yet mirrored, decision Q3), and (e) sessions that read the open web do not hold merge rights.
 Recovery from a bad merge is `git revert` plus a Pages redeploy.
 
 ## Maintenance
@@ -74,7 +75,7 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 | Build, audit, CSP, SRI, files, secrets | every PR and push to `main` | `build.yml` |
 | External links | weekly | `link-audit.yml` opens or updates an issue |
 | Live headers, `/admin/` 404, Worker gone | after Batch A, then via external monitor | `curl -sI https://jpwolfson.com/` |
-| Domain: expiry (2026-11-30, auto-renew confirmed), transfer lock, DNSSEC | quarterly | `curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com` |
+| Domain: expiry 2026-11-30 (auto-renew: owner-stated 2026-10-25, not independently verified; A8), transfer lock, DNSSEC | quarterly | `curl -s https://rdap.verisign.com/com/v1/domain/jpwolfson.com` |
 | Full review | 6 months, or on any Node/npm/Cloudflare advisory touching the build | this workflow |
 
 ## Accepted risks
@@ -86,7 +87,9 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 | Raw HTML enabled in Markdown (`html: true`) | Needed for video embeds and section labels. Compensated by `base-uri`, `form-action`, `object-src`, `frame-src`, and the `/files/*` allow-list. Only PR authors can write content, and merges are recoverable. |
 | Cloudflare Web Analytics beacon without SRI | Injected at the edge by the hosting provider; the trust boundary is Cloudflare itself. |
 | MathJax served from jsdelivr | Pinned version + SRI; CI detects drift. Self-hosting is an open option (review workflow Q4). |
-| Public repository | Required for free branch protection and secret scanning. Content is public anyway; history has been scanned and contains no secrets. |
+| Public repository (pending A0) | Required for free branch protection and secret scanning. Content is public anyway; history has been scanned and contains no secrets. |
+| `/files/*` CSP omits `sandbox` | Spec B4 proposed `default-src 'none'; sandbox`. `sandbox` breaks Chrome's built-in PDF viewer, so only `default-src 'none'` is set; the primary control is the CI allow-list that keeps non-PDF/image files out of `src/files/`. |
+| HSTS without `includeSubDomains` | Added only after Batch A confirms no HTTP-only subdomain exists (runbook step 10b). |
 
 ## Incident runbook
 
@@ -108,5 +111,5 @@ Recovery from a bad merge is `git revert` plus a Pages redeploy.
 
 ## Reporting
 
-Security contact: the repository owner via GitHub issues (this repository is public),
+Security contact: the repository owner via GitHub issues (once the repository is public),
 or the email address on the site.
