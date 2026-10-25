@@ -1,0 +1,68 @@
+name: build
+
+# Required status check for merging to main (see the ruleset in Batch A).
+# Holds no secrets. GITHUB_TOKEN is read-only.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jpwolfson-site
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0            # full history for the secret scan
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: jpwolfson-site/.node-version
+          cache: npm
+          cache-dependency-path: jpwolfson-site/package-lock.json
+
+      - name: Install from lockfile (lifecycle scripts disabled via .npmrc)
+        run: npm ci
+
+      - name: Dependency audit (fail on high or critical)
+        run: npm audit --audit-level=high
+
+      - name: Registry signatures and provenance attestations
+        run: npm audit signatures
+
+      - name: Build
+        run: npm run build
+
+      - name: Output invariants
+        run: bash scripts/ci/check-output.sh
+
+      - name: HTML validation
+        run: npm run lint:html
+
+      - name: CSP directives and inline-script hash
+        run: python3 scripts/ci/check-csp.py
+
+      - name: SRI hashes match CDN
+        run: bash scripts/ci/check-sri.sh
+
+      - name: src/files allow-list
+        run: bash scripts/ci/check-files.sh
+
+      - name: Secret scan, full history
+        working-directory: ${{ github.workspace }}
+        run: bash jpwolfson-site/scripts/ci/gitleaks.sh

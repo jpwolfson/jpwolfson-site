@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # Build dependencies. The cooldown delays adoption of a new version so that
+  # a compromised release is usually yanked before this repo picks it up.
+  - package-ecosystem: npm
+    directory: /jpwolfson-site
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+
+  # Link-audit crawler dependencies.
+  - package-ecosystem: pip
+    directory: /jpwolfson-site/scripts
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+
+  # Keeps the pinned action SHAs current (Dependabot updates the SHA and the
+  # version comment together).
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
