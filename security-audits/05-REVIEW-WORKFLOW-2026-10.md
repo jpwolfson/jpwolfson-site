@@ -1,240 +1,252 @@
 # jpwolfson.com — Top-to-Bottom Security, Stability & Resilience Review: Workflow
 
-**Prepared:** 2026-10-25
+**Prepared:** 2026-10-25 (revision 2)
 **Status:** PROPOSAL ONLY. Nothing in this document has been implemented.
-**Scope of inspection behind this proposal:** full repo at `main` (`74bb566`), all five prior audit reports, the Phase 2 structural review and remediation plan, GitHub repo metadata (branches, PRs, collaborators, Actions runs and logs), npm registry metadata for Decap CMS / Eleventy / MathJax, Decap CMS release notes and GitHub advisories, a local `npm ci` + Eleventy build + `npm audit`.
-**Not inspectable from this environment:** the live site, the Worker, `*.pages.dev`, DNS, and Cloudflare/GitHub dashboard settings. The sandbox proxy blocks `jpwolfson.com`, `*.workers.dev`, `*.pages.dev`, and `developers.cloudflare.com`. Anything about live state below is marked UNVERIFIED.
+**Scope of inspection behind this proposal:** full repo at `main` (`74bb566`), all five prior audit reports, the Phase 2 structural review and remediation plan, GitHub repo metadata (branches, PRs, collaborators, Actions runs and logs), npm registry metadata, Decap CMS release notes and advisories, a local `npm ci` + Eleventy build + `npm audit`, lockfile cross-check against the 2026 npm supply-chain campaigns, and primary-source verification of the October 2026 PHP, Node.js, npm, and Cloudflare disclosures.
+**Not inspectable from this environment:** the live site, the Worker, `*.pages.dev`, DNS/RDAP, Cloudflare/GitHub dashboard settings. The sandbox proxy blocks these hosts. Live-state claims are marked UNVERIFIED.
 
 ---
 
-## 0. Why re-review now, and what the baseline actually looks like
+## 0. Decisions already taken (2026-10-25)
 
-The February audit was competent and most of what it fixed is still in place. But eight months have passed, the remediation plan from Feb 26 was never executed, and several things the repo *documents* as true are either contradicted by the data or were wrong when written. The workflow below is built around one rule: **re-derive, don't inherit.** Prior reports are inputs to be checked, not conclusions to be trusted.
+These change the shape of the review and are treated as fixed inputs.
 
-### 0.1 Baseline facts (measured 2026-10-25)
+| # | Decision | Consequence |
+|---|---|---|
+| D1 | **Drop Decap CMS and the OAuth Worker.** Content is edited through agent sessions and the GitHub UI. | Removes `/admin/`, the Worker, the GitHub OAuth App, the `repo`-scoped token flow, `unsafe-eval`/`unsafe-inline` CSP, and a 9-month-stale pinned dependency. The site becomes static HTML + PDFs behind Cloudflare with no reachable dynamic code. |
+| D2 | **Owner is out of the PR merge loop.** Agents author, review, and merge. | Acceptable only because D1 caps the worst case at defacement. Requires the controls in §1.3 that agents cannot edit. |
+| D3 | **Supply chain and pruning move ahead of CSP work** in ordering. | Reflects what the October 2026 disclosures actually show is spiking. |
+| D4 | **WordPress.com account remains live and is believed to be the domain registrar.** | The registrar account is the root of trust for the domain. UNVERIFIED; see A8. |
+
+---
+
+## 1. Baseline, threat model, and operating rules
+
+### 1.1 Baseline facts (measured 2026-10-25)
 
 | Area | Observed | Source |
 |---|---|---|
-| Branch protection on `main` | GitHub API returns `protected: false`. SECURITY.md says protection is enabled and owner-verified. Every commit since Feb 26 is a direct push to `main` (15 CMS/web-UI commits, 0 PRs). Caveat: the `protected` flag reflects classic protection only, not Rulesets. | `list_branches`; `git log --first-parent` |
-| PR review practice | All 37 PRs were merged 6–60 seconds after creation (e.g., #37: created 21:53:57, merged 21:54:04). No human review is occurring on agent-authored PRs. | `list_pull_requests` |
-| Link-audit CI | Red on every run since 2026-09-10 (9 consecutive failures). Cause: one real broken link (`math.uci.edu/node/37653`, `talks.md:46`). Also: all three pinned actions target Node 20, which GitHub is now force-running on Node 24 with a deprecation warning. | Actions run 39277932516 logs |
-| Feb 26 remediation plan | 0 of 15 "Implement" items done (no build CI, no 404, no README, no HSTS, `link_audit.json` still tracked, scripts still at root). | file listing |
-| Decap CMS | Pinned `3.10.0` (2026-01-08). Current `3.17.1` (2026-10-14). In between: 3.13.0 "Sanitize HTML links and images, enhance proxy URL validation"; 3.17.1 "dependency security updates"; 3.17.0 changes the auth story ("no OAuth app, auth server or Git Gateway for you to run") — needs reading. CVE-2025-57520 (stored XSS in admin preview, CVSS 5.1) lists affected `<= 3.8.3` with no patched version stated. | npm `time`; GitHub releases; GHSA-xp8g-32qh-mv28 |
-| Eleventy | Locked `3.1.2` (2025-06). Current `3.1.7`. `npm audit`: **1 critical (liquidjs), 7 high** (minimatch, markdown-it, js-yaml, brace-expansion, linkify-it, picomatch, ws). All build-time; all have fixes available. The Feb report's "4 HIGH, no fix available" is stale. | `npm audit --json` |
-| MathJax | `3.2.2` with SRI. 4.x exists; 3.2.2 is last 3.x. Fine. | npm |
-| Raw HTML in Markdown | **Enabled.** Eleventy's markdown-it default is `html: true`; the build renders `<iframe>` and `<div>` from content files. The prior audit's F-15 rationale ("markdown-it defaults to `html: false`, escaping raw HTML") is factually wrong. The real control is "who can write content," not the renderer. | build output; `node_modules/@11ty/eleventy/src/Engines/Markdown.js:49` |
-| CSP | Delivered only via `<meta>` (public and admin). Missing `base-uri`, `form-action`, `object-src` (the last is covered by `default-src`; the first two are not). `_headers` carries no CSP, so anything served outside the Nunjucks template (`/files/*`) has **no CSP at all**. | `base.njk`, `admin/index.html`, `_headers` |
-| `/files/*` | Eleventy passthrough-copies `src/files` verbatim. Decap `media_folder` lets any token holder upload any file type to the production origin. An uploaded `.html` would be served on `jpwolfson.com` with no CSP. | `.eleventy.js`, `config.yml` |
-| Git hygiene | 14 stale `claude/*` branches on origin. 44 of 101 commits authored by the agent. CMS commits unsigned (expected). `.gitignore` lacks `.dev.vars`, `.wrangler/`, `.env*`. | `git log`, `list_branches` |
-| Repo meta | Private. Single admin collaborator. No `dependabot.yml`, no `CODEOWNERS`, no `README.md`, no build CI, no 404 page, no `security.txt`. | `list_repos`, file listing |
-| Worker | Deployed manually; no CI; no mechanism to detect drift between `oauth-worker/worker.js` and what is actually running. Secret rotation history unknown. Referer check uses a suffix match (`.jpwolfson.com`) that is broader than needed. | `worker.js`, `wrangler.toml` |
-| Live headers, HSTS, TLS, DNS (CAA/DNSSEC/DMARC), pages.dev exposure, ALLOWED_DOMAINS | UNVERIFIED (network-blocked). | — |
+| Branch protection on `main` | API returns `protected: false`. SECURITY.md says enabled. Every commit since Feb 26 is a direct push. Caveat: flag ignores Rulesets. | `list_branches`, `git log` |
+| PR review practice | All 37 PRs merged 6–60 s after creation. No review was occurring. | `list_pull_requests` |
+| Link-audit CI | Red every run since 2026-09-10. One real broken link (`talks.md:46`). Pinned actions target Node 20, now force-run on Node 24 with deprecation warnings. | Actions logs |
+| Feb 26 remediation plan | 0 of 15 items done. | file listing |
+| Decap CMS | Pinned 3.10.0; current 3.17.1; CVE-2025-57520 (stored XSS, preview pane) lists no patched version. **Moot under D1.** | npm, GHSA |
+| Eleventy / npm | Locked 3.1.2; current 3.1.7. `npm audit`: 1 critical, 7 high, all build-time, all fixable. | `npm audit` |
+| Lockfile vs. 2026 supply-chain campaigns | No Shai-Hulud/ChainDrop or October preinstall-payload packages present. `debug` is 4.4.3 (clean). 1 of 135 packages has an install script (`fsevents`, macOS-only). All 135 carry integrity hashes. Build succeeds with `npm ci --ignore-scripts`. | lockfile scan, local build |
+| Node.js | Build runs on Node (Pages, CI). CVE-2026-111497 (Brotli RCE, CVSS 9.2) fixed in 22.23.4 / 24.22.1 / 26.12.1. Eleventy fetches nothing remote; direct exposure low. This sandbox runs 22.22.0 (vulnerable). Pages Node version UNVERIFIED. | nodejs.org advisory |
+| PHP2Shell | No PHP in the stack. WordPress.com is Automattic-managed. Not applicable except as a live legacy surface. | Google/CCCS advisories |
+| Cloudflare CVEs | CVE-2026-11325 (`pages-action`) and CVE-2026-0933 (`wrangler pages deploy`): neither used here. | advisories |
+| Raw HTML in Markdown | Enabled (`html: true`); content renders `<iframe>`, `<div>`. Prior F-15 rationale was wrong. | build output |
+| CSP | Meta-only; missing `base-uri`, `form-action`; `_headers` has no CSP; `/files/*` served with no CSP. | source |
+| `/files/*` | Passthrough of anything in `src/files`. An `.html` there is served first-party with no CSP. | `.eleventy.js` |
+| Git hygiene | 14 stale `claude/*` branches; `.gitignore` lacks `.dev.vars`, `.wrangler/`, `.env*`. | git |
+| Repo meta | Private; single admin; no `dependabot.yml`, `CODEOWNERS`, `README`, build CI, 404, `security.txt`; CI holds no secrets. | listing |
+| Registrar, DNSSEC, CAA, DMARC, nameserver lock, live headers, pages.dev admin exposure | UNVERIFIED. | — |
 
-### 0.2 Threat model additions for 2026
+### 1.2 Threat model (post-D1)
 
-The Feb model covered token theft, CDN supply chain, CI compromise, and subdomain takeover. Add:
+With Decap and the Worker gone, token-theft paths vanish. What remains, ranked:
 
-1. **Agents as privileged insiders.** Claude sessions hold repo write via the GitHub App. A prompt-injected agent (e.g., one that reads a hostile page during link research or a hostile PR comment) could push a branch, open a PR, and — given current merge practice — have it merged in seconds. The stale branches show agents push freely. No `CLAUDE.md` constrains agent behaviour in this repo.
-2. **Agents trusting stale/incorrect repo documentation.** The F-15 error is a live example: a future agent reading `security-audits/` will inherit a false belief about XSS exposure.
-3. **Automated reconnaissance at scale.** `/admin/` and `/admin/config.yml` are anonymously reachable, advertising the exact Decap version (with a 9-month-old pin) and the Worker URL. Fleet scanners now fingerprint and exploit this class of target within hours of an advisory.
-4. **Content-write → origin compromise chain.** Anyone with content write (token theft, compromised agent, future collaborator) can upload arbitrary files to `/files/`, served first-party with no CSP. This turns a "content" compromise into a same-origin script execution on the domain that hosts the CMS token in `localStorage`.
-5. **Silent CI decay.** A red check nobody reads is a disabled check. The link audit has been red for six weeks.
+1. **Supply chain into the build.** npm lifecycle scripts, compromised transitive packages, Node runtime bugs. The October 2026 record (worms in 400+ packages, preinstall payloads, stolen-PAT workflow pushes) makes this the live threat for a static site.
+2. **Agent injection → bad merge.** Agents read untrusted web content as part of their job (link audit, research). A hijacked agent with merge rights can land defacement, phishing text, hostile `/files/` uploads, or a CI workflow. Ceiling after D1: defacement and CI abuse, both recoverable, provided §1.3 holds.
+3. **Registrar / DNS account compromise.** Nameserver change bypasses Cloudflare entirely. Root of trust is whichever account holds the registration (believed WordPress.com). Hardware 2FA and transfer lock are the controls; migration to Cloudflare Registrar is the consolidation option.
+4. **Cloudflare / GitHub account compromise.** Out of scope for repo controls; hardware 2FA, minimal API tokens, no tokens in CI.
+5. **Content-level abuse of `html: true`.** Iframes, `<base>` hijack, image exfil. Bounded by CSP (`base-uri`, `frame-src`) delivered from a layer agents cannot edit.
+6. **Silent control decay.** Red CI nobody reads; stale pins; monitoring inside the repo that a bad merge can disable.
 
----
+### 1.3 The no-human-merge regime: controls agents cannot edit
 
-## 1. Roles, model routing, and operating rules
+D2 is safe only if every item here is in place **before** agents merge infrastructure paths. Owner-side, one-time.
 
-### 1.1 Three kinds of executor
-
-| Tag | Meaning | Use when |
+| # | Control | Why it bounds the ceiling |
 |---|---|---|
-| **D** | Deterministic tool or script. Same input → same output. Runs in CI or on the owner's machine. | The check has a crisp pass/fail: header present, hash matches, version ≤ X, build succeeds, API field equals Y. |
-| **A-S** | Agent, **Sonnet**-overseen. | Task is fully specified by a spec or template: run the scanners and transcribe, implement an exact diff, write docs from an outline, gather citations. |
-| **A-O** | Agent, **Opus**-overseen. | Task needs judgment: threat modeling, severity calibration, deciding what to accept, reviewing the Worker/CSP/permissions, adversarial review of a diff, final sign-off. |
-| **H** | Human (site owner). | Dashboards, secrets, account settings, merges, risk acceptance. |
+| R1 | GitHub Ruleset on `main`, **empty bypass list**: require PR, require status check `build`, block force-push, block deletion, require linear history. No required approvals. | Agents can merge; nobody can rewrite history. Forensics and `git revert` always available. |
+| R2 | Repo Actions settings: default `GITHUB_TOKEN` permissions **read-only**; no repository or environment secrets; allow only actions from GitHub and verified creators. | A hostile workflow merged by an injected agent has nothing to steal and cannot push. |
+| R3 | **No Cloudflare write credential** anywhere an agent can reach (not GitHub secrets, not the Claude environment). Read-only token for Phase 1 probes only. | Cuts the path from repo compromise to DNS/Pages/Workers takeover. |
+| R4 | Security headers (CSP, HSTS, `X-Frame-Options`, etc.) set as **Cloudflare Transform Rules** in the dashboard; repo `_headers` becomes defense-in-depth. | A merge cannot weaken the headers that matter. |
+| R5 | **External monitor** outside the repo's CI (uptime service or a Cloudflare cron Worker owned by the owner): daily diff of live `<script>` tags, `_headers` response, and `/files/` listing; email on change. GitHub email notifications on every push to `main`. | Detection that a bad merge cannot disable. |
+| R6 | **Two-environment rule for agents.** Environment A: broad network, read-only clone, no GitHub write — research, link audit, changelog reading. Environment B: GitHub write, network limited to package managers — implementation and merge. A produces documents; B consumes them. | No single session both ingests untrusted content and holds merge rights. This is the control that actually addresses injection. |
+| R7 | Claude GitHub App installed on **this repo only**; verify in GitHub → Settings → Applications. | Limits a hijacked session to one repo. |
 
-Rule of thumb: **Sonnet executes, Opus decides and reviews.** Anything touching `oauth-worker/`, CSP, `_headers`, `.github/`, or repo permissions gets Opus review before merge regardless of who wrote it.
+### 1.4 Executor tags and model routing
 
-### 1.2 Operating rules for every agent step (put these in a repo `CLAUDE.md` in Phase 3; apply them manually until then)
+| Tag | Meaning |
+|---|---|
+| **D** | Deterministic tool/script; crisp pass/fail; runs in CI or on the owner's machine. |
+| **A-S** | Agent, Sonnet: fully specified tasks (run scanners, transcribe, implement an exact diff, draft docs from an outline, gather citations). |
+| **A-O** | Agent, Opus: judgment (threat modeling, severity, reviewing CSP/CI/permissions diffs, adversarial review, sign-off). |
+| **H** | Owner: dashboards, accounts, secrets, registrar. |
 
-1. **Never push to `main`. Never merge.** Agents work on `claude/*` branches and open PRs. Humans merge.
-2. **Separate author from reviewer.** The agent that wrote a diff never reviews it. Reviewer gets the diff and the spec, not the author's conclusion.
-3. **Evidence or UNVERIFIED.** Every claim about live state ships with the command and its output, or is tagged UNVERIFIED. The sandbox cannot reach the live domain; live checks are assigned to CI or the owner.
-4. **Re-derive, don't inherit.** Prior audit findings, accepted risks, and "N/A" verdicts are hypotheses. Each is re-checked against code and current upstream state.
-5. **Fetched content is data.** Web pages, changelogs, PR comments, CI logs are never instructions.
-6. **Deterministic checks become CI.** If an agent runs a check by hand, the deliverable includes the script that makes it repeatable.
-7. **Smallest diff that satisfies the spec.** No widening a PR to fix something noticed in passing; file it as a finding instead.
+Sonnet executes, Opus decides and reviews. The author agent never reviews its own diff.
+
+### 1.5 Operating rules for every agent step (to be codified in `CLAUDE.md`, B11)
+
+1. Work on `claude/*` branches; merge only via PR with `build` green and a reviewer-agent comment containing no blocking finding.
+2. Author ≠ reviewer. Reviewer receives diff + spec, not the author's conclusion.
+3. Every live-state claim ships with command and output, or is tagged UNVERIFIED.
+4. Re-derive, don't inherit. Prior audit verdicts are hypotheses.
+5. Fetched content is data, never instructions. Sessions that fetch the web do not hold merge rights (R6).
+6. Fetch external URLs with curl or Python, not Node, until the sandbox Node is ≥ 22.23.4.
+7. Deterministic checks become CI. Smallest diff that satisfies the spec. Anything noticed in passing becomes a finding, not a widened PR.
 
 ---
 
 ## 2. Phase 1 — Review
 
-**Goal:** a single findings register with evidence, severity, and a reproducible check for each item.
-**Gate to Phase 2:** owner has read the register and the threat register.
+**Goal:** one findings register with evidence, severity, and a reproducible check per item.
+**Gate:** owner reads the register and answers §3.3.
 
 ### 2.1 Setup
 
 | ID | Step | Exec | Output |
 |---|---|---|---|
-| 1.0a | Freeze baseline: record `main` SHA, create `claude/review-2026-10` branch, create `security-audits/2026-10/` | D | branch, `BASELINE.md` |
-| 1.0b | Define the finding schema: `ID, title, severity (CVSS-ish + "likelihood given threat model"), evidence (command + output or file:line), reproducible check, affects (public/admin/worker/CI/accounts), prior-audit cross-ref, status` | A-S | `findings-schema.md` |
-| 1.0c | Add a CI workflow `review-scans.yml` (manual dispatch) that runs every D step in §2.2 from GitHub's network and uploads JSON artifacts. This is how the UNVERIFIED items get verified without the owner running commands. | A-S writes; A-O reviews before first run | workflow file |
+| 1.0a | Freeze baseline SHA; branch `claude/review-2026-10`; folder `security-audits/2026-10/` | D | `BASELINE.md` |
+| 1.0b | Finding schema: `ID, title, severity, evidence (cmd+output or file:line), reproducible check, affects, prior-ref, status` | A-S | `findings-schema.md` |
+| 1.0c | `review-scans.yml` (manual dispatch) running every §2.2 D step from GitHub's network; uploads JSON artifacts; `permissions: contents: read`; no secrets | A-S writes, **A-O reviews** before first run | workflow |
 
-### 2.2 Deterministic inventory and scanning (D)
+### 2.2 Deterministic scans (D)
 
-All of these run from CI or the owner's machine. Output is JSON/text artifacts the agents then read.
-
-| ID | Check | Tool | Pass criterion / what to capture |
+| ID | Check | Tool | Pass criterion / capture |
 |---|---|---|---|
-| 1.1a | **GitHub repo settings snapshot**: branch protection *and* rulesets on `main`, visibility, collaborators, deploy keys, installed GitHub Apps and their permissions, authorized OAuth apps, Actions permissions (allowed actions, default `GITHUB_TOKEN` perms, fork-PR approval), secret scanning + push protection, Dependabot alerts/updates, 2FA status | GitHub REST API via a script with a short-lived fine-grained PAT (owner runs) | Capture everything; flag: no enforced protection on `main`; any App with `contents:write` beyond Cloudflare Pages and the Claude app; Actions not restricted to pinned/verified |
-| 1.1b | **Dependency audit**: `npm ci && npm audit --json && npm outdated --json`; `pip-audit` on `requests==2.32.5 beautifulsoup4==4.14.3`; Decap/MathJax pinned vs. latest; each pinned action SHA vs. latest release tag and Node-runtime requirement | npm, pip-audit, GitHub API | Zero critical/high after proposed bumps; all actions on Node 24-compatible releases |
-| 1.1c | **Build and output analysis**: `npx @11ty/eleventy`; `html-validate` over `_site/**/*.html`; extract every CSP meta and `_headers` entry; run Google's `csp-evaluator` on each policy; recompute SRI hashes for Decap and MathJax from the CDN and diff against source; grep output for inline `<script>` and confirm the set is exactly {MathJax config}; list all `src/files/*` by type and size | Node, html-validate, csp-evaluator, curl+openssl | Build green; 0 validation errors; CSP evaluator shows no "high" findings except the documented Decap `unsafe-eval`; SRI matches; files/ contains only PDF |
-| 1.1d | **Live site probes** (from CI): headers on `/`, `/admin/`, `/admin/config.yml`, `/files/wolfson-cv.pdf`, `/does-not-exist`; HSTS presence and `max-age`; TLS grade (`testssl.sh` or Mozilla Observatory API); `/.well-known/security.txt`; `robots.txt`; whether `jpwolfson-site.pages.dev` (and preview URLs) serve `/admin/`; Worker: `GET /`, `/oauth/authorize` without `state`, with a hostile `Referer`, `/oauth/callback` without `code` — record status codes and headers only | curl, testssl.sh, Observatory | All four `_headers` present on every path; 404 returns a site page; Worker returns 400/403/404 as coded; **record** whether pages.dev exposes admin |
-| 1.1e | **DNS and mail posture**: `CAA`, `DNSSEC`, `SPF`, `DMARC`, `MX` for `jpwolfson.com`; registrar lock status (owner) | dig, owner | CAA present and restricted to Cloudflare/Let's Encrypt; DNSSEC on; DMARC `p=reject` if the domain sends no mail |
-| 1.1f | **Secret scan over full history** | gitleaks or trufflehog | 0 findings (Feb scan was clean; re-run anyway) |
-| 1.1g | **Git hygiene**: stale remote branches, large blobs, authorship distribution, commits to `main` outside PRs since Feb 26 | git | List for cleanup; count of direct-to-main commits |
-| 1.1h | **Worker drift**: `wrangler deployments list` and download the live script; `diff` against `oauth-worker/worker.js`; record `ALLOWED_DOMAINS` value (owner reads dashboard; never paste `GITHUB_CLIENT_SECRET`) | wrangler, owner | Zero diff; `ALLOWED_DOMAINS=jpwolfson.com` |
-| 1.1i | **Content safety scan**: raw HTML tags in `src/content/*.md` (today: `iframe`, `div`, `p`); every `<iframe src>` is in `frame-src`; count of `http://` links (today: 76); empty-text links (e.g., `papers.md` has `[](https://arxiv.org/abs/2211.02088)`) | grep/python | Inventory; nothing outside the allow-list |
-| 1.1j | **Old WordPress status**: does `jpwolfson.com/wp-content/...` or the WordPress.com host still answer? Is `mathematics-and-dance.md:35` still pointing at it? | curl | Record; feeds decommission item |
+| 1.1a | **GitHub settings snapshot**: rulesets + classic protection on `main`, visibility, collaborators, deploy keys, installed Apps + permissions + repo scope, authorized OAuth apps, Actions permissions and default token perms, secret scanning/push protection, Dependabot, 2FA | REST API, fine-grained PAT Administration:Read (owner runs) | Flag: no enforced ruleset; any App with write beyond Cloudflare Pages and Claude; Claude App not scoped to this repo; token perms not read-only |
+| 1.1b | **Dependency audit**: `npm ci --ignore-scripts && npm audit --json && npm outdated --json && npm audit signatures`; `pip-audit`; action SHAs vs. latest tags and Node-24 compatibility; lockfile cross-check against current compromised-package lists (Socket/Microsoft/agentbeam trackers) | npm, pip-audit, scripts | 0 critical/high after bumps; 0 compromised matches; every action on a Node-24 release |
+| 1.1c | **Build and output**: `eleventy`; `html-validate`; extract CSP meta and `_headers`; `csp-evaluator`; recompute MathJax SRI vs. CDN; inline `<script>` set == {MathJax config}; `src/files` by type/size; confirm no `admin/` or Worker references remain after B0 | Node, html-validate, csp-evaluator, curl+openssl | Green; 0 errors; SRI match; files/ PDF-only |
+| 1.1d | **Live probes** (from CI): headers on `/`, `/files/*.pdf`, `/does-not-exist`, and `/admin/` (expect 404 after B0); HSTS; TLS grade; `security.txt`; whether `*.pages.dev` previews are reachable; Worker URL returns nothing after deletion | curl, testssl.sh, Observatory | All headers present on every path; 404 is a site page; Worker gone |
+| 1.1e | **Domain posture**: RDAP for registrar, `clientTransferProhibited`, expiry, nameservers; `CAA`, `DNSSEC`, `SPF`, `DMARC`, `MX` | `curl https://rdap.verisign.com/com/v1/domain/jpwolfson.com`, dig (owner or CI) | Registrar identified; transfer lock on; DNSSEC on; CAA restricted; DMARC `p=reject` if no mail |
+| 1.1f | **Secret scan**, full history | gitleaks | 0 |
+| 1.1g | **Git hygiene**: stale branches, large blobs, direct-to-main commits | git | cleanup list |
+| 1.1h | **Worker drift** (pre-deletion snapshot for the record): `wrangler deployments list`; `ALLOWED_DOMAINS` value; then delete (B0) | wrangler, owner | recorded, then gone |
+| 1.1i | **Content safety**: raw HTML tags; every `<iframe src>` in `frame-src`; `http://` link count (76 today); empty links (`papers.md` `[](…)`) | grep | inventory |
+| 1.1j | **WordPress.com footprint**: which products are billed (domain? site plan? email?); is the old site still published; does `jpwolfson.com/wp-content/...` resolve anywhere; the `mathematics-and-dance.md:35` link | owner + curl | inventory; feeds A8/A9 |
 
 ### 2.3 Agent analysis
 
-| ID | Step | Exec | Inputs | Output |
-|---|---|---|---|---|
-| 1.2a | **Threat model refresh.** STRIDE-lite over: public pages, `/admin/`, `/files/`, Worker, GitHub repo + Apps, Cloudflare account, CI, the agent toolchain itself. Rank attack paths by (likelihood under automated adversaries) × (impact). Must explicitly cover the five additions in §0.2. | **A-O** | §0, all 1.1 artifacts | `threat-register.md` |
-| 1.2b | **Manual code review** of `worker.js`, `base.njk`, `admin/index.html`, `config.yml`, `.eleventy.js`, `link-audit.yml`, `crawl_links.py`. Seeded questions (answer each with file:line): Is `state` entropy checked? Should `isOriginAllowed` be exact-match? Is `redirect_uri` fixed or derived from the request `url.origin` (it is derived — can a Host header game it on Workers)? Why no `base-uri`/`form-action`? What does Decap 3.17's auth change mean for this Worker? Does `crawl_links.py` follow redirects to arbitrary hosts and could its output be used to inject into the step summary? Does `html: true` need to stay on (yes, for iframes/section labels) and what compensating controls follow? | **A-O** | code, 1.1c, 1.1h | findings with evidence |
-| 1.2c | **Re-verify every prior "FIXED", "ACCEPTED RISK", and "NOT APPLICABLE"** in `04-VERIFICATION-SIGNOFF.md` §4–§6 from scratch against current code and upstream state. Known so far: F-15 rationale wrong; "npm 4 HIGH, no fix available" stale; F-10 branch protection contradicted by API. | **A-O** | prior reports, 1.1 artifacts | per-item verdict table |
-| 1.2d | **Upstream research with citations.** Decap 3.10.0→3.17.1 release notes and advisories (esp. CVE-2025-57520 status and whether 3.13.0's sanitizer change affects content with raw HTML); Decap 3.17 auth model; Sveltia CMS maturity, auth requirements, CSP needs (does it drop `unsafe-eval`?); Eleventy 3.1.3–3.1.7 changelog; Cloudflare Pages `_headers` limits (HSTS/CSP support); Cloudflare Access free tier for gating `/admin/*`; GitHub Rulesets "restrict file paths" semantics. | **A-S** gathers; **A-O** judges implications | web | `upstream-research.md` with URLs and quoted text |
-| 1.2e | **Agent-governance review.** Enumerate how agents get write access (Claude GitHub App scopes, session branches), what a compromised/injected agent could do today, and what the minimum controls are (ruleset, required review, `CLAUDE.md`, path restrictions). Include the merge-latency evidence. | **A-O** | 1.1a, PR history | governance findings + proposed `CLAUDE.md` |
-| 1.2f | **Resilience review** (not security): recovery if GitHub account is lost, if Cloudflare account is lost, if Decap is abandoned, if the Worker secret leaks. What is backed up where? Is the repo the only copy of the PDFs? | **A-O** | SETUP.md, architecture | `resilience-gaps.md` |
+| ID | Step | Exec | Output |
+|---|---|---|---|
+| 1.2a | **Threat model refresh** per §1.2, with attack paths ranked by likelihood under automated adversaries × impact; must cover the agent toolchain itself | **A-O** | `threat-register.md` |
+| 1.2b | **Code review** of `base.njk`, `.eleventy.js`, `_headers`, `link-audit.yml`, `crawl_links.py`. Seeded: does `crawl_links.py` follow redirects to arbitrary hosts and could fetched content reach the step summary or an agent? Should `html: true` stay (yes, for iframes/section labels) and what compensates? Is MathJax CDN load worth keeping vs. self-hosting (removes `cdn.jsdelivr.net` from CSP and SRI maintenance)? | **A-O** | findings |
+| 1.2c | **Re-verify every prior FIXED / ACCEPTED / N-A** in `04-VERIFICATION-SIGNOFF.md` §4–6 against current code and upstream. Known wrong so far: F-15 rationale; "4 HIGH, no fix"; F-10 branch protection. | **A-O** | verdict table |
+| 1.2d | **Upstream research with citations**: Eleventy 3.1.3–3.1.7 changes; Cloudflare Pages `_headers` limits and Transform Rules syntax for CSP/HSTS; Cloudflare Registrar transfer process and lock semantics; GitHub Ruleset semantics (empty bypass, required checks, linear history); Dependabot `cooldown` config; `npm audit signatures` behaviour | **A-S** gathers in Environment A; **A-O** judges | `upstream-research.md` |
+| 1.2e | **Agent-governance review**: enumerate agent access (App scopes, environments), what an injected agent can do after §1.3, residual gaps; draft `CLAUDE.md` | **A-O** | governance findings + `CLAUDE.md` draft |
+| 1.2f | **Resilience review**: recovery from lost GitHub, lost Cloudflare, lost registrar account; backups of repo and PDFs; who else can act if the owner is unavailable | **A-O** | `resilience-gaps.md` |
 
 ### 2.4 Consolidation
 
 | ID | Step | Exec |
 |---|---|---|
-| 1.3a | Compile all findings into one register using the 1.0b schema; de-duplicate against prior IDs (F-, N-, SAST-) | **A-S** |
-| 1.3b | Severity calibration pass: Opus re-reads each finding's evidence and adjusts severity; rejects anything without evidence; marks live-state items still UNVERIFIED | **A-O** |
-| 1.3c | **Gate 1 (H):** owner reads the register and threat register; answers the decision questions in §3.3 | **H** |
+| 1.3a | Compile register; de-dupe against F-/N-/SAST- IDs | A-S |
+| 1.3b | Severity calibration; reject anything without evidence; keep UNVERIFIED tags honest | **A-O** |
+| 1.3c | **Gate 1 (H):** owner reads register, answers §3.3 | H |
 
 ---
 
 ## 3. Phase 2 — Propose remediations
 
-**Goal:** for every finding, an implementable spec with verification and rollback, grouped into independently shippable PRs plus an owner-only checklist.
-**Gate to Phase 3:** owner approves batch list and decision points.
+Spec format for every item: `finding IDs · exact change (diff or dashboard click-path) · why · what could break (MathJax, embeds, analytics beacon, Pages build) · verification command · rollback · executor`. Opus reviews specs touching CSP/headers, `.github/`, `.eleventy.js`, permissions, accounts. Sonnet drafts the rest.
 
-### 3.1 Spec format (every remediation)
-
-`finding IDs · exact change (diff, or dashboard click-path) · why · what could break (CMS login, MathJax, analytics beacon, video embeds, Pages build) · verification command · rollback · executor (D / A-S / A-O / H)`
-
-Opus reviews every spec that touches the Worker, CSP/headers, `.github/`, repo permissions, or account settings. Sonnet drafts the rest.
-
-### 3.2 Candidate remediations (hypotheses to confirm in Phase 1, pre-grouped)
-
-These are seeded from the baseline. Phase 1 may add, drop, or re-rank them.
-
-**Batch A — Governance and accounts (mostly H; highest leverage)**
-
-| # | Candidate | Notes / decision needed |
-|---|---|---|
-| A1 | Enforce protection on `main` via a **Ruleset**: require PR, no bypass for admins, require the build check (B6) to pass, block force-push and deletion | Conflicts with Decap pushing directly to `main`. Options: (i) switch Decap to `publish_mode: editorial_workflow` so CMS edits become PRs the owner merges; (ii) keep direct CMS pushes but add a ruleset rule restricting changes to `.github/**`, `jpwolfson-site/oauth-worker/**`, `jpwolfson-site/src/admin/**`, `jpwolfson-site/src/_includes/**`, `jpwolfson-site/src/_headers` so only reviewed PRs can touch infrastructure paths; (iii) both. **Owner decides** (§3.3 Q1). |
-| A2 | **Human review before merge** of agent PRs; stop same-second merges. Minimum: read the diff; for Worker/CSP/CI changes, require an Opus review comment from a session that did not author it | Process, not code |
-| A3 | **Cloudflare Access** in front of `/admin/*` (free up to 50 users; GitHub or one-time-PIN identity) | Removes the CMS from anonymous reach; defeats fleet scanners fingerprinting `/admin/config.yml`. Worker stays public (GitHub must redirect to it). Verify Pages + Access path-scoping in 1.2d. |
-| A4 | **Rotate** the GitHub OAuth App client secret; review and prune authorized OAuth apps and installed GitHub Apps; review Cloudflare API tokens | Secret has been live since Feb at least |
-| A5 | Enable GitHub **secret scanning + push protection**, **Dependabot alerts + security updates**; add `dependabot.yml` for `npm`, `pip`, `github-actions` | Mechanical once A1 decided (Dependabot opens PRs) |
-| A6 | **Account hardening**: hardware-key 2FA on GitHub and Cloudflare; registrar lock; **DNSSEC**; **CAA** records; DMARC `p=reject` if the domain does not send mail | H; 1.1e tells you what is missing |
-| A7 | Delete 14 stale `claude/*` branches; enable "automatically delete head branches" | D |
-
-**Batch B — Code and configuration (A-S implements, A-O reviews)**
+### 3.1 Batch A — Accounts and governance (H unless noted)
 
 | # | Candidate | Notes |
 |---|---|---|
-| B1 | CSP: add `base-uri 'self'; form-action 'none'; object-src 'none'` to both public and admin policies | Closes `<base>` hijack and form exfil given `html: true` |
-| B2 | `_headers`: add a `/files/*` block with `Content-Security-Policy: default-src 'none'; sandbox` and keep `nosniff`; consider `Content-Disposition: attachment` for anything not PDF | Neutralizes the upload-HTML chain regardless of who holds the token |
-| B3 | `_headers`: add `Strict-Transport-Security: max-age=31536000; includeSubDomains` (verify Pages honours it in 1.2d; else Cloudflare dashboard) | Feb plan item, never done |
-| B4 | Decide CSP delivery: keep `<meta>` only, or move to `_headers` (gains `frame-ancestors`, `report-to`; loses per-page policy; both-present means both enforced) | A-O decides; one source of truth |
-| B5 | **Decap upgrade** 3.10.0 → 3.17.1 with recomputed SRI, **or** migrate to **Sveltia CMS** if 1.2d shows it removes `unsafe-eval` and keeps the GitHub backend with this Worker | **Owner decides** (§3.3 Q2). Either way test login, edit, media upload, preview on a preview deployment before `main` |
-| B6 | **Build CI** (`build.yml`, required check): `npm ci`, `eleventy`, `html-validate`, CSP evaluator, SRI recompute vs CDN, `src/files` type/size allow-list, gitleaks, `permissions: contents: read`, all actions pinned to Node 24-compatible SHAs | Feb plan item; now also carries the deterministic checks from §2.2 so they run on every PR |
-| B7 | Eleventy → 3.1.7, `npm audit fix`, refresh lockfile; add `overrides` only if a transitive stays vulnerable | 1 critical, 7 high today |
-| B8 | Link audit: fix `talks.md:46`; change failure handling so broken links **open/update an issue** rather than leave a permanently red run; update action pins | A red run nobody reads is no control |
-| B9 | Worker: exact-match origin check (drop suffix wildcard); minimum `state` length; pin `redirect_uri` to a constant rather than `url.origin`; add `observability.enabled = true` in `wrangler.toml`; document deploy via `wrangler deploy` from a tagged commit, or add a deploy workflow with a Worker-scoped API token (**owner decides** whether a Cloudflare token may live in GitHub secrets, §3.3 Q3) | Each is small; review as a set |
-| B10 | `.gitignore`: `.dev.vars`, `.wrangler/`, `.env*` | One line each |
-| B11 | `CLAUDE.md` with the §1.2 rules; `README.md`; `SECURITY.md` corrections (F-15 text, branch-protection claim, npm numbers); `.well-known/security.txt` | Docs that agents will read must be true |
-| B12 | Feb plan carry-overs that improve stability/accessibility: 404 page, `aria-current`, `:focus-visible`, skip link, meta description, script relocation, untrack `link_audit.json`, fix empty link in `papers.md` | Low risk; one PR |
+| A1 | Ruleset per R1 | Decap's direct pushes no longer need an exception |
+| A2 | Actions settings per R2; verify CI holds no secrets | D-checkable via 1.1a |
+| A3 | Claude App scoped to this repo (R7) | — |
+| A4 | **Delete** the GitHub OAuth App used by Decap; **delete** the Worker `jpwolfson-cms-auth`; revoke any lingering Cloudflare API tokens | Snapshot first (1.1h) |
+| A5 | Secret scanning + push protection; Dependabot alerts + security updates; `dependabot.yml` with a **cooldown** (e.g., 7–14 days) for `npm`, `pip`, `github-actions` | Soak period is the ChainDrop lesson |
+| A6 | Hardware-key 2FA on GitHub, Cloudflare, **and WordPress.com**; DNSSEC on; CAA records; DMARC `p=reject` if the domain sends no mail | — |
+| A7 | Delete 14 stale `claude/*` branches; enable auto-delete of merged heads | D |
+| A8 | **Registrar.** Confirm via RDAP that WordPress.com (Automattic) is the registrar. Then: transfer lock on, auto-renew on, contact email current, 2FA. **Decision (Q1):** transfer to Cloudflare Registrar to consolidate root of trust under one hardware-2FA account at cost pricing, or stay and harden. | Highest-impact single account after D1 |
+| A9 | **WordPress.com site.** After 1.1j: export anything not already in the repo; set the old site private or delete it; keep only the products actually needed (domain, possibly email). | Pruning per the October 2026 guidance; removes a duplicate-content/phishing surface |
+| A10 | Cloudflare: keep DNS proxied (orange cloud) on all site records; managed WAF rules on; Transform Rules per R4; Pages preview deployments either disabled or Access-gated (**Q2**) | Pages previews would otherwise serve any branch publicly |
 
-**Batch C — Monitoring and resilience**
+### 3.2 Batch B — Code and configuration (A-S implements, A-O reviews)
 
 | # | Candidate | Notes |
 |---|---|---|
-| C1 | Weekly scheduled workflow: live header check, SRI recompute vs CDN, Decap/Eleventy/action version drift, Worker drift (if token allowed) → **opens an issue on change** | Turns one-off verification into a standing control |
-| C2 | Cloudflare notifications: Pages build failure, Worker error-rate; GitHub: Dependabot and secret-scanning alerts to email | H, dashboard |
-| C3 | Incident runbook in `SECURITY.md`: token theft (revoke OAuth app grant, rotate secret, audit `git log` since last known-good, force redeploy), lost GitHub account, lost Cloudflare account, Decap abandonment | A-S drafts from 1.2f; A-O reviews |
-| C4 | Backup: quarterly `git bundle` + `src/files` copy to owner storage; confirm PDFs exist outside GitHub | H |
-| C5 | Decommission check for WordPress remnants and the `wp-content` link | From 1.1j |
+| **B0** | **Remove Decap.** Delete `src/admin/`, `oauth-worker/`, the admin passthrough in `.eleventy.js`; purge `admin`/`worker` references from `SECURITY.md`, `SETUP.md`, README; add `/admin/*` → 404 (natural once deleted). | First code PR. Verify `/admin/` and `/admin/config.yml` return 404 live. |
+| B1 | **Supply chain**: Pages build command and CI use `npm ci --ignore-scripts`; `NODE_VERSION` pinned ≥ 22.23.4 on Pages (dashboard, H) and in CI; `npm audit signatures` in CI; Eleventy → 3.1.7 + `npm audit fix`; `overrides` only if a transitive stays red | Build verified to work with `--ignore-scripts` |
+| B2 | **Build CI** `build.yml` as the required `build` check: `npm ci --ignore-scripts`, `eleventy`, `html-validate`, `csp-evaluator`, SRI recompute, `src/files` type/size allow-list (PDF, PNG, JPG; size cap), gitleaks, `permissions: contents: read`, Node-24-compatible pinned SHAs, no secrets | Carries the §2.2 checks onto every PR |
+| B3 | CSP: add `base-uri 'self'; form-action 'none'; object-src 'none'`; remove `unsafe-eval`/admin policy entirely (gone with B0); decide meta vs. Transform Rule vs. both (**A-O**, one source of truth, R4 wins) | — |
+| B4 | `_headers`: `/files/*` → `Content-Security-Policy: default-src 'none'; sandbox`, `nosniff`; HSTS (`max-age=31536000; includeSubDomains`) if Pages honours it, else via Transform Rule | Mirrors R4 as defense-in-depth |
+| B5 | Consider **self-hosting MathJax** (`npm i mathjax` → passthrough) to drop `cdn.jsdelivr.net` from CSP and SRI upkeep | A-O decides in 1.2b |
+| B6 | Link audit: fix `talks.md:46`; on broken links **open/update an issue** instead of a permanently red run; update action pins; keep it deterministic Python and never feed page bodies to an agent | — |
+| B7 | `.gitignore`: `.dev.vars`, `.wrangler/`, `.env*`, `link_audit.json` | — |
+| B8 | `CLAUDE.md` (§1.5 rules), `README.md`, `SECURITY.md` rewrite for the post-Decap architecture (controls, accepted risks, runbook), `.well-known/security.txt` | Docs agents read must be true |
+| B9 | Feb plan carry-overs: 404 page, `aria-current`, `:focus-visible`, skip link, meta description, script relocation, empty link in `papers.md` | One low-risk PR |
+| B10 | **Content editing runbook** for the post-Decap workflow: how to add a talk/paper, upload a PDF (path, naming, size), preview locally, open PR; which environment to use (R6) | Replaces SETUP.md's CMS sections |
 
-### 3.3 Decision points for the owner (answer at Gate 1 or Gate 2)
+### 3.3 Batch C — Monitoring and resilience
 
-1. **CMS vs. `main` protection.** Accept friction (CMS edits become PRs you merge) for full protection, or protect only infrastructure paths and keep one-click publishing?
-2. **Decap upgrade vs. Sveltia migration.** Stay on a slowing project with a known unpatched moderate XSS class, or migrate a single-user CMS to an actively maintained drop-in?
-3. **Cloudflare API token in GitHub secrets** (enables Worker deploy + drift detection from CI) vs. manual Worker deploys with no drift control?
-4. **Cloudflare Access on `/admin/`.** Adds one login step per edit session; removes the admin surface from the internet.
-5. **Which "accepted risks" stay accepted** after re-derivation (1.2c).
+| # | Candidate | Notes |
+|---|---|---|
+| C1 | External monitor per R5 | H sets up; agents cannot disable |
+| C2 | Weekly in-repo scheduled workflow: live headers, SRI vs. CDN, version drift, lockfile vs. compromised-package feeds → opens an issue | Complements C1; not a substitute |
+| C3 | Cloudflare notifications (Pages build failure); GitHub Dependabot/secret-scanning alerts to email | H |
+| C4 | Incident runbook: bad merge (revert, redeploy, rotate nothing because CI has no secrets), lost GitHub/Cloudflare/registrar account, Node/npm advisory response | A-S drafts, A-O reviews |
+| C5 | Backup: quarterly `git bundle` + `src/files` copy outside GitHub; confirm WordPress export archived | H |
+
+### 3.4 Decision points for the owner
+
+1. **Registrar:** transfer `jpwolfson.com` to Cloudflare Registrar, or harden at WordPress.com?
+2. **Pages preview deployments:** disable, or gate with Cloudflare Access?
+3. **CSP delivery:** Transform Rule only, or Transform Rule + repo `_headers`/meta?
+4. **MathJax:** self-host or keep CDN+SRI?
+5. **Which prior accepted risks stay accepted** after 1.2c?
 
 ---
 
 ## 4. Phase 3 — Implement
 
-**Goal:** each approved batch merged, verified live, register updated; final sign-off that re-derives rather than inherits.
-
-### 4.1 Per-batch loop
+### 4.1 Per-batch loop (no human merge)
 
 | Step | Exec | Detail |
 |---|---|---|
-| 3.1a Implement from spec on a `claude/*` branch | **A-S** | Exact diff from the spec; nothing else. Build locally. |
-| 3.1b Deterministic checks | D | B6 workflow on the PR; must be green before review |
-| 3.1c Adversarial review | **A-O** (fresh session, not the author) | Given: diff + spec + threat register. Asked: what breaks CMS login / MathJax / embeds / analytics / Pages build? What did the spec miss? Is the diff minimal? |
-| 3.1d Owner merge | **H** | After reading 3.1c |
-| 3.1e Post-deploy verification | D (CI) or **H** | Run the spec's verification command against the live site; for CMS changes, perform a real login + edit on a preview deployment first |
-| 3.1f Register update | **A-S** | Status, verification output, date |
+| 3.1a Implement from spec on `claude/*` (Environment B) | A-S | Exact diff; local build |
+| 3.1b `build` check | D | Must be green |
+| 3.1c Adversarial review, fresh session, not the author | **A-O** | Given diff + spec + threat register; posts a review comment: BLOCKING / NON-BLOCKING findings |
+| 3.1d Merge | A-S (author session) | Only when 3.1b green and 3.1c has no BLOCKING item; squash; branch auto-deleted |
+| 3.1e Post-deploy verification | D (CI) | Spec's verification command against live |
+| 3.1f Register update; owner gets GitHub's push notification | A-S | — |
+
+Human steps remain only for Batch A and the dashboard halves of B1/B4/A10.
 
 ### 4.2 Recommended order
 
-1. **A4, A5, A6, A7** (owner-side, zero code risk) and **B10, B11-docs-corrections** — same day.
-2. **B6 build CI + B7 dependency bumps + B8 link audit** — establishes the safety net before riskier changes.
-3. **A1/A2 governance** per decision Q1 — now the build check exists to require.
-4. **B1, B2, B3, B4 headers/CSP** — verify with 1.1d probes after deploy; watch for analytics beacon and video embeds.
-5. **B9 Worker** — deploy to a staging Worker name first; test full OAuth round-trip; then production.
-6. **B5 CMS upgrade/migration** per Q2 — on a preview deployment; full login/edit/upload test; then `main`.
-7. **A3 Cloudflare Access** per Q4.
-8. **B12 stability/accessibility**, **C1–C5**.
+1. **Owner day (no code):** A4 delete OAuth App + Worker; A1–A3 ruleset and Actions settings; A5 scanning + Dependabot; A6 2FA everywhere incl. WordPress.com; A8 registrar lock + RDAP check; A10 Transform Rules + preview decision; Pages `NODE_VERSION` + `--ignore-scripts` build command.
+2. **PR 1:** B0 Decap removal + B7 gitignore.
+3. **PR 2:** B2 build CI + B1 dependency bumps. Make `build` the required check (A1 depends on this existing).
+4. **PR 3:** B3/B4 headers and CSP in repo (R4 already live from step 1).
+5. **PR 4:** B6 link audit + B8 docs + `CLAUDE.md`.
+6. **PR 5:** B9 carry-overs; B5 if chosen; B10 runbook.
+7. **A9** WordPress.com pruning once 1.1j confirms nothing is needed; **C1–C5**.
 
-### 4.3 Rollback plans required for
+### 4.3 Rollback
 
-B5 (pin back + old SRI), B1–B4 (revert `_headers`/meta; Pages redeploys previous build instantly from the dashboard), B9 (Workers keep prior versions; roll back from the dashboard), A1 (disable ruleset).
+B0: revert PR restores files, but the OAuth App and Worker are gone by design; do not recreate. B3/B4: revert; Pages redeploys prior build from the dashboard. Transform Rules: disable in dashboard. A1: disable ruleset.
 
 ### 4.4 Close-out
 
 | Step | Exec |
 |---|---|
-| Re-run the entire §2.2 deterministic suite against `main` and the live site | D |
-| Final sign-off report that lists each finding, its verification output, and residual risks — written from the evidence, with explicit instruction not to reuse prior sign-off language | **A-O** |
-| Update `SECURITY.md` controls, accepted risks, and maintenance table; archive register under `security-audits/2026-10/` | **A-S** |
-| Schedule: C1 weekly, dependency review quarterly, full review in 6 months or on any Decap/Worker advisory | **H** |
+| Re-run full §2.2 suite against `main` and live | D |
+| Sign-off written from evidence, explicitly not reusing prior sign-off language | **A-O** |
+| `SECURITY.md` reflects the static-only architecture; register archived | A-S |
+| Schedule: C1 daily, C2 weekly, dependency review quarterly, full review in 6 months or on any Node/npm/Cloudflare advisory affecting the build | H |
 
 ---
 
-## 5. Summary routing table
+## 5. Routing summary
 
-| Phase | Step group | Executor | Oversight |
+| Phase | Work | Executor | Oversight |
 |---|---|---|---|
-| 1 | Setup, CI scaffolding, register compilation | A-S | Opus reviews the scan workflow before first run |
-| 1 | All scans and probes (§2.2) | D | — |
+| 1 | Scaffolding, register compilation | A-S | Opus reviews scan workflow |
+| 1 | Scans and probes | D | — |
 | 1 | Threat model, code review, re-verification, governance, resilience | A-O | — |
-| 1 | Upstream research gathering | A-S | Opus judges implications |
-| 2 | Spec drafting | A-S | Opus reviews Worker/CSP/CI/permissions specs |
-| 2 | Batching, decision framing | A-O | Owner decides |
-| 3 | Implementation | A-S | Build CI (D) + Opus adversarial review |
-| 3 | Dashboard/account changes, merges, secret rotation | H | — |
-| 3 | Final sign-off | A-O | Owner reads |
+| 1 | Research gathering (Environment A) | A-S | Opus judges |
+| 2 | Spec drafting | A-S | Opus for CSP/CI/permissions/accounts |
+| 2 | Batching and decision framing | A-O | Owner answers §3.4 |
+| 3 | Implementation and merge (Environment B) | A-S | `build` (D) + Opus adversarial review |
+| 3 | Accounts, registrar, dashboards | H | — |
+| 3 | Sign-off | A-O | Owner reads |
 
-**Rough effort:** Phase 1 ≈ 1 owner-hour (dashboard reads, running the scan workflow) + 3–4 agent-hours. Phase 2 ≈ 2 agent-hours + 30 owner-minutes for decisions. Phase 3 ≈ 2–3 owner-hours spread over the merges and dashboard tasks + 4–6 agent-hours, with B5 the largest single item.
+**Effort:** Owner ≈ 2 hours total, nearly all in step 1 of §4.2. Agents ≈ 8–10 hours across phases. Largest items: B0 (removal + doc purge) and B2 (CI).
