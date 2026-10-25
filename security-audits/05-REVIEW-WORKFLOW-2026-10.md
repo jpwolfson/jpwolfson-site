@@ -16,7 +16,7 @@ These change the shape of the review and are treated as fixed inputs.
 | D1 | **Drop Decap CMS and the OAuth Worker.** Content is edited through agent sessions and the GitHub UI. | Removes `/admin/`, the Worker, the GitHub OAuth App, the `repo`-scoped token flow, `unsafe-eval`/`unsafe-inline` CSP, and a 9-month-stale pinned dependency. The site becomes static HTML + PDFs behind Cloudflare with no reachable dynamic code. |
 | D2 | **Owner is out of the PR merge loop.** Agents author, review, and merge. | Acceptable only because D1 caps the worst case at defacement. Requires the controls in §1.3 that agents cannot edit. |
 | D3 | **Supply chain and pruning move ahead of CSP work** in ordering. | Reflects what the October 2026 disclosures actually show is spiking. |
-| D4 | **WordPress.com account remains live and is believed to be the domain registrar.** | The registrar account is the root of trust for the domain. UNVERIFIED; see A8. |
+| D4 | **WordPress.com (Automattic) is the domain registrar; account remains live.** Verified via RDAP. Domain expires 2026-11-30, 36 days out. | The registrar account is a root of trust for the domain. Auto-renew must be confirmed before any WordPress.com pruning. See A8. |
 
 ---
 
@@ -41,7 +41,8 @@ These change the shape of the review and are treated as fixed inputs.
 | `/files/*` | Passthrough of anything in `src/files`. An `.html` there is served first-party with no CSP. | `.eleventy.js` |
 | Git hygiene | 14 stale `claude/*` branches; `.gitignore` lacks `.dev.vars`, `.wrangler/`, `.env*`. | git |
 | Repo meta | Private; single admin; no `dependabot.yml`, `CODEOWNERS`, `README`, build CI, 404, `security.txt`; CI holds no secrets. | listing |
-| Registrar, DNSSEC, CAA, DMARC, nameserver lock, live headers, pages.dev admin exposure | UNVERIFIED. | — |
+| Domain registration (owner-verified via RDAP, 2026-10-25) | Registrar **Automattic Inc.** (IANA 1531); status `client transfer prohibited` (lock on); **expires 2026-11-30**; nameservers `jule/ned.ns.cloudflare.com`; **DNSSEC off** (`delegationSigned: false`); last changed 2026-02-19. | RDAP, owner terminal |
+| CAA, DMARC, live headers, pages.dev admin exposure | UNVERIFIED. | — |
 
 ### 1.2 Threat model (post-D1)
 
@@ -155,8 +156,8 @@ Spec format for every item: `finding IDs · exact change (diff or dashboard clic
 | A5 | Secret scanning + push protection; Dependabot alerts + security updates; `dependabot.yml` with a **cooldown** (e.g., 7–14 days) for `npm`, `pip`, `github-actions` | Soak period is the ChainDrop lesson |
 | A6 | Hardware-key 2FA on GitHub, Cloudflare, **and WordPress.com**; DNSSEC on; CAA records; DMARC `p=reject` if the domain sends no mail | — |
 | A7 | Delete 14 stale `claude/*` branches; enable auto-delete of merged heads | D |
-| A8 | **Registrar.** Confirm via RDAP that WordPress.com (Automattic) is the registrar. Then: transfer lock on, auto-renew on, contact email current, 2FA. **Decision (Q1):** transfer to Cloudflare Registrar to consolidate root of trust under one hardware-2FA account at cost pricing, or stay and harden. | Highest-impact single account after D1 |
-| A9 | **WordPress.com site.** After 1.1j: export anything not already in the repo; set the old site private or delete it; keep only the products actually needed (domain, possibly email). | Pruning per the October 2026 guidance; removes a duplicate-content/phishing surface |
+| A8 | **Registrar (verified: Automattic).** Immediately: confirm auto-renew and valid payment for the 2026-11-30 expiry; 2FA on WordPress.com; contact email current. Transfer lock is already on. Check whether the WordPress.com domain panel can publish a DS record (needed for DNSSEC). **Decision (Q1):** transfer to Cloudflare Registrar **after** the November renewal, not before; consolidates root of trust and makes DNSSEC one click. | Highest-impact single account after D1. Do not start a transfer within 30 days of expiry. |
+| A9 | **WordPress.com site.** After 1.1j and **after A8's auto-renew check**: export anything not already in the repo; set the old site private or delete it; keep only the products actually needed (domain, possibly email). | Pruning per the October 2026 guidance; removes a duplicate-content/phishing surface. Never cancel a product without confirming it is not the domain registration. |
 | A10 | Cloudflare: keep DNS proxied (orange cloud) on all site records; managed WAF rules on; Transform Rules per R4; Pages preview deployments either disabled or Access-gated (**Q2**) | Pages previews would otherwise serve any branch publicly |
 
 ### 3.2 Batch B — Code and configuration (A-S implements, A-O reviews)
